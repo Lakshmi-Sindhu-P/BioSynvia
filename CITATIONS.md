@@ -33,15 +33,11 @@ https://doi.org/10.5281/zenodo.20829178
   license is not assumed to license the separate dataset. Original data remain
   excluded from this public repository.
 
-## Attribution for retained manuscript captures
+## Local reference material
 
-The files under `reports/scientific-closure/sources/preprint-viewer-page*.png`
-reproduce rendered pages of the preprint cited above, © 2026 the authors,
-under CC BY 4.0. They are browser-viewer screenshots, with browser controls,
-magnification and page framing; no manuscript wording or scientific content was
-edited. Their filenames end in `.png`, but the captured payloads are JPEG.
-These are not archived original PDF bytes. BioSynvia's interpretations and
-annotations are separate from the authors' manuscript.
+Manuscript captures are retained locally for source checking and are not part of
+the current public snapshot. The paper remains credited above under its reported
+CC BY 4.0 terms. Public reports contain BioSynvia's findings and cite their sources.
 
 Use both references when describing BioSynvia's dataset-based work. For example:
 “CHO cultivation data from Uhlendorff et al. (2026, Zenodo), interpreted using the

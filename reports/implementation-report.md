@@ -294,9 +294,9 @@ Fresh review findings are resolved in
 now source-verified rather than unresolved. The nine owner decisions remain
 pending. No model was fitted.
 
-## Public portfolio packaging — 2026-11-06
+## Public project packaging — 2026-11-06
 
-Prepared the public GitHub portfolio at the owner's request. Added a recruiter
+Prepared the public GitHub project at the owner's request. Added a project
 walkthrough, a focused README and invented synthetic CSV examples. The synthetic
 audit passes with zero errors and one expected missing-value warning; all 18
 source-independent audit/inventory tests pass on Python 3.12. The system Python
@@ -318,3 +318,13 @@ preprint publisher and Zenodo records. Added root `CITATIONS.md` and portable
 the retained manuscript captures. The preprint is identified as not peer reviewed.
 Dataset rights remain unresolved separately from the article's CC BY 4.0 notice.
 No original data, frozen observations, source-image bytes or model gates changed.
+
+
+## Public presentation and rights update — 2026-11-06
+
+Refreshed the README with original branding, problem/benefit overview, dataset
+summary, three existing descriptive EDA figures and a staged digital-twin roadmap.
+Added restricted proprietary evaluation terms for original BioSynvia work, with
+third-party rights kept separate. Supplied build/reference documents, manuscript
+captures, development-tool copies and the local ignore file are excluded from
+the current public tree while local copies remain intact. Fitting stays paused.
