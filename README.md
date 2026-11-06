@@ -67,6 +67,24 @@ to generated artifacts excluded from this public repository. The source dataset 
 methods are in the [author preprint](https://www.preprints.org/manuscript/202611.0377).
 Dataset reuse terms remain unresolved. See the publication-scope note for details.
 
+## Research paper and dataset citations
+
+**Data descriptor:** Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M.,
+& Frahm, B. (2026). *Data Descriptor: Multimodal Dataset of Bioreactor Cell
+Cultivations Including Turbidity, Permittivity, O₂ and CO₂ Measurements* (Version 1)
+[Preprint]. Preprints.org. [doi:10.20944/preprints202611.0377.v1](https://doi.org/10.20944/preprints202611.0377.v1).
+Version 1 is not peer reviewed.
+
+**Dataset:** Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M., & Frahm, B.
+(2026). *Dataset Based on Chinese Hamster Ovary (CHO) Cultivations including
+Turbidity, Permittivity, O2 and CO2 Measurements* (Version v1) [Data set]. Zenodo.
+[doi:10.5281/zenodo.20829178](https://doi.org/10.5281/zenodo.20829178).
+
+See [full citations and attribution](CITATIONS.md) and [BibTeX](references.bib).
+The original authors produced the study/data; BioSynvia provides the independent
+software and analyses. The preprint's CC BY license does not establish a license
+for the separate dataset.
+
 ## Next milestones
 
 1. Approve the research cohort, feature/timing policy and experiment split.

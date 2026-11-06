@@ -308,3 +308,13 @@ credentials. The full local research files remain intact. Staged text was checke
 for common credential patterns; no matches were found. Git attributes preserve
 fingerprinted artifact bytes and mark PDFs/images as binary. Scientific approvals
 and fitting gates are unchanged; no model was fitted for this publication.
+
+
+## Formal research attribution — 2026-11-06
+
+Verified the five authors, titles, dates, versions and distinct DOIs against the
+preprint publisher and Zenodo records. Added root `CITATIONS.md` and portable
+`references.bib`, full README references, and attribution/license information for
+the retained manuscript captures. The preprint is identified as not peer reviewed.
+Dataset rights remain unresolved separately from the article's CC BY 4.0 notice.
+No original data, frozen observations, source-image bytes or model gates changed.
