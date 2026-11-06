@@ -337,3 +337,15 @@ expandable findings, visual gallery, project structure and a checked roadmap.
 Added an implementation-grounded technology stack, distinguishing current tools
 from planned modeling. Citations, restricted licensing, paused fitting and local
 reference exclusions remain intact. No application behavior or data changed.
+
+
+## Research motivation and goal — 2026-11-06
+
+Centered the public project goal on investigating lower-intervention bioprocess
+research: current VCD estimation, forecasting, abnormal-culture warning research,
+process-response modeling and an eventual validated hybrid digital twin. The
+README distinguishes intended reductions in sampling, contamination opportunities
+and unnecessary experiments from demonstrated outcomes. EXP011 remains a single
+challenge case, not validated contamination-detector evidence. Reference assays,
+aseptic technique, prospective validation and the paused fitting gate are retained.
+No application behavior, datasets or approval flags changed.

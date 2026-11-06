@@ -15,9 +15,9 @@
 
 <br/>
 
-> **A reproducible bioprocess research workbench that preserves measurement provenance,
-> exposes quality and timing risks, and builds the foundation for current VCD estimation,
-> future forecasting and an eventual digital twin.**
+> **Researching whether reliable monitoring and digital simulation can reduce unnecessary
+> manual sampling, reveal abnormal culture behaviour earlier, and guide physical
+> experiments - toward a validated hybrid digital twin for CHO bioprocesses.**
 
 <br/>
 
@@ -41,29 +41,41 @@
 
 ## 📊 Overview
 
-Bioreactors produce dense sensor streams, while reference measurements of living
-cells are collected much less frequently. Different clocks, sampling intervals,
-held process values and quality states make those observations difficult to combine
-correctly. A careless join can produce convincing relationships that fail in a new
-experiment—or depend on information unavailable at prediction time.
+Cell-culture experiments demand careful monitoring, and contamination can compromise
+an entire cultivation. Reference assays are essential, but frequent manual sampling
+and intervention add effort and can create opportunities for contamination. Sensor
+data and digital models offer a route worth investigating: understanding more about
+a culture while disturbing it less.
 
-BioSynvia asks: **what can we reliably learn about a culture from information that
-would actually be available at the time?** Its first prediction target is **viable
-cell density (VCD)**, the concentration of living cells in the culture.
+**BioSynvia's goal is to explore lower-intervention bioprocess research through
+reliable state estimation, forecasting and virtual experimentation.** The research
+question is whether these capabilities can help reduce avoidable sampling, recognize
+abnormal behaviour earlier and prioritize physical experiments during development.
+
+The first building block is a **VCD soft sensor**: estimating viable cell density
+from inline measurements. VCD describes living-cell concentration; a fuller picture
+of cell health also needs viability, metabolic and process context. Forecasting and
+anomaly research follow, before process-response modeling and digital scenarios.
 
 <br/>
 
-| Research layer | Question | Current position |
-|:---------------|:---------|:-----------------|
-| 📊 **Descriptive** | What was measured, and how do cultures differ? | Reproducible EDA and source audits implemented |
-| 🔬 **Scientific / validity** | Which observations and relationships can we trust? | Scientific evidence reviewed; unresolved questions documented |
-| 🤖 **Predictive** | What is current VCD, and what could it be later? | Estimation first, forecasting second; no models fitted yet |
-| 🎯 **Exploratory decisions** | Which process scenarios deserve further study? | Later work; observational prediction is not a causal effect |
-| 🧬 **Digital twin** | Can observations and dynamics support a validated process representation? | Long-term research goal, not the current release |
+| Research step | Intended contribution | Current position |
+|:--------------|:----------------------|:-----------------|
+| 📊 **Trustworthy data foundation** | Establish what was measured, when and in which reactor | Source audits, EDA and lineage implemented |
+| 🤖 **Current VCD estimation** | Investigate more frequent culture-state estimates between reference assays | First modeling objective; no models fitted |
+| 📈 **Future VCD forecasting** | Anticipate growth changes or decline | Separate future evaluation |
+| 🔬 **Abnormal-culture warning research** | Investigate unusual signals, uncertainty and abstention | A documented contaminated run is retained as a challenge case |
+| 🎯 **Process-response modeling** | Explore how cultures respond to feed, oxygen, temperature and other changes | Requires causal/mechanistic evidence and targeted validation |
+| 🧬 **Validated hybrid digital twin** | Combine observations and dynamics to test bounded scenarios digitally before selected physical experiments | Long-term research goal |
 
-The intended benefit is better visibility into culture state and, after prospective
-validation, less routine manual interpretation. Unsupported inputs should produce
-an explicit quality flag or abstention rather than an unexplained estimate.
+**Potential benefits remain hypotheses to test.** This project has not demonstrated
+reduced contamination, reduced sampling, fewer physical experiments or operational
+control. Physical reference experiments, aseptic technique and prospective
+validation remain essential. A digital twin does not itself prevent contamination.
+
+The motivation is consistent with [manufacturer work on inline CHO monitoring](https://www.hamiltoncompany.com/knowledge-base/application-note/online-monitoring-of-cho-cell-culture)
+and [NIST's emphasis on digital-twin testing and validation](https://www.nist.gov/programs-projects/digital-twins-advanced-manufacturing).
+These provide context for the research path, not validation of BioSynvia.
 
 ---
 
@@ -164,6 +176,28 @@ blank status, warning and invalid measurement remain different states.
 ## 🔑 Key Findings
 
 <details>
+<summary>🦠 &nbsp;<b>Contamination is a research challenge, not a validated detection claim</b></summary>
+
+<br/>
+
+The authors document contamination in **EXP011 R02**, alongside antibiotic exposure
+of both reactors and later termination of R02 feed/oxygen enrichment. The proposed
+primary cohort keeps EXP011 separate, retaining it for challenge and sensitivity
+analyses rather than silently discarding it.
+
+After modeling approval, the question is whether models trained on other
+experiments flag unusual behaviour, express increased uncertainty or abstain.
+Such a warning would not diagnose contamination or identify its cause. The six
+uncertain zero-VCD records remain a separate label-interpretation problem.
+
+**One contaminated cultivation is a case study.** It cannot establish detector
+sensitivity, specificity, dependable early-warning lead time or generalization.
+Additional labeled events, uncontaminated controls and prospective testing would
+be needed before making a contamination-warning claim.
+
+</details>
+
+<details>
 <summary>🧪 &nbsp;<b>Six recorded zeros need separate scientific interpretation</b></summary>
 
 <br/>
@@ -249,19 +283,22 @@ describes source encoding; the later paper review supplies the below-limit conte
 
 ```mermaid
 flowchart LR
-    A[Preserve observations] --> B[Audit schema and quality]
-    B --> C[Same-reactor past-only snapshots]
-    C --> D[Scientific review and protocol freeze]
-    D -. Approval required .-> E[Current VCD estimation]
-    E -. Separate evaluation .-> F[Future VCD forecasting]
-    F -. Later research .-> G[Process scenario exploration]
-    G -. Validation required .-> H[Digital twin]
+    A[Audited data foundation] -. Approval required .-> B[Current VCD estimation]
+    B --> C[Future VCD forecasting]
+    C --> D[Anomaly and warning research]
+    D --> E[Process-response modeling and scenarios]
+    E --> F[Validated hybrid digital twin]
 ```
 
-Current estimation comes first, forecasting second and exploratory optimization
-third. The end goal is a validated connection between observations, state
-estimation and process dynamics. Better prediction alone does not establish causal
-control effects or justify automatic actuation.
+The immediate VCD soft sensor is the measurement-and-prediction foundation of this
+path. A later hybrid twin would add process dynamics, ongoing comparison with
+physical measurements and uncertainty-aware simulation. Virtual scenarios would
+help select promising physical experiments within a validated operating range.
+
+Exploratory optimization comes after estimation and forecasting. Observational
+associations do not establish the effect of changing a control setting, and this
+release provides no automatic-actuation capability. Any reduction in sampling or
+intervention would require its own prospective comparison and safety criteria.
 
 ---
 
@@ -300,8 +337,11 @@ historical reports refer to those local artifacts.
 - [ ] Compare baselines, regularized models and a bounded nonlinear model
 - [ ] Evaluate uncertainty, failure cases and prospective real-time availability
 - [ ] Develop a separate future-VCD forecasting benchmark
-- [ ] Explore bounded process scenarios and mechanistic/hybrid components
-- [ ] Validate an eventual digital twin
+- [ ] Investigate anomaly warnings using held-out normal experiments and the contamination challenge
+- [ ] Develop process-response and mechanistic/hybrid components with targeted physical validation
+- [ ] Evaluate bounded virtual scenarios before selected physical experiments
+- [ ] Prospectively test whether monitoring can reduce sampling/intervention without losing necessary verification
+- [ ] Validate an eventual hybrid digital twin
 
 **Best reliable prediction is the priority.** Scientific interpretation helps
 identify mistakes and unrealistic relationships; it does not force a linear model
