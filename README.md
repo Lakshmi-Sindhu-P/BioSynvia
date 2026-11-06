@@ -56,7 +56,7 @@ cell density (VCD)**, the concentration of living cells in the culture.
 | Research layer | Question | Current position |
 |:---------------|:---------|:-----------------|
 | 📊 **Descriptive** | What was measured, and how do cultures differ? | Reproducible EDA and source audits implemented |
-| 🔬 **Scientific / validity** | Which observations and relationships can we trust? | Evidence reviewed; uncertainties and owner choices retained |
+| 🔬 **Scientific / validity** | Which observations and relationships can we trust? | Scientific evidence reviewed; unresolved questions documented |
 | 🤖 **Predictive** | What is current VCD, and what could it be later? | Estimation first, forecasting second; no models fitted yet |
 | 🎯 **Exploratory decisions** | Which process scenarios deserve further study? | Later work; observational prediction is not a causal effect |
 | 🧬 **Digital twin** | Can observations and dynamics support a validated process representation? | Long-term research goal, not the current release |
@@ -204,7 +204,7 @@ and choosing a contamination policy produces:
 These are **feasibility counts, not accuracy results**. The conservative proposal
 quarantines all EXP011 because contamination and both-reactor antibiotic exposure
 complicate interpretation. All alternatives and original observations remain
-preserved; owner decisions are pending.
+preserved; research protocol decisions remain pending.
 
 </details>
 
@@ -374,8 +374,7 @@ establish a license for the separate dataset.
 
 **Built by Lakshmi Sindhu P &nbsp;·&nbsp; Bioprocess data engineering and research**
 
-AI-assisted implementation and review. Primary evidence and executable checks
-support the work; agent agreement is not scientific validation.
+Primary sources, reproducible analyses and executable checks support the work.
 
 [GitHub](https://github.com/Lakshmi-Sindhu-P)
 
