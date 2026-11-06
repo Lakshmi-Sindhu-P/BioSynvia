@@ -328,3 +328,12 @@ Added restricted proprietary evaluation terms for original BioSynvia work, with
 third-party rights kept separate. Supplied build/reference documents, manuscript
 captures, development-tool copies and the local ignore file are excluded from
 the current public tree while local copies remain intact. Fitting stays paused.
+
+## README presentation alignment — 2026-11-06
+
+Reworked the public README to follow the owner's Campaign Prophet presentation:
+centered banner/badges, emoji section navigation, layered overview, tables,
+expandable findings, visual gallery, project structure and a checked roadmap.
+Added an implementation-grounded technology stack, distinguishing current tools
+from planned modeling. Citations, restricted licensing, paused fitting and local
+reference exclusions remain intact. No application behavior or data changed.

@@ -1,194 +1,344 @@
-<p align="center">
-  <img src="docs/assets/biosynvia-banner.svg" alt="BioSynvia — from bioprocess data to scientific insight" width="100%">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="https://img.shields.io/badge/stage-research_foundation-0f766e?style=flat-square" alt="Stage: research foundation">
-  <img src="https://img.shields.io/badge/Python-3.11%2B-3776ab?style=flat-square" alt="Python 3.11 or newer">
-  <img src="https://img.shields.io/badge/model_fitting-paused-d39b3d?style=flat-square" alt="Model fitting paused">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-restricted_evaluation-475569?style=flat-square" alt="Restricted evaluation terms"></a>
-</p>
+<img src="docs/assets/biosynvia-banner.svg" alt="BioSynvia — Bioprocess Research and Digital Twin Foundations" width="100%"/>
 
-<p align="center">
-  <strong>Research software for understanding CHO cell cultures—and building toward a trustworthy digital twin.</strong>
-</p>
+<br/>
 
-<p align="center">
-  <a href="#the-problem">The problem</a> ·
-  <a href="#the-dataset">Dataset</a> ·
-  <a href="#a-look-inside-the-data">EDA gallery</a> ·
-  <a href="#from-observations-to-a-digital-twin">Roadmap</a> ·
-  <a href="#try-the-synthetic-demo">Try it</a> ·
-  <a href="CITATIONS.md">Citations</a>
-</p>
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
+[![pandas](https://img.shields.io/badge/pandas-DataFrames-150458?style=flat-square&logo=pandas&logoColor=white)](#%EF%B8%8F-tech-stack)
+[![NumPy](https://img.shields.io/badge/NumPy-Numerical_Analysis-013243?style=flat-square&logo=numpy&logoColor=white)](#%EF%B8%8F-tech-stack)
+[![SQLite](https://img.shields.io/badge/SQLite-Lineage_%26_Queries-003B57?style=flat-square&logo=sqlite&logoColor=white)](#%EF%B8%8F-tech-stack)
+[![Version](https://img.shields.io/badge/Version-0.1.0-6f42c1?style=flat-square)](pyproject.toml)
+[![Status](https://img.shields.io/badge/Status-Research-FFB300?style=flat-square)](#%EF%B8%8F-research-roadmap)
+[![Tests](https://img.shields.io/badge/Core_tests-18_passing-1D9E75?style=flat-square)](tests/test_audit.py)
+[![License](https://img.shields.io/badge/License-Proprietary-475569?style=flat-square)](LICENSE)
 
-> **Current checkpoint:** source auditing, reproducible EDA and pre-modeling
-> engineering are implemented. No predictive model has been fitted and no digital
-> twin has been validated. Modeling remains paused pending the research decisions.
+<br/>
 
-## The problem
+> **A reproducible bioprocess research workbench that preserves measurement provenance,
+> exposes quality and timing risks, and builds the foundation for current VCD estimation,
+> future forecasting and an eventual digital twin.**
 
-A bioreactor produces many sensor readings, but reference measurements of living
-cells arrive much less often. Sensor signals, laboratory assays and process logs
-have different clocks, sampling frequencies and quality states. Joining them
-without understanding those differences can create misleading relationships and
-apparently impressive predictions that will not hold up in a new experiment.
+<br/>
 
-BioSynvia starts with that gap: **how can we estimate what the cells are doing,
-using measurements we can trust and information that would actually be available?**
-Its first prediction target is **viable cell density (VCD)**—the concentration of
-living cells in the culture.
+<sub><b>Stages 1–2</b> — data auditing, exploratory analysis and scientific-evidence review.<br/>Engineering checkpoint accepted. Model fitting remains paused pending approval.</sub>
 
-## Why it could help
+<br/>
 
-| Research objective | Intended benefit | Current boundary |
-| --- | --- | --- |
-| **Estimate current VCD** | Complement intermittent assays with more frequent estimates of culture state. | Model comparison has not started. |
-| **Forecast future VCD** | Give researchers earlier visibility into growth changes and decline. | Horizons and future-input availability require a separate evaluation. |
-| **Explore process decisions** | Investigate candidate operating scenarios with uncertainty made visible. | Prediction alone does not establish effects of changing feed or controls. |
-| **Develop a digital twin** | Eventually connect observations, state estimation and process dynamics in a validated representation. | A long-term goal; not a description of the current release. |
+[📊 Overview](#-overview) &nbsp;·&nbsp;
+[🧬 Dataset](#-dataset-at-a-glance) &nbsp;·&nbsp;
+[🛠️ Tech Stack](#%EF%B8%8F-tech-stack) &nbsp;·&nbsp;
+[⚖️ Feature Policy](#%EF%B8%8F-feature-and-timing-policy) &nbsp;·&nbsp;
+[🔑 Findings](#-key-findings) &nbsp;·&nbsp;
+[📸 Visuals](#-visual-outputs) &nbsp;·&nbsp;
+[🗺️ Roadmap](#%EF%B8%8F-research-roadmap) &nbsp;·&nbsp;
+[🚀 Setup](#-setup) &nbsp;·&nbsp;
+[📚 Citations](#-research-citations)
 
-The aim is better research decisions and, after prospective validation, less
-routine manual interpretation. Unsupported inputs should trigger a clear quality
-flag or abstention rather than an unexplained number.
+</div>
 
-## The dataset
+---
 
-The project uses the publicly described CHO-K1 cultivation dataset from
-**Uhlendorff et al. (2026)**, with experimental methods documented in their
-[data-descriptor preprint](https://doi.org/10.20944/preprints202611.0377.v1).
+## 📊 Overview
 
-| Dataset dimension | Scope |
-| --- | --- |
-| Experiments / reactors | **12 experiments**, each with **R01 and R02**: 24 cultivations |
-| Process modes | 9 batch experiments and 3 fed-batch experiments |
-| Original files | 12 workbooks, each containing 16 reactor-specific worksheets |
-| Publisher-aligned files | 24 inline CSVs with 41 columns; 24 offline CSVs with 17 columns |
-| Reported variables | 38 continuous inline variables and 10 primary offline variables, plus timestamps, SEMs and cumulative process logs |
-| Offline reference records | 378 assay records; not 378 independent experiments |
-| Named media | TC-42 and TCX6D, with reported condition variations |
+Bioreactors produce dense sensor streams, while reference measurements of living
+cells are collected much less frequently. Different clocks, sampling intervals,
+held process values and quality states make those observations difficult to combine
+correctly. A careless join can produce convincing relationships that fail in a new
+experiment—or depend on information unavailable at prediction time.
 
-Inline signals include permittivity, turbidity, dissolved CO₂, pH, oxygen and
-temperature. Offline measurements describe cell density, viability, cell
-properties, glucose, lactate, ammonium and osmolality. **No measured amino-acid
-profiles are supplied.**
+BioSynvia asks: **what can we reliably learn about a culture from information that
+would actually be available at the time?** Its first prediction target is **viable
+cell density (VCD)**, the concentration of living cells in the culture.
 
-The original Excel and aligned CSV representations have complementary roles.
-Excel retains original assay cells, timestamps and supplied quality fields; aligned
-CSVs support descriptive exploration, but are not automatically causal model inputs.
-The original archive and processed observation tables are not distributed here.
+<br/>
 
-[Dataset DOI: 10.5281/zenodo.20829178](https://doi.org/10.5281/zenodo.20829178) ·
-[Full attribution and BibTeX](CITATIONS.md)
+| Research layer | Question | Current position |
+|:---------------|:---------|:-----------------|
+| 📊 **Descriptive** | What was measured, and how do cultures differ? | Reproducible EDA and source audits implemented |
+| 🔬 **Scientific / validity** | Which observations and relationships can we trust? | Evidence reviewed; uncertainties and owner choices retained |
+| 🤖 **Predictive** | What is current VCD, and what could it be later? | Estimation first, forecasting second; no models fitted yet |
+| 🎯 **Exploratory decisions** | Which process scenarios deserve further study? | Later work; observational prediction is not a causal effect |
+| 🧬 **Digital twin** | Can observations and dynamics support a validated process representation? | Long-term research goal, not the current release |
 
-## A look inside the data
+The intended benefit is better visibility into culture state and, after prospective
+validation, less routine manual interpretation. Unsupported inputs should produce
+an explicit quality flag or abstention rather than an unexplained estimate.
 
-These are **descriptive EDA figures**, not model predictions. They retain recorded
-observations, including uncertain cases. Data credit: Uhlendorff et al. (2026);
-figures generated by BioSynvia's analysis scripts.
+---
 
-### 1. Dense signals, sparse reference measurements
+## 🧬 Dataset at a Glance
 
-![Batch and fed-batch VCD observations alongside example sensor trajectories](reports/eda-v2/trajectories.png)
-
-Cultures follow different trajectories. Continuous sensor signals and sparse VCD
-assays motivate soft sensing, but their association must be evaluated across whole
-experiments. Lines between assays are visual guides; the aligned sensor overlays
-are descriptive and are not evidence of past-only availability.
-
-### 2. Coverage and growth vary between experiments
-
-![Reference-assay counts and observed peak VCD by experiment](reports/eda-v2/coverage_and_growth.png)
-
-Different coverage and growth ranges make experiment-group evaluation important.
-A random row split would not test transfer to a genuinely separate experiment.
-
-### 3. A blank is not a measured zero
-
-![Counts of original offline blank cells for glucose, lactate and ammonium](reports/eda-v2/raw_assay_missingness.png)
-
-There are **214 original concentration blanks**: 135 glucose, 51 lactate and
-28 ammonium. The paper describes below-detection/quantification results; numerical
-limits are not supplied. The historical chart's “missing” label describes blank
-encoding, not proof of randomly absent measurements. These cells are preserved
-without turning them into measured zeros.
+| | |
+|:---|:---|
+| 📁 **Source** | Uhlendorff et al. (2026), [Zenodo CHO cultivation dataset](https://doi.org/10.5281/zenodo.20829178) |
+| 🧪 **Experimental units** | **12 experiments**, each with R01/R02: **24 CHO-K1 cultivations** |
+| ⚙️ **Modes** | 9 batch experiments and 3 fed-batch experiments |
+| 📚 **Raw structure** | 12 workbooks × 16 reactor-specific worksheets |
+| 🔗 **Aligned exports** | 24 inline CSVs × 41 columns; 24 offline CSVs × 17 columns |
+| 📐 **Reported variables** | 38 continuous inline and 10 primary offline variables, plus timestamps, SEMs and cumulative logs |
+| 🎯 **Reference records** | **378 offline assay records**—not 378 independent experiments |
+| 🧫 **Named media** | TC-42 and TCX6D, with reported condition variations |
 
 <details>
-<summary><strong>What the audit uncovered</strong></summary>
+<summary>🔍 &nbsp;<b>What the measurements contain</b></summary>
 
-- Six recorded VCD zeros remain uncertain. Five occur in contaminated EXP011 R02;
-  the EXP002 R02 case is a separate unresolved question.
-- Published nearest-neighbor alignment can use a future observation. It cannot
-  by itself establish a real-time feature cutoff.
-- Change-only process logging includes held values: a row timestamp does not
-  prove a fresh acquisition for every variable.
-- Feed updates used offline assay information, creating a potential leakage path.
-- The conservative proposed cohort has **308 supported positive records** under
-  the stated retrospective policy. That is a feasibility count, not accuracy.
+<br/>
 
-See the [scientific evidence and approval packet](reports/scientific-closure/approval-packet.md).
+**Inline/process:** permittivity, turbidity, dissolved CO₂, pH, dissolved oxygen,
+temperature and operating variables.
+
+**Offline:** VCD, total cell density, viability, cell properties, glucose, lactate,
+ammonium and osmolality. No measured amino-acid profiles are supplied.
+
+Original Excel cells retain assay values, blanks, source timestamps and supplied
+quality fields. Publisher-aligned CSVs are useful for descriptive exploration but
+are not automatically causal feature tables. The source archive, processed
+observation bundles and full reference documents remain local.
+
+Methods: [data-descriptor preprint](https://doi.org/10.20944/preprints202611.0377.v1),
+version 1, not peer reviewed. [Full attribution](CITATIONS.md).
 
 </details>
 
-## From observations to a digital twin
+---
+
+## 🛠️ Tech Stack
+
+These technologies are used in the implemented foundation; planned modeling is
+listed separately from completed work.
+
+| Layer | Technology | Role in BioSynvia |
+|:------|:-----------|:------------------|
+| 🐍 **Language / CLI** | Python 3.11+, `argparse` | Local audits, preparation and reproducible command-line workflows |
+| 🧹 **Data processing** | pandas, NumPy | Copied working tables, profiling, numeric checks and feature preparation |
+| 📗 **Excel ingestion** | openpyxl | Read workbook streams, original cells, headers and coordinates |
+| 🗃️ **Storage / queries** | SQLite (`sqlite3`), CSV, JSON | Persistent analysis tables, source lineage and decision artifacts |
+| 📈 **Visualization** | Matplotlib | Descriptive EDA, coverage and relationship figures |
+| 🔐 **Provenance** | `hashlib`, `zipfile`, `pathlib` | Checksums, archive inspection and source/output preservation |
+| 🧪 **Verification** | Python `unittest` | Identity, timing, missingness, reproducibility and failure-path checks |
+| 📄 **Document generation** | ReportLab, pypdf | Generate and preserve versioned project specification documents |
+| 🗂️ **Version control** | Git, GitHub; Mermaid/SVG documentation | Code history, evidence navigation and workflow presentation |
+
+**Planned after approval:** baseline, Ridge, PLS and bounded nonlinear comparisons,
+followed by uncertainty evaluation and a separate forecasting protocol. These are
+not completed model results or installed product capabilities.
+
+The core synthetic audit uses the Python standard library only. Analysis workflows
+have separate dependencies recorded in [the scripts guide](scripts/README.md).
+
+---
+
+## ⚖️ Feature and Timing Policy
+
+A useful estimate must respect **which reactor produced the observation and when
+the information would have been available**.
+
+| Information | Proposed treatment | Reason |
+|:------------|:-------------------|:-------|
+| Same-reactor sampled sensors | Past-only candidates with freshness and quality checks | Prevent future or cross-reactor information from entering a snapshot |
+| pH, oxygen and temperature process states | Distinguish held state from fresh acquisition; absent Status stays unknown | Change-only logging can forward-fill values |
+| Publisher-aligned signals | Descriptive use; causal reconstruction required before modeling | Nearest-neighbor alignment can select a future observation |
+| Assay-updated feed history | Withhold until point-in-time availability is established | Control updates used offline VCD/glucose information |
+| Offline assays and SEMs | Targets/diagnostics, not sensor-only predictors | Avoid target-derived inputs and unknown result latency |
+| Experiment/reactor IDs | Grouping and provenance, not predictive shortcuts | Paired reactors stay inside their whole experiment group |
+
+<details>
+<summary>⏱️ &nbsp;<b>Retrospective support is not real-time validation</b></summary>
+
+<br/>
+
+Existing support counts assume sensor acquisition equals availability for a
+retrospective research scenario. Strictly requiring evidenced result availability
+currently yields **zero supported rows**. This is a timing-evidence gap, not a
+claim that all sensor measurements are invalid.
+
+Similarly, requiring an explicit `Ok` on every eight-core input yields zero
+complete rows because some streams have no Status field. An absent field,
+blank status, warning and invalid measurement remain different states.
+
+</details>
+
+---
+
+## 🔑 Key Findings
+
+<details>
+<summary>🧪 &nbsp;<b>Six recorded zeros need separate scientific interpretation</b></summary>
+
+<br/>
+
+All six VCD zeros are numeric source values. Five occur in contaminated EXP011 R02;
+the EXP002 R02 case is separately unresolved. Contamination supplies context, not
+proof of the exact meaning or QC disposition of each zero. Every case is retained
+for explicit challenge/sensitivity analysis rather than silently accepted or erased.
+
+</details>
+
+<details>
+<summary>🧹 &nbsp;<b>214 original blanks cannot become measured zeros</b></summary>
+
+<br/>
+
+There are **135 glucose**, **51 lactate** and **28 ammonium** blanks. The paper
+describes below-detection/quantification concentration results; numerical bounds
+are not supplied. Preserve that encoding and uncertainty rather than substituting
+measured zeros or assuming random missingness.
+
+</details>
+
+<details>
+<summary>📐 &nbsp;<b>A cohort decision changes the research question and sample count</b></summary>
+
+<br/>
+
+At the stated five-minute retrospective policy, separating uncertain zero labels
+and choosing a contamination policy produces:
+
+| Proposed cohort | Positive source records | Supported positive records |
+|:----------------|------------------------:|---------------------------:|
+| Retain all EXP011 | 372 | 333 |
+| Quarantine EXP011 R02 | 360 | 322 |
+| Quarantine all EXP011 | 343 | **308** |
+
+These are **feasibility counts, not accuracy results**. The conservative proposal
+quarantines all EXP011 because contamination and both-reactor antibiotic exposure
+complicate interpretation. All alternatives and original observations remain
+preserved; owner decisions are pending.
+
+</details>
+
+<details>
+<summary>🔗 &nbsp;<b>Lineage records are not additional training samples</b></summary>
+
+<br/>
+
+The released engineering bundle contains **15,120 assay-feature lineage records**
+for **378 assays × 40 candidate fields**. Those records document source selection;
+they are not 15,120 independent training examples. Whole-experiment grouping
+remains the evaluation boundary.
+
+</details>
+
+---
+
+## 📸 Visual Outputs
+
+**Descriptive observations, not predictions.** Data: Uhlendorff et al. (2026);
+figures generated by BioSynvia's EDA scripts.
+
+<p align="center">
+  <img src="reports/eda-v2/coverage_and_growth.png" alt="Assay coverage and observed growth ranges across experiments" width="49%"/>
+  <img src="reports/eda-v2/raw_assay_missingness.png" alt="Original blank concentration cells by analyte" width="49%"/>
+</p>
+
+<p align="center">
+  <img src="reports/eda-v2/trajectories.png" alt="Batch and fed-batch VCD trajectories alongside aligned sensor examples" width="100%"/>
+</p>
+
+Lines between assays are visual guides, not interpolated labels. Sensor overlays
+use publisher-aligned values for description, not evidence of causal availability.
+Recorded zeros remain uncertain. The blank-cell chart's historical “missing” label
+describes source encoding; the later paper review supplies the below-limit context.
+
+[Read the EDA report →](reports/eda-v2/report.md)
+
+---
+
+## 🔄 Research Workflow
 
 ```mermaid
 flowchart LR
-    A[Preserve original observations] --> B[Audit schema, quality and timing]
-    B --> C[Build same-reactor past-only snapshots]
-    C --> D[Review scientific evidence and freeze protocol]
-    D -. Approval required .-> E[Estimate current VCD]
-    E -. Later evaluation .-> F[Forecast future VCD]
-    F -. Later validation .-> G[Explore process scenarios]
-    G -. Long-term research .-> H[Validated digital twin]
+    A[Preserve observations] --> B[Audit schema and quality]
+    B --> C[Same-reactor past-only snapshots]
+    C --> D[Scientific review and protocol freeze]
+    D -. Approval required .-> E[Current VCD estimation]
+    E -. Separate evaluation .-> F[Future VCD forecasting]
+    F -. Later research .-> G[Process scenario exploration]
+    G -. Validation required .-> H[Digital twin]
 ```
 
-| Foundation implemented | Next, after approval | Longer term |
-| --- | --- | --- |
-| Source/schema audits; EDA scripts; backup and lineage; quality flags; reactor isolation; leakage tests | Grouped baselines; regularized and nonlinear model comparison; uncertainty and failure analysis | Forecasting; prospective real-time replay; mechanistic/hybrid models; bounded process exploration |
+Current estimation comes first, forecasting second and exploratory optimization
+third. The end goal is a validated connection between observations, state
+estimation and process dynamics. Better prediction alone does not establish causal
+control effects or justify automatic actuation.
 
-The development principle is **reliable prediction supported by scientific
-interpretation**. Physical understanding helps investigate errors and unrealistic
-relationships; it does not force a simple linear model to win.
+---
 
-## Try the synthetic demo
+## 🗂️ Project Structure
 
-Python **3.11+**. The core demo requires no third-party dependencies, credentials
-or research dataset. The project's limited evaluation permission covers
-this local demonstration; see [LICENSE](LICENSE).
+```text
+BioSynvia/
+├── biosynvia/           # Audit CLI, source ingestion, preparation and lineage
+├── scripts/             # Reproducible analysis and verification entry points
+├── configs/             # Proposed target, timing, quality and evaluation policies
+├── tests/               # Contract, isolation and reproducibility checks
+├── examples/synthetic/  # Invented, dataset-free demonstration inputs
+├── reports/             # EDA, scientific inferences and verification records
+├── docs/assets/         # Original project visual assets
+├── docs/specifications/ # PRD and SRD
+├── CITATIONS.md         # Paper and dataset attribution
+├── references.bib       # Machine-readable research references
+├── THIRD_PARTY_NOTICES.md
+└── LICENSE              # Restricted evaluation terms for original work
+```
 
-```sh
+Original datasets, processed observation bundles, internal build/handoff documents
+and local ignore rules are not included in the current public snapshot. Some
+historical reports refer to those local artifacts.
+
+---
+
+## 🗺️ Research Roadmap
+
+- [x] Source inventory, checksums and separate backup workflow
+- [x] Exact workbook/CSV schema inspection and reproducible EDA
+- [x] Original blank/zero preservation and source-cell lineage
+- [x] Same-reactor snapshots, experiment grouping and leakage safeguards
+- [x] Full-paper scientific review and a pre-modeling decision packet
+- [ ] Approve cohort, feature/timing policies and experiment split
+- [ ] Compare baselines, regularized models and a bounded nonlinear model
+- [ ] Evaluate uncertainty, failure cases and prospective real-time availability
+- [ ] Develop a separate future-VCD forecasting benchmark
+- [ ] Explore bounded process scenarios and mechanistic/hybrid components
+- [ ] Validate an eventual digital twin
+
+**Best reliable prediction is the priority.** Scientific interpretation helps
+identify mistakes and unrealistic relationships; it does not force a linear model
+to outperform a better-supported nonlinear alternative.
+
+---
+
+## 🚀 Setup
+
+Use **Python 3.11+** from the repository root. The synthetic audit requires no
+third-party packages, API keys or research dataset.
+
+```bash
 python3 -m biosynvia audit \
   --sensors examples/synthetic/sensors.csv \
   --measurements examples/synthetic/measurements.csv \
   --output outputs/synthetic-audit.json
 
+# Dataset-free core checks: 18 passed at the research checkpoint.
 python3 -m unittest tests.test_audit tests.test_source -v
 ```
 
-The invented example deliberately contains a blank assay value. Its report passes
-the data contract with an expected warning; all **18 dataset-free core tests**
-passed at the research checkpoint. Choose a new output filename when rerunning.
-Full analysis/released-bundle tests require their documented dependencies and data.
+The invented example contains a deliberate blank assay value and produces an
+expected warning. Choose a new output filename when rerunning: existing results
+are protected. Full analysis and released-bundle checks require their documented
+packages and local artifacts. See [scripts/README.md](scripts/README.md).
 
-## Explore the evidence
+---
 
-| Start here | What you will find |
-| --- | --- |
-| [PRD and SRD](docs/specifications/README.md) | Product direction and proposed system requirements |
-| [Official project report](reports/implementation-report.md) | Completed work, corrections and verification |
-| [Scientific approval packet](reports/scientific-closure/approval-packet.md) | Facts, inferences, open questions and proposed research choices |
-| [EDA report](reports/eda-v2/report.md) | Dataset structure, descriptive findings and limitations |
-| [Data preparation report](reports/preparation/report.md) | Preservation, canonicalization and feature-lineage work |
-| [Relationship-analysis guide](reports/relationship-analysis-guide.md) | Nonlinear and temporal relationship checks |
+## 📚 Research Citations
 
-## Cite the research
-
-**Paper:** Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M., & Frahm, B.
-(2026). *Data Descriptor: Multimodal Dataset of Bioreactor Cell Cultivations
-Including Turbidity, Permittivity, O₂ and CO₂ Measurements* (Version 1) [Preprint].
-Preprints.org. [doi:10.20944/preprints202611.0377.v1](https://doi.org/10.20944/preprints202611.0377.v1).
-Not peer reviewed.
+**Data descriptor:** Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M.,
+& Frahm, B. (2026). *Data Descriptor: Multimodal Dataset of Bioreactor Cell
+Cultivations Including Turbidity, Permittivity, O₂ and CO₂ Measurements* (Version 1)
+[Preprint]. Preprints.org.
+[doi:10.20944/preprints202611.0377.v1](https://doi.org/10.20944/preprints202611.0377.v1).
+Version 1 is not peer reviewed.
 
 **Dataset:** Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M., & Frahm, B.
 (2026). *Dataset Based on Chinese Hamster Ovary (CHO) Cultivations including
@@ -197,17 +347,36 @@ Turbidity, Permittivity, O2 and CO2 Measurements* (Version v1) [Data set]. Zenod
 
 [Full references and attribution](CITATIONS.md) · [BibTeX](references.bib)
 
-## License and project status
+---
+
+## 📜 License
 
 Original BioSynvia material is **proprietary, with all rights reserved**, subject
-to the limited evaluation permission in [LICENSE](LICENSE). This is a
-public research project, **not an open-source release**. Rights provided by GitHub's terms
-remain applicable. Third-party materials retain their own terms; see
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+to the limited non-commercial evaluation permission in [LICENSE](LICENSE).
+This is **not an open-source release**. Applicable GitHub viewing/forking rights
+remain intact. Third-party materials retain their own terms; see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The paper's CC BY notice does not
+establish a license for the separate dataset.
 
-The research dataset's reuse terms remain unresolved separately from the paper's
-CC BY 4.0 notice. Reference/build documents, full paper captures, local data and
-personal tooling records stay outside the current public snapshot.
+---
 
-AI tools assisted implementation and review. Tests and primary scientific sources
-provide the evidence; agent agreement is not scientific validation.
+## 🔎 Explore Further
+
+[Scientific approval packet](reports/scientific-closure/approval-packet.md) ·
+[Project report](reports/implementation-report.md) ·
+[Preparation findings](reports/preparation/report.md) ·
+[Relationship-analysis guide](reports/relationship-analysis-guide.md) ·
+[PRD / SRD](docs/specifications/README.md)
+
+---
+
+<div align="center">
+
+**Built by Lakshmi Sindhu P &nbsp;·&nbsp; Bioprocess data engineering and research**
+
+AI-assisted implementation and review. Primary evidence and executable checks
+support the work; agent agreement is not scientific validation.
+
+[GitHub](https://github.com/Lakshmi-Sindhu-P)
+
+</div>
