@@ -1,0 +1,36 @@
+experiment,sheet,time_hours,new_status
+EXP011,R01_inline_CO2,0.0,Ok
+EXP011,R01_inline_Turbidity,0.0,Ok
+EXP011,R01_inline_Permittivity,0.0,Warning Active
+EXP011,R01_inline_Permittivity,0.4416666666666667,Ok
+EXP011,R01_inline_Permittivity,0.5083333333333333,Warning Active
+EXP011,R01_inline_Permittivity,0.6416666666666667,Ok
+EXP011,R01_inline_Permittivity,0.6916666666666667,Warning Active
+EXP011,R01_inline_Permittivity,0.7083333333333334,Ok
+EXP011,R01_inline_Permittivity,0.7666666666666667,Warning Active
+EXP011,R01_inline_Permittivity,0.875,Ok
+EXP011,R01_inline_Permittivity,0.9166666666666666,Warning Active
+EXP011,R01_inline_Permittivity,0.975,Ok
+EXP011,R01_inline_Permittivity,1.225,Warning Active
+EXP011,R01_inline_Permittivity,1.291666666666667,Ok
+EXP011,R01_inline_Permittivity,1.466666666666667,Warning Active
+EXP011,R01_inline_Permittivity,1.525,Ok
+EXP011,R01_inline_Permittivity,1.541666666666667,Warning Active
+EXP011,R01_inline_Permittivity,1.558333333333333,Ok
+EXP011,R01_inline_Permittivity,1.691666666666667,Warning Active
+EXP011,R01_inline_Permittivity,1.741666666666667,Ok
+EXP011,R01_inline_Permittivity,4.308333333333334,Warning Active
+EXP011,R01_inline_Permittivity,4.325,Ok
+EXP011,R02_inline_CO2,0.0,Ok
+EXP011,R02_inline_Turbidity,0.0,Ok
+EXP011,R02_inline_Permittivity,0.0,Warning Active
+EXP011,R02_inline_Permittivity,0.2583333333333334,Ok
+EXP002,R01_inline_CO2,0.0,Ok
+EXP002,R01_inline_Turbidity,0.0,Ok
+EXP002,R01_inline_Permittivity,0.0,Warning Active
+EXP002,R01_inline_Permittivity,0.775,Ok
+EXP002,R01_inline_Permittivity,0.8,Warning Active
+EXP002,R01_inline_Permittivity,0.825,Ok
+EXP002,R02_inline_CO2,0.0,Ok
+EXP002,R02_inline_Turbidity,0.0,Ok
+EXP002,R02_inline_Permittivity,0.0,Ok

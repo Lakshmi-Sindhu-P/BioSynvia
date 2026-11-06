@@ -1,0 +1,695 @@
+{
+  "schema_version": "1.0",
+  "allowed_dispositions": [
+    "accepted",
+    "rejected",
+    "deferred",
+    "unresolved",
+    "requiring_owner_input"
+  ],
+  "findings": [
+    {
+      "id": "PS-01",
+      "review": "reports/stage12/reviews/pre_science.md",
+      "review_sha256": "49ddaa5a59d52af75d44111f925d5d26cee2d55c9f1c7db03053bdf335c46f94",
+      "finding": "Six late numeric zeros and target populations",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_science.md"
+    },
+    {
+      "id": "PS-02",
+      "review": "reports/stage12/reviews/pre_science.md",
+      "review_sha256": "49ddaa5a59d52af75d44111f925d5d26cee2d55c9f1c7db03053bdf335c46f94",
+      "finding": "Acquisition versus availability and assay quality",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_science.md"
+    },
+    {
+      "id": "PS-03",
+      "review": "reports/stage12/reviews/pre_science.md",
+      "review_sha256": "49ddaa5a59d52af75d44111f925d5d26cee2d55c9f1c7db03053bdf335c46f94",
+      "finding": "Per-stream support and units/status",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_science.md"
+    },
+    {
+      "id": "PS-04",
+      "review": "reports/stage12/reviews/pre_science.md",
+      "review_sha256": "49ddaa5a59d52af75d44111f925d5d26cee2d55c9f1c7db03053bdf335c46f94",
+      "finding": "Coverage-selected holdout and metric weighting",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_science.md"
+    },
+    {
+      "id": "PS-05",
+      "review": "reports/stage12/reviews/pre_science.md",
+      "review_sha256": "49ddaa5a59d52af75d44111f925d5d26cee2d55c9f1c7db03053bdf335c46f94",
+      "finding": "Separate owner/scientific/software gates",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_science.md"
+    },
+    {
+      "id": "PQ-01",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P1 \u2014 The strict Status rule eliminates the existing eight-field core everywhere.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-02",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P1 \u2014 One priority reason cannot represent independent quality evidence.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-03",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P1 \u2014 Freeze the distinction between six recorded target zeros and 214 medium blanks.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-04",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P1 \u2014 Preserve actual workbook coordinates before dropping or joining rows.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-05",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P2 \u2014 EXP004 source duplicates exist although none are selected at assay cutoffs.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-06",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P2 \u2014 Freshness sensitivity needs raw per-stream cadence, not aligned cadence or only assay ages.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-07",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P2 \u2014 The v3 dictionary is insufficient for defensible field eligibility.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PQ-08",
+      "review": "reports/stage12/reviews/pre_quality.md",
+      "review_sha256": "f375ea10a9e44719ef8ef6c70afd638611d82ee7c5e6c41e2cddae8a9bcf6d49",
+      "finding": "P2 \u2014 Sample effects must be a cross-tabulated scenario result, not a single candidate count.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_quality.md"
+    },
+    {
+      "id": "PL-01",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P1 \u2014 Strict status rules make the stated eight-core coverage criterion degenerate.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PL-02",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P1 \u2014 Define a target-independent coverage denominator and freeze one split across scenarios.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PL-03",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P1 \u2014 Make acquisition and availability predicates executable, including equality and delayed records.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PL-04",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P1 \u2014 Put every learned choice inside the appropriate grouped training partition.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PL-05",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P2 \u2014 Preserve prefix-only quality decisions and test mutation of future raw records, not just future snapshots.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PL-06",
+      "review": "reports/stage12/reviews/pre_leakage.md",
+      "review_sha256": "52414307e75947a9727147d9f25180c37f475642f52683b048638cb15902f858",
+      "finding": "P2 \u2014 Record the prior target exposure and constrain the final evaluation claim.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_leakage.md"
+    },
+    {
+      "id": "PP-01",
+      "review": "reports/stage12/reviews/pre_provenance.md",
+      "review_sha256": "d7f6765b41b2c6c83b5b6d293a2e3d42f58ba41277a6766cf8f15a279308f9b4",
+      "finding": "P1 \u2014 Freeze the full producer/input closure before v4 execution.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_provenance.md"
+    },
+    {
+      "id": "PP-02",
+      "review": "reports/stage12/reviews/pre_provenance.md",
+      "review_sha256": "d7f6765b41b2c6c83b5b6d293a2e3d42f58ba41277a6766cf8f15a279308f9b4",
+      "finding": "P1 \u2014 Preserve physical worksheet coordinates before filtering and merging.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_provenance.md"
+    },
+    {
+      "id": "PP-03",
+      "review": "reports/stage12/reviews/pre_provenance.md",
+      "review_sha256": "d7f6765b41b2c6c83b5b6d293a2e3d42f58ba41277a6766cf8f15a279308f9b4",
+      "finding": "P1 \u2014 Make split ranking executable and independent of assay outcomes.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_provenance.md"
+    },
+    {
+      "id": "PP-04",
+      "review": "reports/stage12/reviews/pre_provenance.md",
+      "review_sha256": "d7f6765b41b2c6c83b5b6d293a2e3d42f58ba41277a6766cf8f15a279308f9b4",
+      "finding": "P2 \u2014 Define exact reproduction separately for stable data and volatile metadata.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_provenance.md"
+    },
+    {
+      "id": "PP-05",
+      "review": "reports/stage12/reviews/pre_provenance.md",
+      "review_sha256": "d7f6765b41b2c6c83b5b6d293a2e3d42f58ba41277a6766cf8f15a279308f9b4",
+      "finding": "P1 \u2014 Make validation a mandatory promotion gate with failure-injection tests.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_provenance.md"
+    },
+    {
+      "id": "PR-01",
+      "review": "reports/stage12/reviews/pre_requirements.md",
+      "review_sha256": "e05aa904d1954a0b554e60439e3912b243ba36db86436af512b13e34c2036959",
+      "finding": "P2 \u2014 Make the target-decision schema contain the complete required target record.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_requirements.md"
+    },
+    {
+      "id": "PR-02",
+      "review": "reports/stage12/reviews/pre_requirements.md",
+      "review_sha256": "e05aa904d1954a0b554e60439e3912b243ba36db86436af512b13e34c2036959",
+      "finding": "P2 \u2014 Fix the benchmark ranking rule and required comparison outputs before later evaluation.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_requirements.md"
+    },
+    {
+      "id": "PR-03",
+      "review": "reports/stage12/reviews/pre_requirements.md",
+      "review_sha256": "e05aa904d1954a0b554e60439e3912b243ba36db86436af512b13e34c2036959",
+      "finding": "P2 \u2014 Add an explicit raw-to-aligned time-policy record rather than relying on issue notes.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_requirements.md"
+    },
+    {
+      "id": "PR-04",
+      "review": "reports/stage12/reviews/pre_requirements.md",
+      "review_sha256": "e05aa904d1954a0b554e60439e3912b243ba36db86436af512b13e34c2036959",
+      "finding": "P2 \u2014 Bound the completion claim with explicit requirement/gate dispositions.",
+      "disposition": "accepted",
+      "resolution": "Implemented in v5 protocol contracts/data and tests; scientific unknowns retained in configs/issue_register.json with separate requiring_owner_input status",
+      "verification": "Verified in corresponding final-v5 fresh-context postreview and reports/stage12/verification.json; engineering evidence only",
+      "evidence": [
+        "biosynvia/stage12.py",
+        "tests/test_stage12.py",
+        "configs",
+        "data/processed/v5",
+        "docs/stage12-executable-spec.md"
+      ],
+      "postreview": "reports/stage12/reviews/post_requirements.md"
+    },
+    {
+      "id": "SCI-01",
+      "review": "scientific/provenance issue register",
+      "finding": "What assay SOP, detection/reporting limits, replicate counts and QC apply to six numeric VCD zeros?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Retain both target sensitivities; primary mask unapproved",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "reports/quality-review/zero_source_cells.csv"
+      ]
+    },
+    {
+      "id": "SCI-02",
+      "review": "scientific/provenance issue register",
+      "finding": "When were sensor results available and are clocks/order known?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Strict availability blocks all unknown; retrospective assumption explicit",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "source Time (h) headers only"
+      ]
+    },
+    {
+      "id": "SCI-03",
+      "review": "scientific/provenance issue register",
+      "finding": "What do Ok, Warning Active and absent Status permit per instrument?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Block absent/blank/non-Ok in strict-status scenario; no assay approval",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "reports/unique-values/categorical_values.json"
+      ]
+    },
+    {
+      "id": "SCI-04",
+      "review": "scientific/provenance issue register",
+      "finding": "What physical quantities/units/calibration apply to each header, especially C frequency and fitting channels?",
+      "disposition": "requiring_owner_input",
+      "resolution": "All units unverified; fitted channels not approved",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "feature_eligibility.csv"
+      ]
+    },
+    {
+      "id": "SCI-05",
+      "review": "scientific/provenance issue register",
+      "finding": "Why does EXP011 R02 feed logging end early and how were aligned files exported?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Do not infer feeding/process termination; raw per-stream support",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "reports/quality-review/report.md"
+      ]
+    },
+    {
+      "id": "DATA-01",
+      "review": "scientific/provenance issue register",
+      "finding": "How should EXP004 timestamp collisions be resolved?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Preserve all candidates; reject ambiguous snapshot",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "source_collisions.csv"
+      ]
+    },
+    {
+      "id": "PROV-01",
+      "review": "scientific/provenance issue register",
+      "finding": "What are exact retrieval event and reuse rights?",
+      "disposition": "requiring_owner_input",
+      "resolution": "Unknown; local research only, no redistribution",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "reports/eda-v2/source_manifest.json"
+      ]
+    },
+    {
+      "id": "OWNER-01",
+      "review": "scientific/provenance issue register",
+      "finding": "Approve target, quality/input scenario, split and benchmark after scientific questions are assessed?",
+      "disposition": "requiring_owner_input",
+      "resolution": "No modeling until separate gates resolve",
+      "verification": "No scientific resolution claimed; continue unaffected engineering",
+      "evidence": [
+        "pre-modeling packet"
+      ]
+    },
+    {
+      "id": "SCI-POST-01",
+      "review": "reports/stage12/reviews/post_science.md",
+      "finding": "v4 inherited floating-point CSV parser drift in701 source/decision pairs, including one VCD",
+      "disposition": "accepted",
+      "resolution": "v5 reconstructs original assay columns from raw source-cell values and requires exact null-aware equality before promotion; v4 retained as superseded",
+      "verification": "All6590numeric and214blank source-cell records agree exactly in finalCSV/SQLite; independently verified by scientific and quality postreviewers",
+      "evidence": [
+        "data/processed/v5/producer/biosynvia/stage12.py",
+        "reports/stage12/verification.json",
+        "reports/stage12/reviews/post_science.md",
+        "reports/stage12/reviews/post_quality.md"
+      ]
+    },
+    {
+      "id": "PP-05-TEST-SCOPE",
+      "review": "reports/stage12/reviews/post_provenance.md",
+      "finding": "Additional mid-run backup/config/producer mutation failure injections requested by pre-review wishlist were not individually executed",
+      "disposition": "deferred",
+      "resolution": "Digest guards are implemented and inspected; representative parent tamper, payload mutation/missingness, logical disagreement and end-to-end validation-failure/no-promotion tests executed. Extra mutation combinations are deferred to later hardening, with no claim they passed",
+      "verification": "Disclosed in post_provenance and final packet; no current failing guard observed",
+      "evidence": [
+        "tests/test_stage12.py",
+        "reports/stage12/test-output.txt",
+        "reports/stage12/reviews/post_provenance.md"
+      ]
+    },
+    {
+      "id": "POST-REQ-01",
+      "review": "reports/stage12/reviews/post_requirements.md",
+      "finding": "Final packet and resolution records must explicitly supersede historical v4 with source-exact v5, preserving hashed execution spec",
+      "disposition": "accepted",
+      "resolution": "Final spec drift addendum declares v5 current and v4 superseded; final packet and register all point to v5. Hashed execution specification unchanged",
+      "verification": "reports/stage12/final-spec-drift-check.md plus final packet link verification",
+      "evidence": [
+        "reports/stage12/final-spec-drift-check.md",
+        "reports/stage12/pre-modeling-decision-packet.md",
+        "data/processed/v5/stage12_manifest.json"
+      ]
+    },
+    {
+      "id": "HANDOFF-ENG-01",
+      "finding": "Missing/unexpected workbook-sheet rejection needed negative tests.",
+      "disposition": "accepted",
+      "resolution": "Added missing and unexpected sheet cases to exact publisher-schema test; focused Stage12 12/12 pass.",
+      "evidence": [
+        "tests/test_stage12.py",
+        "reports/stage12/reviews/handoff-code-review.md"
+      ]
+    },
+    {
+      "id": "HANDOFF-ENG-02",
+      "finding": "Compact synthetic full-build fixture mocks schema gate.",
+      "disposition": "deferred",
+      "resolution": "Actual complete publisher archive passed unmocked assert_source_schema and v6 includes its inventory; negative schema tests pass. A fully non-mocked synthetic end-to-end build remains additional integration coverage, not a current data defect. Deferred under five-hour usage guard.",
+      "evidence": [
+        "data/processed/v6/source_schema_inventory.csv",
+        "reports/stage12/reviews/handoff-code-review.md"
+      ]
+    },
+    {
+      "id": "HANDOFF-ENG-03",
+      "finding": "Pandas CSV/SQLite null comparison emits FutureWarning (engineering P3; packet reviewer P2).",
+      "disposition": "deferred",
+      "resolution": "Current pinned-environment comparisons pass; no logical mismatch found. Null normalization plus a regression test is deferred to a separately versioned producer change. v6 remains immutable. The warning and future-compatibility risk are explicitly retained.",
+      "evidence": [
+        "reports/stage12/reviews/handoff-code-review.md",
+        "reports/stage12/reviews/handoff-packet-review.md"
+      ]
+    },
+    {
+      "id": "HANDOFF-ENG-04",
+      "finding": "Raw-workbook header contracts are inventoried rather than fixed per-family rejection contracts.",
+      "disposition": "deferred",
+      "resolution": "Exact sheet names and aligned headers are enforced; observed raw headers are recorded for the checksum-pinned source. Per-family raw-header rejection contracts remain future source-version hardening; no header discrepancy was found in this archive.",
+      "evidence": [
+        "data/processed/v6/source_schema_inventory.csv",
+        "reports/stage12/reviews/handoff-code-review.md"
+      ]
+    },
+    {
+      "id": "HANDOFF-PACKET-01",
+      "finding": "Released-v6 identity inspection was not yet a manifest-bound executable regression test.",
+      "disposition": "accepted",
+      "resolution": "Added read-only manifest-bound verifier plus five regression tests, including deliberate experiment/reactor/source crossings, duplicate identities, offline predictors and wrong manifest. All five pass; released v6 has 378 assays, 15120 lineage rows and zero identity mismatches.",
+      "evidence": [
+        "scripts/verify_released_isolation.py",
+        "tests/test_released_isolation.py",
+        "reports/stage12/released-isolation-verification.json",
+        "reports/stage12/reviews/handoff-packet-review.md"
+      ]
+    },
+    {
+      "id": "HANDOFF-PACKET-02",
+      "finding": "Packet reviewer reported the same pandas compatibility warning.",
+      "disposition": "deferred",
+      "resolution": "Consolidated under HANDOFF-ENG-03; no current logical mismatch or scientific acceptance claimed.",
+      "evidence": [
+        "reports/stage12/reviews/handoff-packet-review.md"
+      ]
+    }
+  ],
+  "summary": {
+    "pre_actionable_findings": 28,
+    "post_actionable_findings": 2,
+    "accepted_engineering_findings_resolved": 32,
+    "scientific_or_owner_questions_retained": 8,
+    "deferred_extra_test_scope": 1,
+    "rejected": 0,
+    "unresolved_engineering_findings": 0,
+    "scientific_approval_claimed": false,
+    "final_data_version": "v6",
+    "final_manifest_sha256": "d74465cbb353af872681cf3c6bbd1055ee0523441a889ec90832d7fc3affa45e",
+    "handoff_review_findings": 6,
+    "handoff_accepted_findings_resolved": 2,
+    "handoff_deferred_review_records": 4,
+    "handoff_distinct_deferred_engineering_topics": 3,
+    "usage_guard": "Five-hour limit reached during delegated finalization; no reset consumed. Deferred work is explicit.",
+    "historical_accepted_engineering_findings_resolved": 30
+  }
+}

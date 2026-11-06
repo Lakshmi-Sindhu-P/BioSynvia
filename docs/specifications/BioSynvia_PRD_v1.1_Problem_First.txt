@@ -1,0 +1,1443 @@
+                                                             BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+
+    BioSynvia | Product Requirements Document
+  Reproducible Bioprocess Soft-Sensing & Hybrid Modeling Workbench
+
+                                        Independent Portfolio Research Project
+                                                 November 4, 2026
+
+
+Problem Statement — What BioSynvia Solves
+
+The problem. CHO cell-culture reactors generate frequent sensor measurements, but important biological attributes
+may only be measured through intermittent laboratory assays. This creates gaps in direct visibility between assay
+times. Predictive models could help, yet results may be misleading if future information leaks into features or if
+closely related reactor runs appear in both training and testing.
+
+Research question. Can available inline sensor data estimate a verified, sparsely measured biological attribute
+reliably on entirely unseen CHO cultivation experiments?
+
+Proposed solution. BioSynvia will compare statistical and machine-learning soft sensors using experiment-group-
+held-out evaluation, quantify error and limitations, and display qualified predictions through a read-only scientific
+dashboard. Mechanistic/hybrid methods remain conditional on data suitability.
+
+Expected outcome. A reproducible research prototype with a documented dataset, defensible model comparisons,
+independent test results, uncertainty or failure analysis, and transparent interpretation—not a validated
+manufacturing Digital Twin or process-control system.
+
+Document map
+
+ Part                                                        Where to look
+
+                                                             Sections 1–5: vision, naming/data rights, CHO dataset, users,
+ 01 — Scientific foundation
+                                                             scope
+
+                                                             Sections 6–9: requirements, statistical/hybrid experiments, UX,
+ 02 — Product and modeling design
+                                                             architecture
+
+                                                             Sections 10–14: quality gates, release decisions, roadmap,
+ 03 — Execution and assurance
+                                                             milestones, risks
+
+                                                             Sections 15–18: portfolio package, unresolved decisions, first
+ 04 — Delivery and research evidence
+                                                             sprint, sources
+
+
+Tip: in Word, use the Navigation pane to jump directly between numbered sections.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 1
+                                                             BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+
+Document control
+ Field                                                       Detail
+
+ Product / working name                                      BioSynvia
+
+                                                             Reproducible Bioprocess Soft-Sensing & Hybrid Modeling
+ Descriptive subtitle
+                                                             Workbench
+
+
+ PRD version / date                                          1.1 / November 4, 2026
+
+                                                             Lakshmi Sindhu Pulugundla (proposed individual portfolio
+ Product owner / developer
+                                                             build)
+
+                                                             Project owner; scientific modeling reviewer; engineering
+ Primary audience
+                                                             collaborator; hiring-manager demo audience
+
+ Product type                                                Offline, research-only scientific modeling prototype
+
+                                                             Uhlendorff et al., CHO-K1 cultivation dataset, Zenodo DOI
+ Core dataset
+                                                             10.5281/zenodo.20829178 [S1]
+
+                                                             Local laptop; Python; reproducible Git repository; optional local
+ Target environment
+                                                             Streamlit dashboard
+
+                                                             Planned. No BioSynvia model results, measured improvements,
+ Project state at PRD issue
+                                                             or working product are claimed.
+
+ Naming status                                               Provisional / elevated trademark-similarity risk. See §2.
+
+                                                             Technical scope approved for internal development only; public
+ Approval gate
+                                                             branding and data redistribution require separate clearance.
+
+      Evidence policy. Throughout this PRD, VERIFIED SOURCE FACT means explicitly supported by a cited
+      dataset or official reference. PROPOSED means an engineering requirement, experiment, hypothesis, or
+      design decision. GATED means implementation depends on a data-access, biological, statistical, or legal
+      check. No hypothetical performance is represented as observed.
+
+
+1. Executive summary
+1.1 Product vision
+
+BioSynvia is a reproducible workbench for estimating sparsely measured bioprocess attributes from frequently
+sampled cell-culture sensors, evaluating model reliability on new cultivation experiments, and helping scientific users
+inspect predictions and their limitations. The initial application is Chinese hamster ovary (CHO-K1) cultivation at
+laboratory bioreactor scale; it is not directly a CAR-T, AAV, or clinical-development system.
+
+Its flagship output is not an attractive accuracy number. It is a complete scientific decision trail: raw-data
+provenance, justified target selection, training/test discipline, baselines, model comparison, group-held-out
+performance, uncertainty or failure analyses, and transparent end-user presentation. Later stages may extend the
+statistical soft sensor with a simplified mechanistic or hybrid model only if the available variables support
+identification and evaluation.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 2
+                                                              BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+1.2 Detailed problem statement and opportunity
+
+Cell-culture facilities often have frequent process-sensor measurements but relatively infrequent laboratory assays. A
+scientist might want a time-resolved estimate of a biological state such as viable cell concentration, but direct
+measurement may be sparse, delayed, expensive, or otherwise intermittent. A model can potentially infer an attribute
+from available sensor signals. However, a model that performs well on randomly mixed records from the same
+culture may fail on a new experiment, process mode, or sensor configuration. This undermines trust, interpretability,
+and usefulness.
+
+BioSynvia focuses on an under-addressed engineering requirement in many portfolio demonstrations: evaluation
+must represent the scientific unit of independence. Here, 24 reactor runs arise from 12 experiments with paired
+reactors. Both reactors from an experiment must stay in the same data partition. [S1, S4]
+
+1.3 Target outcome
+  •     A reproducible pipeline from source archive to documented, model-ready data.
+  •     A defensible offline soft-sensor evaluation on a measured target selected after the data audit.
+  •     A comparison of simple, statistical, chemometric, and selected nonlinear methods.
+  •     Group-held-out evaluation, per-experiment error reports, failure diagnostics, and appropriately qualified
+        uncertainty.
+  •     A scientist-facing local dashboard with provenance, measured-versus-predicted trajectories, model status, and
+        limitations.
+  •     An optional mechanistic/hybrid modeling extension with explicit eligibility and scientific validity gates.
+  •     A publishable code-and-report portfolio without implying process validation, clinical utility, regulatory
+        compliance, or an operating Digital Twin.
+
+1.4 Explicit boundaries
+
+This product is a research prototype. It will not automate process control, release manufacturing batches, recommend
+clinical treatment, claim GxP validation, connect to live bioreactors, prove cell/gene therapy expertise, or count as
+professional biotech employment. Its purpose is to demonstrate scientific modeling reasoning with reproducible
+evidence.
+
+
+2. Working name, legal/ethical boundaries and publication strategy
+2.1 BioSynvia name decision — elevated risk
+
+BioSynvia is approved by the project owner as an internal, provisional project name, not a cleared trademark. A
+third party uses SYNVIA commercially in pharmaceutical research, and a U.S. SYNVIA registration is reported for
+scientific research and software-related services (registration 7505668, serial 98083883). Another SYNVIA record exists
+for medical services; additional newer applications also surface. The business/domain overlap is material. The USPTO
+explains that marks may conflict due to similarity in sound/appearance and related goods or services even if the
+names are not identical. [S5–S7]
+
+Branding gate BR-01: Before launching a public product, paid offering, domain, social account, logo or brand-focused
+portfolio site, obtain professional trademark advice or conduct and document a more complete rights review. Until
+then, use the phrase “BioSynvia (working title) — independent academic-style research prototype”, refrain from
+suggesting affiliation with SYNVIA or Johnson & Johnson, and keep the repository name changeable. A PRD is not legal
+clearance.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 3
+                                                               BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+2.2 Dataset copyright and redistribution
+
+The Zenodo dataset page lists the archive as publicly accessible but does not show a populated dataset-license value
+in its Rights panel at this review date. A related November 2026 preprint says the article is offered under CC BY 4.0,
+but that is not sufficient evidence that the underlying 227.6 MB archive is licensed for republication. [S1–S2]
+
+Data gate DG-01: Until explicit archive reuse rights are confirmed, the public repository should contain code, schema,
+documentation, small synthetic test fixtures, dataset citations and instructions to download from the original source; it
+should not re-host the original measurement files. Preserve author attribution, provenance, published DOI, archive
+checksum, and any author-supplied conditions. Seek permission if planned use exceeds confirmed rights.
+
+2.3 Research ethics and transparency
+
+All model cards and dashboards must display: Research prototype; retrospective analysis; not validated for process
+control, manufacturing decisions, clinical use or GMP/GxP release. Disclose which analyses used actual laboratory
+records versus generated synthetic data. All figures must distinguish measured, fitted, interpolated, and extrapolated
+values; no fabricated performance figures may appear in demos or application materials.
+
+
+3. Scientific context and dataset specification
+3.1 Primary source — verified description
+
+The source is “Dataset Based on Chinese Hamster Ovary (CHO) Cultivations including Turbidity, Permittivity, O2
+and CO2 Measurements” by Selina Uhlendorff, Ruwen Fulek, Jonas Eimler, Miriam Pein-Hackelbusch, and Björn
+Frahm. It was published on Zenodo on August 11, 2026 under DOI 10.5281/zenodo.20829178. The main dataset
+archive is listed at 227.6 MB, with MD5 checksum 71b2a35b7df2ed11644ec9f177453772. [S1]
+
+ Dimension                               Verified record                          Implementation consequence
+
+                                                                                  Domain is biologics upstream cell culture,
+ Cell line                               CHO-K1 mammalian cells
+                                                                                  not CGT manufacturing
+
+                                                                                  Use reactor-level diagnostics, not 24
+ Cultivations                            24 reactor cultivations
+                                                                                  assumed-independent treatment groups
+
+                                         12 experiments, each with 2 parallel     Split by experiment ID; paired reactors
+ Experimental grouping
+                                         reactors                                 never straddle partitions
+
+                                                                                  Report mode-stratified results; fed-batch
+ Process modes                           9 batch, 3 fed-batch experiments
+                                                                                  conclusions will have high uncertainty
+
+                                                                                  Unequal duration, irregular missingness,
+ Duration                                161.5–328.5 hours
+                                                                                  phase sensitivity
+
+                                                                                  Laboratory-scale scope; no demonstrated
+ Reactor working volumes                 0.55–0.8 L
+                                                                                  industrial scale-up
+
+                                                                                  Potential predictor/target separation, to
+ Variables                               48 total: 38 inline + 10 offline
+                                                                                  be verified per actual column
+
+                                                                                  Targets available at sparse assay times;
+ Offline sampling                        Up to twice daily
+                                                                                  no pseudo-label inflation
+
+                                         12 Excel workbooks, 16 worksheets per    Raw ingest needs worksheet inventory
+ Raw files
+                                         workbook                                 and time-axis reconciliation
+
+
+
+                                                                                 Independent research prototype | v1.1 | 4
+                                                                   BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Dimension                                 Verified record                                Implementation consequence
+
+                                                                                          Initial parsing accelerated but alignment
+ Aligned files                             48 CSVs, inline + offline for each reactor
+                                                                                          provenance must be audited
+
+                                           Includes turbidity, permittivity, O2 and       Candidate signal families; exact units and
+ Sensor modalities
+                                           CO2 measurements                               features pending inspection
+
+
+Important: the above describes the repository record. The archive was not downloaded and profiled as part of
+authoring this PRD. Exact column names, assay methods, units, target completeness, reactor metadata, alignment
+algorithms, and missingness rates are open Phase 1 questions, not verified implementation details. [S1]
+
+3.2 Physical and statistical meaning
+
+Inline measurements are sampled continuously or frequently using installed instrumentation, potentially providing
+real-time insight into culture conditions. Offline variables are laboratory assays collected much less frequently and
+may better reflect biological attributes that sensors do not measure directly. A soft sensor is a computational estimate
+of one of those hard-to-observe attributes based on signals available at inference time.
+
+Sampling poses three distinct risks:
+
+   1.     Temporal alignment: Sensor clocks may drift; the authors provide aligned tables. Verify how values were
+          aligned, whether interpolated values are flagged, and the inference-time interpretation.
+   2.     Target sparsity: An offline result exists only when assayed. Evaluation at artificially interpolated target
+          points would inflate sample size and create false confidence.
+   3.     Experimental dependence: The paired reactors share experiment design. Random rows, or random reactor
+          splits that separate a pair, would leak closely related experimental context into evaluation.
+
+3.3 Proposed entity/schema model
+
+ Entity                                    Primary keys / fields                          Purpose
+
+                                           experiment_id, process mode,
+ experiment                                                                               Scientific grouping and split assignment
+                                           provenance/source file, design metadata
+
+                                           (experiment_id, reactor_id), start/end,        Unit for trajectories and reactor-level
+ reactor_run
+                                           source checksum                                diagnostics
+
+                                           run ID, elapsed hours, sensor name,
+ sensor_sample                                                                            Long-form inline observations
+                                           value, unit, quality flag, source timestamp
+
+                                           run ID, elapsed hours, assay type, result,     Ground-truth targets at observed sample
+ offline_assay
+                                           unit, assay quality/status                     times
+
+                                           run ID, cutoff timestamp, feature version,     Only information available by prediction
+ feature_snapshot
+                                           values, missing flags                          time
+
+                                           snapshot ID, model version, prediction,
+ prediction                                                                               Auditable model output
+                                           optional interval, applicability flags
+
+                                           split, model, metric, error, subgroup,
+ experiment_result                                                                        Reproducible evaluation and comparison
+                                           counts, seed, commit hash
+
+
+Time rules: Store raw, aligned, and feature-construction timestamps separately. Normalize units only with
+documented conversion rules; do not silently treat absent units as interchangeable. Ensure sensor features use data at
+
+
+
+                                                                                         Independent research prototype | v1.1 | 5
+                                                                  BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+or before the prediction timestamp. If laboratory reporting delay is known, any prior offline-assay feature must satisfy
+the availability timestamp rather than the nominal collection timestamp.
+
+3.4 Target selection gate (research decision T-01)
+
+The preferred candidate is viable cell concentration/density, but this is not confirmed as a usable column. Select
+the first target satisfying all of the following after Phase 1:
+
+   •     A named, experimentally measured offline field with documented physical meaning and unit.
+   •     Nontrivial coverage across multiple independent experiment IDs and both major modes where possible.
+   •     Enough measured time points to support grouped evaluation without inventing labels.
+   •     An unambiguous prediction use case and permissible observed-at-time covariates.
+   •     No direct leakage from post-assay fields or duplicate target-derived sensors.
+
+If viable cell density does not satisfy these criteria, examine another measured offline attribute (for example, a
+documented analyte), or stop and narrow the research question. Never choose a target merely because it produces
+impressive metrics.
+
+3.5 Data quality and availability outputs
+
+Phase 1 must produce dataset_inventory.csv, field_dictionary.csv, unit_conversion_log.csv,
+missingness_by_run.csv, timestamp_alignment_report.md, source_manifest.json (DOI, URL,
+checksums, licenses), target_selection_decision.md, and one representative trajectory comparison for a batch
+and fed-batch experiment.
+
+
+4. Target users and decision scenarios
+ Persona                         Need                             Prototype interaction            Success condition
+
+                                                                  Select a culture/run; compare
+                                 Understand process-state                                          Can identify which points are
+                                                                  measured and estimated
+ Bioprocess scientist            trajectories and when signals                                     measured, estimated, or
+                                                                  target; inspect suspicious
+                                 are unreliable                                                    unsupported
+                                                                  periods
+
+                                 Assess experimental              Compare models, experiment-
+                                                                                                   Can reproduce a model
+ Applied modeler / scientist-    assumptions, feature             held-out errors,
+                                                                                                   ranking and explain why it
+ engineer                        provenance and                   calibration/uncertainty, model
+                                                                                                   was selected
+                                 generalization                   cards
+
+                                 Understand input contracts,                                       Can recreate inputs and
+                                                                  Inspect schemas, data quality
+ Data/automation engineer        data provenance, time                                             identify missing/invalid
+                                                                  report, input/output manifest
+                                 alignment and model artifacts                                     signals
+
+                                                                  Review 6-slide case study and
+                                 Judge modeling depth and                                          Can audit the claims without
+ Technical hiring reviewer                                        demo with failed cases and
+                                 scientific caution                                                trusting a polished UI
+                                                                  limitations
+
+
+Primary jobs to be done
+
+   •     When I have frequent sensor readings and sparse assay results, I want a qualified estimate of a selected
+         biological attribute so I can investigate temporal changes.
+   •     When a model seems accurate, I want to know whether it generalizes to an unseen experiment and which
+         operating conditions are out of scope.
+
+
+                                                                                      Independent research prototype | v1.1 | 6
+                                                              BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+   •     When a prediction is uncertain or based on invalid inputs, I want a visible warning instead of a confident
+         answer.
+
+
+5. Scope, releases and non-goals
+5.1 MVP / V1 — required
+   1.    Source manifest, license status and reproducible ingestion from legally obtained files.
+   2.    Audit-ready canonical data model, target decision, unit and time contracts.
+   3.    Group-aware training/development and frozen test selection.
+   4.    Naive and statistical baselines plus at least one nonlinear candidate, where appropriate.
+   5.    Final held-out metrics and per-experiment diagnostics with failed cases retained.
+   6.    Honest uncertainty/applicability reporting, even if calibrated intervals are infeasible.
+   7.    Read-only Streamlit scientific dashboard and machine-readable experiment outputs.
+   8.    Readme, runnable reproduction steps, model card, tests and concise hiring-manager presentation.
+
+5.2 V1.1 / advanced — conditional
+   •     A simplified mechanistic ODE model supported by available substrates, feed/volume and biomass-related
+         variables.
+   •     Parameter estimation, identifiability checks, numerical verification and sensitivity analysis.
+   •     Data-driven correction / hybrid model benchmarked against the same held-out experiments.
+   •     Optional scenario analysis that clearly separates measured-data support from counterfactual assumptions.
+   •     Broader data modality (CHO IR/fluorescence) only as a separately attributed and separately validated
+         extension, not as if the datasets came from the same experiments.
+
+5.3 Explicit non-goals
+   •     Production Digital Twin, online industrial integration, closed-loop control, GMP/GxP validation or validation
+         for process release.
+   •     Clinical, patient or treatment recommendations; CAR-T target discovery; therapeutic claims.
+   •     Claims of manufacturing process optimization or business savings not measured against real use.
+   •     Deep learning for prestige; automatic integration with proprietary or J&J systems.
+   •     Re-hosting uncertain-license raw datasets; use of data without documented rights.
+   •     Self-promotional “90–95% fit” scores as substitutes for demonstrated competence.
+
+
+6. Functional product requirements
+Each requirement has a stable ID, priority, proposed behavior and testable acceptance criterion. The MVP cannot
+pass if a critical requirement fails.
+
+ ID                              Priority                     Requirement                     Acceptance test / evidence
+
+                                                                                              Source DOI, expected MD5, file
+                                                                                              manifest and retrieval
+                                                              Archive provenance and
+ FR-01                           P0                                                           timestamp recorded;
+                                                              integrity
+                                                                                              checksum mismatch fails
+                                                                                              ingestion
+
+ FR-02                           P0                           Hierarchical file inventory     All expected
+
+
+                                                                                   Independent research prototype | v1.1 | 7
+                   BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ID      Priority   Requirement                     Acceptance test / evidence
+
+                                                   experiment/reactor/measurem
+                                                   ent combinations reconciled;
+                                                   missing or duplicate files
+                                                   trigger explicit flags
+
+                                                   Every used feature and target
+                   Typed, unit-aware canonical     has type, unit, valid-range
+FR-03   P0
+                   data                            policy, missingness flag,
+                                                   source field
+
+                                                   Original/aligned timestamps
+                                                   and alignment assumptions
+FR-04   P0         Time-alignment audit
+                                                   documented; join tolerances
+                                                   tested against known fixtures
+
+                                                   Signed-off target name, assay
+                                                   meaning, coverage and no-
+FR-05   P0         Target selection record
+                                                   leakage feature rules in a
+                                                   versioned decision log
+
+                                                   A unit test proves no
+                                                   experiment ID, including
+FR-06   P0         Experiment-group split engine
+                                                   either paired reactor, appears
+                                                   on both sides of any split
+
+                                                   Automated tests inject future
+                                                   sensor perturbations and
+FR-07   P0         Past-only feature generation
+                                                   confirm earlier predictions
+                                                   remain unchanged
+
+                                                   Training-only preprocessing;
+                   Baselines and candidate         naive baseline plus at least
+FR-08   P0
+                   models                          Ridge/PLS and one nonlinear
+                                                   candidate where feasible
+
+                                                   Frozen fold IDs, seeds,
+                                                   code/config versions, target
+FR-09   P0         Reproducible evaluation
+                                                   units and run counts saved
+                                                   with every metric
+
+                                                   MAE/RMSE and baseline deltas
+                                                   plus per-experiment errors
+FR-10   P0         Scientifically honest report
+                                                   and limitations; failed
+                                                   hypotheses retained
+
+                                                   Dashboard distinguishes
+                                                   measured vs predicted vs
+FR-11   P0         User-facing visual review
+                                                   missing; error and coverage
+                                                   views accessible
+
+                                                   README, model card and UI
+                   No unsupported deployment       visibly label research-only,
+FR-12   P0
+                   claims                          offline and non-validated
+                                                   status
+
+                                                   Warning when missing key
+FR-13   P1         Applicability and uncertainty
+                                                   sensors/out-of-distribution;
+
+
+                                        Independent research prototype | v1.1 | 8
+                                                             BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ ID                            Priority                      Requirement                      Acceptance test / evidence
+
+                                                                                              interval coverage shown if
+                                                                                              statistically justified
+
+                                                                                              At least sensor-group ablation,
+ FR-14                         P1                            Failure analysis and ablations   process-mode assessment and
+                                                                                              experiment-level failure table
+
+                                                                                              Models, pipeline objects, split
+                                                                                              manifest, config, metrics and
+ FR-15                         P1                            Model experiment registry
+                                                                                              environment lock packaged
+                                                                                              and load-tested
+
+                                                                                              ODE solver tests
+                                                                                              conservation/sign conventions
+ FR-16                         P2                            Mechanistic simulation           or documented deviations;
+                                                                                              assumptions available for
+                                                                                              review
+
+                                                                                              Same split and metrics as V1
+                                                                                              baselines; clearly states
+ FR-17                         P2                            Hybrid model benchmark
+                                                                                              whether hybrid helps or
+                                                                                              harms
+
+                                                                                              Any scenario view labeled
+                                                                                              hypothetical; bounds
+ FR-18                         P2                            Scenario explorer                restricted to
+                                                                                              supported/declared
+                                                                                              experimental settings
+
+
+Priorities: P0 = required to present as credible V1; P1 = important robustness; P2 = gated advanced extension.
+
+
+7. Scientific methodology and experiment plan
+7.1 Intended prediction task
+
+Primary task (PROPOSED): Given available inline sensor measurements up to time t, estimate the chosen offline
+target at time t in an experimental reactor that was not used to fit the model. The target is scored only at actual
+measured offline timestamps.
+
+Clearly distinguish:
+
+  •      Sensor-only inference: no historical offline target values are available at runtime. This is the default primary
+         soft-sensor contract.
+  •      Lab-assisted inference: the most recent previously reported offline measurement can be used, only if its
+         availability time is before t. Evaluate separately; never compare to sensor-only models without
+         acknowledging different inputs.
+  •      Forecasting: predicting future values beyond t is a different task, with additional leakage and horizon
+         controls. It is out of MVP unless explicitly approved as an extension.
+
+7.2 Unit of generalization and holdout design
+  •      Group key: experiment_id, not row or reactor ID; keep the two parallel reactors together.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 9
+                                                                       BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+   •      Initial proposed final holdout: reserve two complete experiments (ideally one batch and one fed-batch if
+          suitable target coverage permits). Freeze IDs before inspecting final test performance.
+
+   •      Model development: use the remaining ten experiment groups for GroupKFold, LeaveOneGroupOut
+          or another preregistered group-safe strategy; tune within development groups only.
+   •      Stratification caveat: with just three fed-batch experiments, held-out performance estimates by mode are
+          unstable. Report this explicitly and avoid sweeping process-mode claims.
+   •      If no valid balanced two-group holdout exists: use grouped leave-one-experiment-out evaluation with
+          nested tuning; designate no single inflated “unseen final test” score and disclose the limitation.
+   •      Temporal consistency: if validation involves a within-run prediction setting, all features must remain past-
+          only. Group independence does not by itself prevent within-row future-time leakage.
+
+External reference: scikit-learn documents LeaveOneGroupOut/GroupKFold as methods ensuring that samples from
+the same group do not cross folds. [S4]
+
+7.3 Preprocessing and feature-policy checklist
+   •      Parse source time offsets and aligned tables; document interpolation, smoothing and unit handling.
+   •      Profile outliers, sensor dropouts, flatlines, spikes, duplicate time points and negative/impossible readings.
+   •      Define a maximum tolerated alignment lag from observed sampling behavior; do not silently match widely
+          separated measurements.
+   •      Create past-only rolling medians/means, slopes, variance, missingness and elapsed-time features with a
+          versioned configuration.
+   •      Treat experiment-level design settings as features only if they would genuinely be known at inference and do
+          not encode target-dependent outcomes.
+   •      Fit imputation, scaling, PCA/PLS and feature selection inside training folds; never fit on all records before
+          splitting.
+
+   •      Keep a feature_eligibility.csv table stating source, unit, timestamp availability, intended interpretation
+          and explicit leak risk.
+
+7.4 Candidate methods and rationale
+
+ Family                             Candidate                          Scientific benefit               Failure mode to investigate
+
+                                    Training-set median, last valid                                     Trivial apparent gains from
+                                                                       Checks whether modeling
+ Naive                              observed assay (separate                                            different information
+                                                                       adds value
+                                    scenario)                                                           contracts
+
+                                    Calibration of one
+                                                                                                        Sensor drift/nonlinear
+ Single-sensor                      physiologically plausible inline   Transparent reference model
+                                                                                                        response
+                                    measurement
+
+                                                                       Interpretable, stable with       Nonlinearity, collinearity,
+ Penalized regression               Ridge / Elastic Net
+                                                                       limited independent groups       coefficient instability
+
+                                    Partial least squares (PLS)        Designed for correlated          Component over-selection and
+ Chemometric
+                                    regression                         multivariate predictors          optimistic preprocessing
+
+                                    Random Forest / histogram          Captures interactions without    Extrapolation and unstable
+ Nonlinear trees
+                                    gradient boosting                  neural-network overhead          generalization
+
+                                    Small-feature Gaussian             Predictive uncertainty           Miscalibration and poor
+ Probabilistic
+                                    process                            candidates                       scaling
+
+
+
+                                                                                            Independent research prototype | v1.1 | 10
+                                                               BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Family                         Candidate                      Scientific benefit               Failure mode to investigate
+
+                                                                                                Missing state variables, wrong
+                                Simplified substrate/biomass   Scientifically interpretable
+ Mechanistic (gated)                                                                            equations, unidentifiable
+                                ODEs                           dynamics
+                                                                                                parameters
+
+                                ODE prediction + regularized   Tests added value of process     Error propagation and
+ Hybrid (gated)
+                                residual model                 assumptions                      overfitting tiny group counts
+
+
+Neural networks, Transformers, LSTMs and digital-twin stacks are not MVP requirements. They may be explored only
+if a data-supported hypothesis and group-held-out performance justify them.
+
+7.5 Model selection protocol
+  1.      Choose target and inference-time input contract, then freeze split groups and primary metric.
+  2.      Establish naive and transparent sensor baselines before expensive modeling.
+  3.      Run grouped cross-validation for each candidate under the same folds and availability constraints.
+  4.      Track per-experiment MAE, RMSE, model bias, valid prediction count, missingness/failures and
+          calibration/interval coverage where applicable.
+  5.      Rank primarily by macro-average experiment-level MAE in original target units, not pooled point-level
+          MAE, to avoid long or densely sampled runs dominating.
+  6.      Prefer a simpler stable model when the nonlinear alternative’s improvement is within the uncertainty caused
+          by small group counts.
+  7.      Select champion and challenger without inspecting reserved final holdout; lock config; evaluate once on final
+          groups.
+  8.      Document unfavorable results and any post-hoc adjustment as exploratory rather than a fresh independent
+          test.
+
+Success is not an arbitrary “R² > 0.9” target. The P0 scientific success criterion is a fair comparison with baselines
+and clear generalization limits. A measured improvement is desirable but must be earned on held-out groups. If no
+method consistently beats the baseline, a reproducible negative result still qualifies as honest research, while the
+product must not advertise accurate soft sensing.
+
+7.6 Evaluation metrics and uncertainty
+  •       Primary: macro experiment-level MAE, reported with target units; median and range across experiment
+          groups.
+  •       Secondary: RMSE, median absolute error, signed bias, per-mode errors, experiment-level model/baseline
+          ratio, error versus cultivation time, count and percentage of predictions unavailable due to data-quality rules.
+  •       Uncertainty: if appropriate, evaluate conformal or residual-based prediction intervals with group-aware
+          calibration partitions; report empirical coverage and width, and acknowledge small-sample dependence.
+          Avoid claiming coverage guarantees unsupported by grouping/exchangeability assumptions.
+  •       Robustness: leave-one-experiment-out sensitivity, baseline ablations by sensor family
+          (permittivity/turbidity/gas), sensor dropout and missingness scenarios, early-vs-late cultivation phase errors
+          and batch-vs-fed-batch diagnostics.
+  •       Negative evidence: a model that underperforms the baseline for an experiment must be shown, not hidden
+          by an overall average.
+
+
+
+
+                                                                                    Independent research prototype | v1.1 | 11
+                                                                    BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+7.7 Mechanistic/hybrid extension gate
+
+Gate MH-01: Before fitting a mechanistic model, confirm available, correctly unitized observations for the chosen
+states and inputs (e.g., substrate, biomass proxy, feed/volume for fed-batch), plus sufficient variation to estimate
+parameters. If the state equations or parameter identifiability cannot be defended, run a separately labeled
+synthetic simulation, not a data-calibrated biological process model.
+
+Illustrative equations, not assumptions about this specific dataset:
+Biomass proxy: dX/dt = (mu(S) - k_d) * X
+Specific growth: mu(S) = mu_max * S / (K_s + S)
+
+For substrate consumption, a growth-associated term might be related to biomass production through a yield
+coefficient; fed-batch adds feed and dilution terms. These equations require review of the actual cultivation design
+and measurement availability before use.
+
+Additional science checks: plausible parameter bounds/units; solver convergence; initial-condition uncertainty;
+local/global parameter sensitivity; multi-start optimization; identifiability profile; out-of-sample error relative to
+statistical models; transparent distinction between descriptive fit and prospective predictive validity.
+
+Hybrid candidate: y_hat_hybrid(t) = y_hat_ODE(t) + residual_model(sensor_history_up_to_t). Fit any
+residual corrector on training groups only and evaluate the combined model on untouched experiments. An inferior
+hybrid result must be reported as such.
+
+
+8. UX and product specifications
+8.1 Dashboard information architecture
+
+ Page / tab                                  Required elements                              Critical trust behavior
+
+                                             Project status, dataset citation, target,
+                                                                                            No false production or real-time
+ Overview                                    experiment counts, model status,
+                                                                                            monitoring claims
+                                             research-only notice
+
+                                             Select experiment/reactor; plot sensor
+                                                                                            Distinct symbols for real assays, inline
+ Data explorer                               and offline trajectories; show missingness
+                                                                                            readings and aligned/interpolated values
+                                             and sampling times
+
+                                             Baselines and candidates; grouped-CV           Separate development from final holdout
+ Model comparison
+                                             table; frozen test metrics                     results
+
+                                             Measured/predicted overlay, residual
+                                                                                            Never hide unsupported predictions or
+ Prediction review                           plots, warnings for missing/out-of-range
+                                                                                            imply future observations were known
+                                             data
+
+                                             Data version, source checksum, units,          Trace every displayed model output to
+ Quality & provenance
+                                             feature availability, tests, model card        source and model run
+
+                                             Assumptions, scope, failure cases, open        Easily discoverable, not relegated to fine
+ Research limitations
+                                             questions, model status                        print
+
+                                             Bounded parameter what-if or                   Explicitly hypothetical; no process-control
+ Scenarios (P2)
+                                             mechanistic trajectory plots                   recommendation
+
+
+
+
+                                                                                          Independent research prototype | v1.1 | 12
+                                                                BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+8.2 Interaction contract
+
+The initial app is read-only against stored artifacts. The user may choose filters, experiments, sensor families, model
+versions and plots. It must not retrain a model silently, alter data, send information externally, or trigger cloud billing.
+Model calculations requiring recomputation run as an explicit local CLI or controlled user action in a later release.
+
+If a selection lacks measured target values or a model has no supported prediction, the UI must say “insufficient
+evidence / unavailable” and explain why. It must not interpolate a visual curve to conceal missing ground truth.
+
+8.3 Accessibility and performance
+   •        Conventional page hierarchy and descriptive figure titles/axis labels with physical units.
+   •        No reliance on color alone for measured versus estimated series.
+   •        Tooltips or definitions for MAE, RMSE, uncertainty and experiment groups.
+   •        On a standard local development laptop, cached dashboard pages should ordinarily load within a few
+            seconds; measure actual performance before asserting an SLA.
+   •        No external authentication, public account system, paid APIs or live cloud services in V1.
+
+
+9. System architecture, components and interfaces
+9.1 Logical flow
+Publisher archive / verified checksum
+            |
+   Immutable local raw data
+            |
+   Schema + time + unit audit
+            |
+   Canonical experiment tables
+            |
+ Frozen experiment-group split plan
+            |
+   Past-only feature snapshots
+            |
+   Baselines and model training
+            |
+ Cross-validation + frozen holdout
+            |
+  Model artifacts + evidence ledger
+            |
+  Read-only scientist-facing dashboard
+
+
+9.2 Proposed repository layout
+biosynvia/
+ README.md                 # Working-name / legal caution
+ pyproject.toml            # Pinned runtime + tooling
+ configs/              # Target, split and model configs
+ data/
+  raw/                # gitignored, license-dependent
+  interim/              # gitignored
+  processed/             # gitignored
+  synthetic_tests/        # safe, generated fixtures
+ docs/
+  prd/                # this PRD and decision history
+
+                                                                                   Independent research prototype | v1.1 | 13
+                                                                BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+  scientific_scope.md
+  data_dictionary.md
+  assumptions_and_limitations.md
+  model_card.md
+  source_and_license_manifest.md
+ src/biosynvia/
+  ingestion.py
+  schema.py
+  units.py
+  alignment.py
+  features.py
+  splits.py
+  baselines.py
+  train.py
+  evaluate.py
+  uncertainty.py
+  provenance.py
+  mechanistic.py           # gated P2
+  hybrid.py              # gated P2
+ app/streamlit_app.py
+ tests/
+  unit/
+  integration/
+  scientific/
+ reports/
+  experiment_results/
+  figures/
+  release_checklist.md
+ scripts/
+  audit_data.py
+  build_features.py
+  run_experiments.py
+  make_report.py
+
+
+9.3 Input/output contracts
+   •        Ingest CLI: biosynvia audit --archive <local_path> --manifest <json> verifies provenance and
+            writes inventory/quality reports without modifying raw files.
+
+   •        Feature builder: biosynvia features --target-config <yaml> writes versioned feature snapshots
+            containing experiment/reactor IDs and cutoff times.
+
+   •        Training runner: biosynvia train --experiment-config <yaml> reads a frozen manifest; artifacts
+            include pipeline, config hash, model version, test logs and grouped CV results.
+
+   •        Evaluation: biosynvia evaluate --model-version ... --holdout-manifest ... produces immutable
+            JSON/CSV metrics and charts; final holdout used only at the signed-off release gate.
+   •        Dashboard: reads approved model artifacts and local report files; never mutates reference data.
+
+Actual CLI syntax is a proposed product API until implemented. Avoid exposing insecure pickle artifacts to untrusted
+readers; use an explicit trusted-local-artifact policy, record package versions, and validate file paths.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 14
+                                                              BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+10. Non-functional requirements and quality gates
+ID                                      Category                                 Requirement and acceptance evidence
+
+                                                                                 Clean local install reproduces an
+                                                                                 approved training/evaluation run within
+NFR-01                                  Reproducibility
+                                                                                 documented numerical tolerance; seeds
+                                                                                 and versions logged
+
+                                                                                 Every published metric links to dataset
+                                                                                 hash, split IDs, feature config, model
+NFR-02                                  Traceability
+                                                                                 config, code revision and experiment
+                                                                                 count
+
+                                                                                 Immutable raw inputs; source checksum
+                                                                                 verification; idempotent ingestion and
+NFR-03                                  Data integrity
+                                                                                 explicit duplicate/missing-file failure
+                                                                                 reporting
+
+                                                                                 No mixed-experiment folds; no future-
+NFR-04                                  Scientific validity                      target leakage; all metrics tied to
+                                                                                 observed assays and correct target units
+
+                                                                                 Reject malformed timestamps, unknown
+NFR-05                                  Input safety                             units, untracked feature columns and
+                                                                                 unsupported unseen sensor states
+
+                                                                                 Failed tests, inferior model runs and
+NFR-06                                  Auditability                             unsupported predictions preserved in a
+                                                                                 report rather than silently omitted
+
+                                                                                 No patient information; no credentials in
+NFR-07                                  Privacy                                  repository; no external telemetry or data
+                                                                                 exfiltration by default
+
+                                                                                 Plot units, text equivalents, visible errors
+                                                                                 and labels distinguish
+NFR-08                                  Accessibility
+                                                                                 measured/estimated values without color-
+                                                                                 only encoding
+
+                                                                                 Local-first; no automatic cloud CI or paid
+                                                                                 services enabled by default; GitHub
+NFR-09                                  Cost controls
+                                                                                 Actions only with explicit owner
+                                                                                 authorization
+
+                                                                                 Public repository contains no rehosted
+                                                                                 source archive until rights cleared;
+NFR-10                                  Legal/research identity
+                                                                                 BioSynvia working-name warning
+                                                                                 included
+
+                                                                                 Pinned dependencies, no unsafe
+                                                                                 processing of untrusted model files,
+NFR-11                                  Security
+                                                                                 scoped paths and dependency/license
+                                                                                 inventory
+
+
+Test pyramid
+
+Unit tests: units, timestamps, schema coercion, negative/duplicate readings, rolling-window cutoffs, deterministic
+features, split invariants, metric formulas and ODE solver sanity where applicable.
+
+                                                                               Independent research prototype | v1.1 | 15
+                                                             BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+Integration tests: ingest → canonical data → target-at-assay snapshots → grouped folds → model pipeline → metric
+JSON → read-only dashboard. Use synthetic fixtures with intentionally injected leakage and corrupted data.
+
+Scientific regression: paired reactors never split; future perturbation does not alter past predictions; all
+preprocessing fitted on training groups; raw counts reconcile; frozen holdout cannot be consumed during tuning;
+results agree when rerun from a clean environment within documented tolerance.
+
+User acceptance: a reviewer can identify target units, measured-versus-estimated points, a failed experiment, the
+model version, data provenance and intended-use limitations in under five minutes.
+
+
+11. Decision log and stage gates
+ Gate                          Decision                       Pass condition                    If fail
+
+                                                              Working-name warning and
+                                                                                                Keep unpublished; resolve
+ G0                            Name and dataset use           source/license record
+                                                                                                with owner/rights holder
+                                                              completed
+
+                                                              Measured variable, unit,
+                                                                                                Choose defensible alternative
+ G1                            Target feasibility             sparse sampling, coverage and
+                                                                                                target or stop
+                                                              inference contract confirmed
+
+                                                              All experiment IDs, reactors,
+                                                                                                Repair source pipeline; do not
+ G2                            Data quality                   timestamp rules and valid
+                                                                                                train
+                                                              records reconciled
+
+                                                              Group split and past-only
+ G3                            Leakage safe                                                     Block modeling release
+                                                              feature tests pass
+
+                                                              Baselines and candidates
+                                                                                                Diagnose; no misleading
+ G4                            Baseline evaluation            compared under fixed
+                                                                                                success claim
+                                                              grouped CV; failures shown
+
+                                                              Frozen unseen experiments
+                                                                                                Report outcome honestly; no
+ G5                            Holdout evaluation             evaluated once with per-group
+                                                                                                post-hoc “independent” claim
+                                                              errors
+
+                                                              Model card, tests, dashboard,
+ G6                            Presentation V1                reproduction and disclaimers      Hold V1 release
+                                                              pass
+
+                                                              Observable states, units, model   Keep mechanistic work as
+ G7                            Mechanistic eligibility        assumptions and                   labeled synthetic
+                                                              identifiability defensible        demonstration
+
+                                                              Brand/trademark review and        Distribute only internal
+ G8                            Public publication             data redistribution rights        materials or code with neutral
+                                                              addressed                         naming
+
+                                                              Applicant personally runs,
+                                                                                                Do not list as completed
+ G9                            Resume-ready evidence          understands, reproduces and
+                                                                                                achievement
+                                                              can defend results
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 16
+                                                            BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+12. Delivery roadmap, effort and dependencies
+Estimates are focused implementation hours for one developer familiar with Python/SQL, not a guaranteed
+completion date. Scientific data issues may materially increase effort. The core V1 is approximately 50–80 hours; a
+gated mechanistic/hybrid extension adds approximately 18–35 hours.
+
+ Phase                                                   Effort   Implementation work             Sign-off artifact
+
+                                                                  Repository, scope,
+                                                                                                  Project charter; research
+ P0 — Initiation                                          3–5 h   definitions, source and
+                                                                                                  hypothesis; setup works
+                                                                  branding/legal record
+
+                                                                  Download/checksum,
+                                                                  inventory, units,
+                                                                                                  Data dictionary + target
+ P1 — Dataset audit                                      8–12 h   missingness, paired
+                                                                                                  selection gate G1
+                                                                  experiment analysis, target
+                                                                  audit
+
+                                                                  Normalize tables, compare
+ P2 — Canonical and                                               alignment, timestamp rules,     Feature pipeline + leakage
+                                                         8–13 h
+ features                                                         past-only features, group       tests G2/G3
+                                                                  splits
+
+                                                                  Baselines, Ridge/PLS and
+ P3 — Statistical modeling                              10–16 h   nonlinear model, group CV,      Benchmark report G4
+                                                                  tracked experiments
+
+                                                                  Frozen holdout, per-group
+ P4 — Independent                                                 metrics, subgroup analysis,     Scientific results and model
+                                                        11–18 h
+ evaluation                                                       ablations, uncertainty          card G5
+                                                                  caveats
+
+                                                                  Streamlit UI, clean run, test
+ P5 — Dashboard &
+                                                        10–16 h   harness, README and             Demonstrable V1 G6
+ package
+                                                                  presentation
+
+                                                                  Optional mechanistic/ODE +
+                                                                  hybrid modeling,
+ P6 — Advanced extension                               +18–35 h                                   Gated research appendix G7
+                                                                  sensitivity, identifiability,
+                                                                  scenarios
+
+
+Execution recommendation: prioritize G1 → G3 → G5 over branding or elaborate UI. Present a credible intermediate
+package as soon as P4 passes: one experiment-held-out benchmark, one failure analysis and a precise limitations
+narrative. The advanced hybrid extension may be deferred without making V1 misleading.
+
+Possible calendar pacing
+  •      At 15 focused hours/week, V1 typically spans roughly 4–6 weeks.
+  •      At 20–25 focused hours/week, V1 typically spans roughly 2–4 weeks.
+  •      An extra 18–35 hours applies only if mechanistic/hybrid work passes its data gate.
+
+These are planning ranges, not promises about future work or scientific performance.
+
+
+
+
+                                                                                 Independent research prototype | v1.1 | 17
+                                                            BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+13. Milestone acceptance matrix and definition of done
+13.1 Data-ready (M1)
+  •     Source ZIP checksum verified; archive structure reconciled to 12 experiments/24 reactors or discrepancies
+        recorded.
+  •     All prediction-relevant fields have source/units and documented quality policy.
+  •     Batch/fed-batch distribution and target coverage reported by experiment.
+  •     A valid measured target is selected, or an explicit no-go decision is documented.
+
+13.2 Model-ready (M2)
+  •     Paired reactors share partitions; raw fold manifests version-controlled.
+  •     Past-only features tested; preprocessing leakage tests pass.
+  •     Naive baseline and candidate model protocols fixed before final evaluation.
+  •     Every metric references target units, group IDs and sample counts.
+
+13.3 Research-ready (M3)
+  •     A frozen evaluation reports macro experiment-level MAE, secondary metrics, model/baseline comparison and
+        failures.
+  •     At least one feature-family ablation and a missing-sensor robustness check.
+  •     Negative, null, unstable or mode-specific results openly described.
+  •     Reproduction succeeds on a clean environment and model card is attached.
+
+13.4 Demo-ready (M4)
+  •     A local reviewer can select an experiment and see measured/predicted trajectories, missingness and
+        unsupported predictions.
+  •     UI identifies input variables, data provenance and model version.
+  •     A concise technical presentation includes problem, dataset, baseline, validation, results and limitations.
+  •     All research-only disclaimers and branding/data rights gates have been respected.
+
+13.5 Advanced-ready (M5, optional)
+  •     Mechanistic assumptions reviewed, parameters plausibly identifiable and solver tests pass; or clearly labeled
+        synthetic-only exploration.
+  •     Hybrid method compared on identical held-out groups, regardless of whether it beats statistical baseline.
+  •     Scenario examples explicitly flagged as hypothetical, not validated process optimization.
+
+
+14. Risk register and contingency plan
+Risk                          Severity                       Signal / early detection        Response
+
+                                                             Similar mark in                 Working title only; avoid
+Trademark confusion with
+                              High                           scientific/software-related     public brand launch; legal
+SYNVIA
+                                                             classes                         clearance/name change gate
+
+Dataset raw redistribution                                   Zenodo Rights license field     Rehost no raw files; request
+                              High
+rights unclear                                               blank                           clarification; cite original DOI
+
+
+
+
+                                                                                 Independent research prototype | v1.1 | 18
+                                                            BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+Risk                            Severity                     Signal / early detection            Response
+
+Target absent or poorly                                      Offline field has low valid         Select alternate scientifically
+                                High
+covered                                                      count or inconsistent units         valid target or stop
+
+Leakage from paired                                          Same experiment_id appears
+                                High                                                             Automated hard-fail test
+experiments                                                  on both sides
+
+                                                             Future readings influence           Cutoff-based builders,
+Time/target leakage from
+                                High                         earlier features or labels filled   injection tests, no evaluation
+alignment
+                                                             across time                         of interpolated labels
+
+                                                                                                 Macro per-experiment
+Small number of independent                                  High fold variance, mode
+                                High                                                             metrics, LOEO sensitivity,
+groups                                                       imbalance
+                                                                                                 cautious uncertainty
+
+                                                                                                 Do not claim data-backed
+                                                             Unstable fit, multiple
+Mechanistic unidentifiability   High                                                             mechanistic model; synthetic-
+                                                             equivalent parameter sets
+                                                                                                 only extension
+
+False “Digital Twin”                                         Dashboard or resume                 Mandatory disclaimers, claim
+                                High
+impression                                                   overstates prototype                review
+
+                                                                                                 Report negative result; identify
+No model beats baseline         Medium                       Negative group-held-out deltas      conditions and limitations;
+                                                                                                 avoid performance claims
+
+Sensor availability /                                        Dropouts or unusable signal         Missingness flags, ablations,
+                                Medium
+missingness                                                  ranges                              abstention policy
+
+                                                             Dashboard/advanced models           Phase gates; freeze V1; defer
+Development scope creep         Medium
+                                                             before benchmark                    P2 features
+
+                                                                                                 Local-only by default; no
+                                                             Automatic workflows or
+Unapproved cloud charges        Medium                                                           unattended CI or paid services
+                                                             hosted compute
+                                                                                                 without approval
+
+                                                                                                 Dependency lock,
+                                                             Different outcomes across
+Reproducibility failures        Medium                                                           deterministic configs,
+                                                             environments
+                                                                                                 seed/environment capture
+
+
+
+15. Research outputs, technical storytelling and portfolio ethics
+15.1 Required reviewer package
+  1.    README.md with problem, source, setup, reproducibility command and limitations.
+  2.    Data dictionary, target-selection decision, manifest and license/attribution statement.
+  3.    Source→features→split→model lineage diagram and tests.
+  4.    Baseline/model comparison with per-experiment errors and honest negatives.
+  5.    Measured-versus-predicted plots, missing-data diagnostics, and uncertainty/applicability assessment.
+  6.    Model card and experiment registry with configurations and exact commands.
+  7.    Local dashboard demonstration with no hidden data or commercial claims.
+  8.    Six-slide technical presentation plus a 2-minute and a 10-minute narrative.
+
+
+
+
+                                                                                  Independent research prototype | v1.1 | 19
+                                                                 BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+15.2 Hiring-manager presentation outline
+
+Slide                                     Content                                      What it demonstrates
+
+                                          Scientific problem and intended user         Can translate a process question into a
+1
+                                          decision                                     modeling task
+
+                                                                                       Understands source data and biological
+2                                         Dataset and experimental design
+                                                                                       independence
+
+                                          Preprocessing, leakage controls and
+3                                                                                      Engineering and scientific rigor
+                                          baselines
+
+                                                                                       Correct validation and evidence-based
+4                                         Model comparison and holdout protocol
+                                                                                       method selection
+
+                                          Results including failures and               Sound model interpretation and scientific
+5
+                                          uncertainty                                  honesty
+
+                                          Dashboard, limits and next scientific        Usable outputs without overstating
+6
+                                          experiment                                   readiness
+
+
+15.3 Resume claim policy
+
+Before running this project: it is an implementation plan, not an accomplishment. After personally reproducing
+and validating V1: a truthful project description may mention a research prototype, real CHO cultivation data,
+methods actually implemented, cross-experiment validation, and actual measured error metrics. Never describe a
+deployed Digital Twin, CGT process manufacturing experience, GxP validation, regulatory approval, model-driven
+optimization gains, or professional senior scientist experience unless independent evidence exists.
+
+Example wording is not to be used until verified: “Developed a research-grade CHO soft-sensor prototype using
+inline/offline cultivation measurements; benchmarked statistical and ML models with experiment-group holdouts and
+documented uncertainty and failure modes.” Results, model names and numbers must be inserted only after
+successful personal execution and evidence review.
+
+
+16. Open questions and owner decisions
+ID                            Question                           Responsible                       Decision deadline
+
+                              Which offline variable has
+                              adequate independent-group
+OQ-01                                                            Developer + scientific reviewer   End of P1
+                              coverage, units and scientific
+                              usefulness?
+
+                              Which inline signals are
+OQ-02                         available in a realistic at-time   Developer                         End of P1
+                              inference scenario?
+
+                              Can the repository license be
+OQ-03                         independently verified, and        Developer/rights holder           Before public release
+                              are raw files redistributable?
+
+                              Which two experiment IDs, if
+OQ-04                         any, should form the frozen        Developer                         Before model tuning
+                              balanced holdout?
+
+
+
+
+                                                                                    Independent research prototype | v1.1 | 20
+                                                                   BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ ID                             Question                           Responsible                       Decision deadline
+
+                                What is a meaningful error
+ OQ-05                          tolerance in the original target   Scientific reviewer               Before G5 claim of utility
+                                units and intended use?
+
+                                Are substrate, feed and
+                                volume variables sufficient to
+ OQ-06                                                             Developer + process expert        Before P6
+                                calibrate any mechanistic
+                                model?
+
+                                Do uncertainty intervals have
+ OQ-07                          acceptable empirical group-        Developer                         During P4
+                                held-out coverage?
+
+                                Can BioSynvia be safely used
+                                                                   Trademark professional /
+ OQ-08                          beyond an internal working                                           Before public branding
+                                                                   owner
+                                title?
+
+                                What J&J modeling problem
+                                                                   Owner, via lawful referral
+ OQ-09                          would the hiring manager                                             As early as feasible
+                                                                   conversation
+                                consider most representative?
+
+
+
+17. First implementation sprint — executable action plan
+The first sprint should produce a go/no-go scientific data audit, not a flashy model. The following are ordered actions
+for the developer, not claims of completed work.
+
+  1.     Create a private repository under a neutral, renameable working path ( bioprocess-softsensor if
+         preferred) with Python environment, tests and an explicit no-cloud-cost policy.
+  2.     Download the archive through the publisher; log DOI, retrieved filename, byte size, checksum and the still-
+         unresolved license status.
+  3.     Enumerate all .xlsx and aligned CSV files; parse EXP/reactor/mode IDs from file names; verify the expected
+         12×2×2 aligned file structure.
+  4.     Generate machine-readable dictionaries of original and aligned columns, types, units, timestamps, invalid
+         values and missingness by reactor.
+  5.     Plot one representative batch and one fed-batch run with assay time markers and sensor trajectories;
+         document alignment caveats.
+  6.     Evaluate viable cell concentration/density and any other measured offline target against target-selection
+         criteria; approve a target or stop.
+
+  7.     Write inference_contract.md: sensor-only versus lab-assisted, cutoff time and any reporting delay
+         assumptions.
+  8.     Freeze proposed group split IDs after reviewing experiment metadata, without looking at final test model
+         performance.
+  9.     Implement the naive baseline and simple unit tests for group separation and past-only feature generation.
+  10.    Review the audit pack: decide whether to proceed with model development, change target, or revise scope.
+
+Sprint output: source manifest, data dictionary, quality report, reproducible EDA notebook, target decision, split
+design, first baseline, and a short transparent scientific status report. This is the earliest useful material to show a
+scientific reviewer.
+
+
+
+
+                                                                                         Independent research prototype | v1.1 | 21
+                                                             BIOSYNVIA / PRODUCT REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+18. Source register and attribution
+Source facts and design recommendations have been kept distinct throughout the PRD. These references support
+source metadata, legal risk context and the validity of recommended methodology; they do not verify any BioSynvia
+implementation or model result.
+
+  •     [S1] Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M. and Frahm, B. (2026). Dataset Based on Chinese
+        Hamster Ovary (CHO) Cultivations including Turbidity, Permittivity, O2 and CO2 Measurements. Zenodo, DOI:
+        10.5281/zenodo.20829178. https://zenodo.org/records/20829178
+  •     [S2] Uhlendorff et al. (2026). Data Descriptor: Multimodal Dataset of Bioreactor Cell Cultivations Including
+        Turbidity, Permittivity, O2 and CO2 Measurements, non-peer-reviewed preprint posted November 4, 2026.
+        https://www.preprints.org/manuscript/202611.0377 . Article CC BY 4.0 statement does not establish the
+        archive’s license.
+  •     [S3] U.S. Food and Drug Administration. PAT — A Framework for Innovative Pharmaceutical Development,
+        Manufacturing, and Quality Assurance. Guidance for Industry, October 2004. https://www.fda.gov/regulatory-
+        information/search-fda-guidance-documents/pat-framework-innovative-pharmaceutical-development-
+        manufacturing-and-quality-assurance
+  •     [S4] scikit-learn. LeaveOneGroupOut and grouped cross-validation documentation.
+        https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.LeaveOneGroupOut.html
+  •     [S5] U.S. Patent and Trademark Office. Likelihood of confusion.
+        https://www.uspto.gov/trademarks/search/likelihood-confusion
+  •     [S6] SYNVIA trademark record, reported Reg. No. 7505668, Serial 98083883, scientific research/software-
+        related services. Third-party record: https://furm.com/trademarks/synvia-98083883 . For authoritative current
+        status, verify in USPTO TSDR/trademark search.
+  •     [S7] Synvia operating company, pharmaceutical/clinical research and digital solutions. https://synvia.com/en/
+  •     [S8] User-provided July 2026 Johnson & Johnson Innovative Medicine — Senior Scientist/Modeler job
+        description. Used for role alignment only; its current live/open application status is not established here.
+
+
+
+Document decision: BioSynvia is a viable internal research plan, contingent on the target-data and
+naming/redistribution gates. This PRD authorizes planning, not claims of a finished scientific model or a legally
+cleared public biotech brand.
+
+
+
+
+                                                                                Independent research prototype | v1.1 | 22
+

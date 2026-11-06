@@ -1,0 +1,12 @@
+{
+  "assays": 378,
+  "lineage_rows": 15120,
+  "identity_mismatches": 0,
+  "manifest_sha256": "d74465cbb353af872681cf3c6bbd1055ee0523441a889ec90832d7fc3affa45e",
+  "table_sha256": {
+    "assay_decisions.csv": "0d92acf1bf8749e7f7b70e0ba3ea2b0b0ba8aaed91424f9713141e8dd9768671",
+    "feature_lineage.csv": "1d4e7e2555a400414f5d3fc6c2819b51e3b3b90288a7dd3bad1cbdb3151077d8"
+  },
+  "model_fit_permitted": false,
+  "scope": "Engineering identity check, not scientific approval."
+}

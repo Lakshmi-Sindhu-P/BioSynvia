@@ -1,0 +1,1820 @@
+                                                             BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+
+     BioSynvia | System Requirements Document
+  Reproducible Bioprocess Soft-Sensing & Hybrid Modeling Workbench
+
+                                        Independent Portfolio Research Project
+                                                 November 4, 2026
+
+
+Problem statement and intended solution
+The problem. Chinese hamster ovary (CHO) cell-culture experiments produce frequent bioreactor sensor
+measurements, but biologically important attributes may be available only at intermittent offline assay times. A model
+might estimate the missing state between assays, but apparent performance can be inflated by future-data leakage,
+data from related reactors appearing in both training and testing, or evaluation based on interpolated labels rather
+than actual assays.
+
+System objective. BioSynvia (working title) shall provide a reproducible, offline research pipeline that determines
+whether available inline sensor observations can estimate a verified, measured biological target in unseen CHO
+cultivation experiments. It shall compare simple/statistical/ML methods under group-safe validation, disclose errors
+and uncertainties, and present results with transparent provenance through a read-only dashboard. A
+mechanistic/hybrid extension is conditional on experimental data suitability.
+
+Expected result. A traceable scientific research prototype: source manifest, vetted target and units, canonical records,
+frozen experiment-group splits, reproducible baselines and candidate models, per-experiment metrics, failure
+analysis, model card, read-only user interface and independently repeatable demonstration. It is not a
+manufacturing control application, a qualified soft sensor, a production Digital Twin, or a clinically validated
+product.
+
+
+Document control and interpretation
+ Field                                                       Value
+
+                                                             BioSynvia — name not legally cleared for public commercial
+ System / working title
+                                                             branding
+
+                                                             System Requirements Document (SRD); includes
+ Document
+                                                             implementation-oriented software requirements
+
+ Document version                                            v0.1, November 4, 2026
+
+                                                             BioSynvia PRD v1.1 — Problem Statement First (November 4,
+ Authoritative product source
+                                                             2026)
+
+                                                             Proposed, not built; all interfaces/schema examples are designs,
+ System lifecycle status
+                                                             not observed outputs
+
+ System owner / planned developer                            Lakshmi Sindhu Pulugundla
+
+                                                             Uhlendorff et al., CHO-K1 cultivation dataset, DOI
+ Primary data source
+                                                             10.5281/zenodo.20829178 [R1]
+
+
+
+                                                                             Independent research prototype | SRD v0.1 | 1
+                                                                  BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Field                                                           Value
+
+                                                                 Local Python CLI + optionally local Streamlit web interface; no
+ Deployment
+                                                                 cloud dependencies in V1
+
+                                                                 Derives implementation requirements from PRD; does not
+ Document authority
+                                                                 supersede unresolved PRD gates
+
+ Approval state                                                  DRAFT FOR SCIENTIFIC AND TECHNICAL REVIEW
+
+
+Interpretation legend: SOURCE = explicitly specified by PRD v1.1 or its cited dataset description. PROPOSED DESIGN
+= engineering detail recommended in this SRD. GATED = must not be treated as settled until audit, scientist review,
+data rights check, or other recorded decision. An SRD requirement is a plan, not a claim that BioSynvia currently
+meets it.
+
+Traceability notation: PRD FR-01 denotes a functional requirement in PRD §6; PRD NFR-01 denotes a quality
+requirement in §10; G0–G9 are PRD §11 decision gates. SRD identifiers remain stable across versions even if their
+wording changes.
+
+
+1. Purpose, scope and system boundaries
+1.1 Purpose and intended readers
+
+This SRD translates BioSynvia’s scientific/product objectives into implementable and testable system behavior. It is
+intended for the developer, scientific reviewer, QA reviewer, and a hiring manager evaluating scientific rigor. It
+establishes required artifacts, workflows, interfaces, invariants, acceptance tests and release restrictions; detailed
+implementation choices remain subject to controlled technical-design decisions.
+
+1.2 In scope for the first presentable research version (V1)
+   •        Offline ingestion of a legally obtained CHO source archive with provenance and integrity verification.
+   •        Experiment/reactor inventory; original/aligned time, units, missingness and data-quality audits.
+   •        Recorded selection of a real offline assay target based on coverage and scientific meaning.
+   •        A typed canonical representation of experiments, paired reactors, sensors and assays.
+
+   •        Sensor-only inference: at time t, use only validated inline data available at or before t.
+   •        Experiment-group partitioning, versioned/frozen manifests and training-only preprocessing.
+   •        Simple baselines, Ridge and/or PLS, and one supported nonlinear candidate; group-aware model comparison.
+   •        Per-experiment model performance, missingness/abstention, negative findings and limitations.
+   •        Versioned artifact and evidence manifests, tests, locally reproducible commands and read-only dashboard.
+
+1.3 Conditional advanced extension (V1.1/P2)
+
+Mechanistic ODEs, identifiable parameter estimation, mechanistic–statistical hybrid correction and hypothetical
+scenarios are out of V1’s required scope. They become data-calibrated claims only after PRD gate G7/MH-01 confirms
+observed states, correct units, appropriate feeds/volumes and identifiability. Otherwise they may be explored only as
+explicitly synthetic, educational simulations.
+
+1.4 Out of scope and prohibited interpretations
+
+No live manufacturing connection; no automatic control action; no patient/clinical decision; no release-quality,
+GMP/GxP or FDA-compliant validation claim; no real-time/continuous production telemetry; no commercial product
+
+                                                                                 Independent research prototype | SRD v0.1 | 2
+                                                                  BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+or open-data redistribution before rights review; no self-declared Cell and Gene Therapy work experience; no model
+performance claim before the model has run. The project is CHO, not CAR-T/AAV, and no affiliation with Johnson &
+Johnson or another company may be implied.
+
+1.5 Operational assumptions and unresolved questions
+   •         SOURCE: the publisher describes 24 CHO-K1 cultivations from 12 paired experiments (9 batch, 3 fed-batch),
+             38 inline and 10 offline variables, and original Excel plus aligned CSV data [R1].
+   •         NOT YET VERIFIED BY IMPLEMENTATION: precise CSV header names, observation units, target assay
+             name, source license, feature availability, viable cell density coverage, timestamps, measured limits, device
+             calibration and realistic prediction latency. These must be resolved through Phase P1.
+   •         GATED: the 2-experiment final holdout is only a candidate protocol; if the data do not permit a defensible
+             holdout, grouped leave-one-experiment-out with nested tuning must be reviewed and documented instead.
+   •         GATED: business/scientific utility error thresholds cannot be invented. A scientist must select any target-
+             specific acceptance threshold after unit and use-case review, before a utility claim.
+
+
+2. Stakeholders, actors and high-level use cases
+ Actor                             Privilege in V1                Core use case                    System response
+
+                                   Local CLI; writes derived      Import, audit, train, evaluate   Deterministic outputs with run
+ Project developer / modeler
+                                   artifacts                      and release approved report      manifest, tests and errors
+
+                                                                  Examine assay meaning,           Visible units, experiment
+ Scientific reviewer               Reads reports and dashboards   model assumptions and failure    groups, measured/estimated
+                                                                  cases                            indicators and limitations
+
+                                                                  Trace a prediction to its raw
+                                   Reads schemas and                                               Resolve hashes, schema
+ Data/automation reviewer                                         source, feature snapshot and
+                                   provenance                                                      versions and input timestamps
+                                                                  model
+
+                                                                  Understand methodology and       Honest, bounded narrative
+ Hiring-manager reviewer           Read-only demo/report
+                                                                  results                          with negative results shown
+
+                                                                                                   Publication blocked until
+ Trademark/data-rights                                            Verify permissions and
+                                   Authorizes public release                                       recorded clearances or neutral
+ decision owner                                                   branding
+                                                                                                   alternative
+
+
+Use cases: UC-01 obtain/audit dataset; UC-02 choose target/inference contract; UC-03 construct leakage-safe feature
+snapshots; UC-04 freeze experiment splits; UC-05 train baselines/candidates; UC-06 compare and sign off scientific
+evaluation; UC-07 inspect predictions and failure cases; UC-08 reproduce an approved report; UC-09 optionally run
+mechanistic/hybrid research after approval.
+
+
+3. Logical architecture and component responsibilities
+Publisher / source ZIP [immutable, local]
+         |
+         v
+[S1: Provenance + checksum + license-status intake]
+         |
+         v
+[S2: Original/Aligned File Inventory + Data Audit]
+         |
+
+
+                                                                                   Independent research prototype | SRD v0.1 | 3
+                                                                      BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+       v
+[S3: Typed Canonical Data + Time/Unit Reconciliation]
+       |
+       v
+[S4: Target Approval + Frozen Experiment Split]
+       |
+       v
+[S5: Past-only Feature Snapshot Builder]
+       |
+       v
+[S6: Baseline/Candidate Model Training]
+       |
+       v
+[S7: Grouped CV + Locked Final Evaluation]
+       |
+       v
+[S8: Model Registry + Evidence + Scientific Report]
+       |
+       v
+[S9: Read-only Streamlit Workbench]
+
+
+Optional after G7: [S10: Mechanistic/Hybrid Research Module]
+
+ Component ID               Responsibility              Inputs                   Outputs                 Forbidden behavior
+
+                            Verify archive
+                                                        Local archive path,      source_manifest.json,   Implicitly mark unclear
+ S1 Provenance              checksum and track
+                                                        citation/config          hash audit              dataset rights as cleared
+                            rights status
+
+                            Reconcile source files,                              Inventory, column
+                                                                                                         Silently drop
+ S2 Inventory/Audit         formats and experiment      Raw archive/Excel/CSV    dictionary, quality
+                                                                                                         malformed/missing files
+                            IDs                                                  report
+
+                                                                                 Local canonical
+                            Normalize field types,                                                       Modify original source;
+ S3 Canonical store                                     Audited source files     Parquet/CSV and
+                            units and timestamps                                                         invent units
+                                                                                 schema manifest
+
+                            Approve target and                                   Target contract and
+                                                        Metadata + target                                Choose split using final
+ S4 Research protocol       freeze grouped                                       immutable split
+                                                        decision                                         test model outcomes
+                            partitions                                           manifest
+
+                                                                                 Feature snapshots,      Read sensor values or
+                            Build point-in-time         Canonical records +
+ S5 Features                                                                     lineage and rejection   assay targets from after
+                            sensor-only records         cutoff policy
+                                                                                 log                     cutoff
+
+                            Fit baselines and                                    Versioned fitted        Fit transformers
+                                                        Features + fold plan +
+ S6 Training                candidates only on                                   pipelines and           globally or consult final
+                                                        config
+                            development groups                                   development metrics     test
+
+                            Compute identical                                    Per-group errors,       Hide failed experiments
+                                                        Model candidate +
+ S7 Validation              metrics on identical                                 failures, aggregate     or rebrand tuned
+                                                        frozen test
+                            groups                                               report                  holdout
+
+ S8                         Resolve results to                                   Model cards, reports,   Report simulated
+                                                        Runs, configs, hashes
+ Provenance/reporting       reproducible evidence                                artifact manifest       quantities as measured
+
+
+
+
+                                                                                    Independent research prototype | SRD v0.1 | 4
+                                                                BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Component ID           Responsibility           Inputs                     Outputs                   Forbidden behavior
+
+                        Inspect approved                                                              Retrain silently, alter
+                                                 Approved local             Read-only
+ S9 Dashboard           artifacts and qualify                                                         raw data, make control
+                                                 manifests, plots           figures/tables/warnings
+                        predictions                                                                   recommendations
+
+                        Optional state/process                                                        Claim real-process
+                                                 Verified states/units or   ODE/hybrid appendix
+ S10 Mechanistic        models and sensitivity                                                        model when state
+                                                 synthetic fixtures         and limitations
+                        analyses                                                                      evidence is insufficient
+
+
+Architecture decision (PROPOSED): use a Python package (src/biosynvia), local filesystem artifacts
+(CSV/Parquet/JSON/YAML), scikit-learn/SciPy, pytest, and Streamlit. This stack is not a requirement to deploy cloud
+infrastructure or a database. A SQLite experiment index may be considered later, but the source of truth in V1 should
+remain immutable manifests and reproducible files.
+
+
+4. System functional requirements — detailed and atomic
+Priority definitions: P0 = necessary for a credible V1; P1 = important V1 robustness/traceability (must be addressed
+or expressly deferred with rationale); P2 = optional extension behind an explicit gate. Status for every requirement
+below: PROPOSED / NOT IMPLEMENTED.
+
+4.1 Source integrity and dataset audit
+
+                                                                                               Verification and acceptance
+ SRD ID                       Priority / PRD reference         Shall requirement
+                                                                                               evidence
+
+                                                               System shall require a local    Valid checksum passes;
+                                                               archive and expected            corrupted byte or wrong digest
+ SR-DAT-001                   P0 · FR-01
+                                                               checksum before parsing         fails with nonzero exit and no
+                                                               source observations.            model-ready data.
+
+                                                               System shall write DOI,
+                                                               authors/source citation,
+                                                                                               Manifest validates against
+                                                               retrieved filename, expected
+                                                                                               SourceManifest contract;
+ SR-DAT-002                   P0 · FR-01                       and observed digest,
+                                                                                               missing rights status explicitly
+                                                               timestamp, rights status and
+                                                                                               unknown.
+                                                               tool version to
+                                                               source_manifest.json.
+
+                                                                                               Explicit report for 12
+                                                               System shall enumerate source
+                                                                                               experiments × 2 reactors × 2
+                                                               Excel workbooks and aligned
+                                                                                               aligned modalities (=48
+ SR-DAT-003                   P0 · FR-02                       CSVs and reconcile expected
+                                                                                               aligned CSVs) or documented
+                                                               experiment/reactor/modalities
+                                                                                               dataset discrepancy; duplicate
+                                                               against discovered files.
+                                                                                               IDs fail validation.
+
+                                                               System shall collect and
+                                                                                               Every selected field has a
+                                                               version raw column names,
+                                                                                               dictionary row and observed
+                                                               inferred types, units where
+ SR-DAT-004                   P0 · FR-03                                                       file references; unknown units
+                                                               documented, source mapping
+                                                                                               remain unverified, never
+                                                               and missingness for every
+                                                                                               guessed.
+                                                               candidate field.
+
+                                                               System shall preserve source    Alignment report identifies
+ SR-DAT-005                   P0 · FR-04
+                                                               time variables and record the   resampling/offset
+
+
+                                                                               Independent research prototype | SRD v0.1 | 5
+                                                       BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                                        Verification and acceptance
+SRD ID                      Priority / PRD reference   Shall requirement
+                                                                                        evidence
+
+                                                       original-to-aligned timestamp    assumptions; mismatch
+                                                       transformation or sampling       exceeding approved tolerance
+                                                       policy for each file.            is flagged.
+
+                                                       System shall detect duplicate
+                                                                                        Fixture containing each
+                                                       timestamps, invalid numeric
+                                                                                        anomaly yields a record-level
+SR-DAT-006                  P0 · FR-03                 values, unparseable dates and
+                                                                                        rejection/quality event and
+                                                       suspicious gaps without
+                                                                                        reconciled counts.
+                                                       silently altering raw values.
+
+                                                       System shall block modeling
+                                                       until a versioned target         Training refuses
+                                                       decision records target source   missing/unsigned target
+SR-DAT-007                  P0 · FR-05
+                                                       column, unit, coverage, assay    config; report shows valid
+                                                       meaning, sampling cadence        assay counts per experiment.
+                                                       and approval.
+
+                                                                                        Re-run yields matching
+                                                       System shall make ingestion
+                                                                                        contents or versioned identical
+                                                       idempotent for identical input
+SR-DAT-008                  P1 · NFR-03                                                 manifest; interrupted write
+                                                       archive/config and write
+                                                                                        leaves no approved partial
+                                                       derived artifacts atomically.
+                                                                                        output.
+
+
+4.2 Canonical records and point-in-time features
+
+                                                                                        Verification and acceptance
+SRD ID                      Priority / PRD reference   Shall requirement
+                                                                                        evidence
+
+                                                       Canonical observations shall
+                                                       contain experiment_id,
+                                                       reactor_id, measurement kind,    Schema validation and
+SR-FEA-001                  P0 · FR-03                 original source field,           referential integrity pass for
+                                                       normalized variable ID, value,   all included records.
+                                                       units, event time and source
+                                                       reference.
+
+                                                       The target-alignment
+                                                       operation shall generate         Count of scored target rows
+                                                       candidate scoring rows only at   equals accepted observed
+SR-FEA-002                  P0 · FR-04                 actually measured offline        assays; interpolated target
+                                                       assay timestamps (and            points never appear as ground
+                                                       capture availability time        truth.
+                                                       where known).
+
+                                                       A sensor-only feature snapshot   Perturb all future sensor
+                                                       at cutoff t shall read only      values; all features and earlier
+SR-FEA-003                  P0 · FR-07                 eligible inline values with      predictions remain
+                                                       acquisition/availability time    bitwise/equivalently
+                                                       no later than t.                 unchanged.
+
+                                                       Rolling-window aggregations      Unit fixtures compare exact
+                                                       (mean, median, slope,            expected windows; too-sparse
+SR-FEA-004                  P0 · FR-07                 variability) shall be computed   windows return missing
+                                                       from past-only windows with      indicators or abstention, not
+                                                       explicit window, minimum         invented samples.
+
+
+                                                                       Independent research prototype | SRD v0.1 | 6
+                                                       BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                                            Verification and acceptance
+SRD ID                      Priority / PRD reference   Shall requirement
+                                                                                            evidence
+
+                                                       support and missingness rules.
+
+                                                       Feature eligibility shall be         Versioned
+                                                       recorded for each input:             feature_eligibility.csv is
+SR-FEA-005                  P0 · FR-07                 source, unit, cutoff availability,   complete for selected features;
+                                                       transformation and leakage           ineligible field cannot enter
+                                                       risk.                                fitting.
+
+                                                       Experiment-group partitioning        No experiment ID or its paired
+                                                       shall use experiment_id as the       reactors overlap
+SR-FEA-006                  P0 · FR-06
+                                                       indivisible grouping key, not        train/development/test in any
+                                                       reactor_id, point or file.           fold.
+
+                                                       A frozen split manifest shall
+                                                       contain experiment IDs,
+                                                                                            Rerun selects same groups;
+                                                       partition roles, mode labels,
+SR-FEA-007                  P0 · FR-09                                                      failed approval blocks final
+                                                       random seed where relevant,
+                                                                                            test execution.
+                                                       decision rationale and
+                                                       approval status.
+
+                                                       When critical inputs are
+                                                       missing, invalid or outside          Missing-sensor/out-of-range
+                                                       supported training ranges,           fixtures generate visible status
+SR-FEA-008                  P1 · FR-13
+                                                       prediction paths shall emit          and no fabricated numeric
+                                                       unsupported or abstained with        output.
+                                                       an explicit reason.
+
+
+4.3 Model fitting, comparison and evaluation
+
+                                                                                            Verification and acceptance
+SRD ID                      Priority / PRD reference   Shall requirement
+                                                                                            evidence
+
+                                                       Implement a sensor-only naive
+                                                       baseline and at least one            Baseline scores saved with
+SR-MOD-001                  P0 · FR-08                 transparent single-sensor or         target units, sample counts
+                                                       simple regression baseline on        and identical fold IDs.
+                                                       the same eligible scoring rows.
+
+                                                       Fit at least one
+                                                       linear/chemometric model
+                                                                                            Configurable pipeline fit and
+                                                       (Ridge and/or PLS) and one
+SR-MOD-002                  P0 · FR-08                                                      predicted values captured for
+                                                       feasible nonlinear model
+                                                                                            the same grouped folds.
+                                                       (Random Forest or gradient
+                                                       boosting).
+
+                                                       All imputers, scalers, selectors
+                                                                                            Spy transformer records fit
+                                                       and hyperparameter searches
+SR-MOD-003                  P0 · FR-08/09                                                   group IDs; no validation/final
+                                                       shall fit inside development
+                                                                                            test groups fitted.
+                                                       training groups only.
+
+                                                       Model-selection runs shall use
+                                                       frozen group-safe CV folds and       A run can be reproduced from
+SR-MOD-004                  P0 · FR-09                 preserve parameter grids,            an artifact manifest and
+                                                       seed, software versions, code        named config.
+                                                       revision and raw/feature data
+
+
+                                                                         Independent research prototype | SRD v0.1 | 7
+                                                     BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                                        Verification and acceptance
+SRD ID                    Priority / PRD reference   Shall requirement
+                                                                                        evidence
+
+                                                     hashes.
+
+                                                     Evaluation shall compute per-
+                                                                                        Metrics agree with
+                                                     experiment MAE, RMSE,
+                                                                                        deterministic test fixture;
+SR-MOD-005                P0 · FR-10                 signed bias, valid/abstained
+                                                                                        group count reconciles with
+                                                     counts and baseline deltas in
+                                                                                        split.
+                                                     original target units.
+
+                                                     Primary ranking shall use
+                                                     macro-average experiment-          Unequal-size fixture
+SR-MOD-006                P0 · FR-10                 level MAE, not a pooled point-     demonstrates equally
+                                                     level error, and report per-       weighted experiments.
+                                                     experiment spread.
+
+                                                     The reserved final holdout
+                                                     shall be evaluated only after
+                                                                                        Unauthorized early holdout
+                                                     the champion/config are
+SR-MOD-007                P0 · FR-09                                                    access fails; post-hoc retuning
+                                                     approved, and shall record the
+                                                                                        is labeled exploratory.
+                                                     first holdout evaluation
+                                                     immutably.
+
+                                                     Evaluation shall report
+                                                     batch/fed-batch diagnostics, at    Mode/sample counts and
+                                                     least one sensor-family            degraded/error results
+SR-MOD-008                P1 · FR-14
+                                                     ablation and a missing-sensor      included, even when
+                                                     stress test where scientifically   unfavorable.
+                                                     meaningful.
+
+                                                     If prediction intervals are
+                                                     produced, report empirical         Intervals absent or explicitly
+SR-MOD-009                P1 · FR-13                 group-aware coverage,              marked uncalibrated if
+                                                     interval width and calibration     insufficient calibration groups.
+                                                     assumptions.
+
+                                                     Each approved model artifact
+                                                     shall link model config,           Provenance lookup resolves
+                                                     preprocessing pipeline,            complete chain; missing
+SR-MOD-010                P1 · FR-15
+                                                     feature contract, training         dependent artifact blocks
+                                                     groups, environment lock and       approval.
+                                                     evaluation report.
+
+                                                     The final report shall preserve
+                                                                                        Report fixture includes model
+                                                     unfavorable/negative
+                                                                                        worse than baseline on a
+SR-MOD-011                P0 · FR-10                 outcomes and avoid declaring
+                                                                                        group; corresponding failure
+                                                     the soft sensor useful solely
+                                                                                        remains visible.
+                                                     from favorable pooled metrics.
+
+
+4.4 Read-only workbench and research communication
+
+                                                                                        Verification and acceptance
+SRD ID                    Priority / PRD reference   Shall requirement
+                                                                                        evidence
+
+                                                     Overview shall identify source
+                                                                                        Reviewer locates each within
+SR-UI-001                 P0 · FR-11                 dataset, approved target/unit,
+                                                                                        60 seconds.
+                                                     model version, experiment
+
+
+                                                                      Independent research prototype | SRD v0.1 | 8
+                                                      BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                                          Verification and acceptance
+SRD ID                     Priority / PRD reference   Shall requirement
+                                                                                          evidence
+
+                                                      count and research-only
+                                                      status.
+
+                                                      Data Explorer shall filter
+                                                      experiment/reactor and              Markers/legends and
+                                                      distinguish measured assays,        explanatory text distinguish
+SR-UI-002                  P0 · FR-11
+                                                      inline signals,                     types without relying on color
+                                                      aligned/interpolated inputs         alone.
+                                                      and missing intervals.
+
+                                                      Model Comparison shall
+                                                      separate development CV from        Final scores never appear
+SR-UI-003                  P0 · FR-11                 untouched final test and show       under development label;
+                                                      baseline and candidate per-         failed groups remain visible.
+                                                      group errors.
+
+                                                      Prediction Review shall render
+                                                      measured/predicted series,
+                                                                                          Null target fixture renders
+                                                      residuals and
+SR-UI-004                  P0 · FR-11/13                                                  missing state with explanation,
+                                                      unavailable/unsupported
+                                                                                          not a smooth invented line.
+                                                      warnings; never plot fake
+                                                      ground truth.
+
+                                                      Every view presenting results
+                                                      shall display or prominently        Manual UI checklist confirms
+SR-UI-005                  P0 · FR-12                 link research-only, non-            disclaimer and status in all
+                                                      validated, no-process-control       model-result views.
+                                                      limitations.
+
+                                                      Quality & Provenance view
+                                                                                          Reviewer can trace an
+                                                      shall display dataset digest,
+                                                                                          arbitrary shown prediction to
+SR-UI-006                  P1 · FR-15                 split/model IDs, source/feature
+                                                                                          relevant evidence in ≤5
+                                                      contracts, generated
+                                                                                          minutes.
+                                                      timestamp and model card.
+
+                                                      V1 dashboard shall be read-         UI action inspection and
+                                                      only against raw, canonical,        filesystem sandbox test prove
+SR-UI-007                  P0 · PRD §8
+                                                      feature, model and report           no background retraining or
+                                                      artifacts.                          mutation.
+
+                                                      Plots and tables shall have
+                                                      textual labels, units, accessible   Manual accessibility review
+SR-UI-008                  P1 · PRD §8
+                                                      status messages and no color-       and visual regression pass.
+                                                      only distinctions.
+
+
+4.5 Conditional mechanistic and hybrid requirements
+
+                                                                                          Verification and acceptance
+SRD ID                     Priority / PRD reference   Shall requirement
+                                                                                          evidence
+
+                                                      Before fitting to measured
+                                                                                          Without eligible review the
+                                                      data, a signed mechanistic
+                                                                                          run mode is synthetic_only;
+SR-MH-001                  P2 · FR-16/G7              eligibility review shall confirm
+                                                                                          cannot emit data-calibrated
+                                                      observed states, documented
+                                                                                          label.
+                                                      units, applicable assumptions,
+
+
+                                                                       Independent research prototype | SRD v0.1 | 9
+                                                             BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                                               Verification and acceptance
+ SRD ID                        Priority / PRD reference      Shall requirement
+                                                                                               evidence
+
+                                                             sufficient experiments and
+                                                             identifiability diagnostics.
+
+                                                             ODE solver shall document
+                                                             equations, initial conditions,    Deterministic solver and
+ SR-MH-002                     P2 · FR-16                    parameter ranges, solver          sign/conservation tests pass
+                                                             tolerances and unit-consistent    under documented fixtures.
+                                                             mass-balance assumptions.
+
+                                                             Parameter fitting shall
+                                                             implement                         Fit status distinguishes
+                                                             multi-start/sensitivity or        converged/unstable/non-
+ SR-MH-003                     P2 · FR-16
+                                                             equivalent identifiability        identifiable; no blanket
+                                                             checks and record unstable        “validated” status.
+                                                             solutions.
+
+                                                             Hybrid correction shall use the
+                                                             same frozen group splits,
+                                                                                               Leakage regression and paired
+                                                             inference contract and
+ SR-MH-004                     P2 · FR-17                                                      comparison pass; hybrid
+                                                             evaluation metrics as its
+                                                                                               underperformance preserved.
+                                                             statistical and mechanistic
+                                                             comparators.
+
+                                                             Any scenario plot shall be
+                                                             labeled hypothetical and
+                                                                                               Out-of-bounds parameters
+                                                             restricted to declared input
+ SR-MH-005                     P2 · FR-18                                                      rejected; disclaimer visible in
+                                                             bounds; no optimized
+                                                                                               scenario export.
+                                                             manufacturing recipe
+                                                             recommendation.
+
+
+
+5. Non-functional requirements and operational quality
+Requirements in this section inherit PRD §10. They are quality specifications, not claims about implementation. A P0
+quality failure blocks a research-ready V1, even if the dashboard renders correctly.
+
+                                                                          System-level
+ SRD ID                  Parent                  Priority                                             Objective verification
+                                                                          requirement
+
+                                                                          Given the same verified
+                                                                          raw archive, approved
+                                                                          configuration and           Two clean-environment
+                                                                          pinned environment,         runs agree on hashes of
+                                                                          the complete local          deterministic
+ SR-NFR-001              NFR-01                  P0                       evaluation shall            intermediates and
+                                                                          reproduce the same          metric values within
+                                                                          partition IDs, scored       documented floating-
+                                                                          observation counts and      point tolerances.
+                                                                          numerically equivalent
+                                                                          metrics.
+
+                                                                          Every reportable metric     Automated lineage
+                                                                          and displayed               traversal resolves every
+ SR-NFR-002              NFR-02                  P0
+                                                                          prediction shall resolve    reference without a
+                                                                          to source digest, target    missing artifact.
+
+
+                                                                            Independent research prototype | SRD v0.1 | 10
+                                 BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                           System-level
+SRD ID       Parent   Priority                                         Objective verification
+                                           requirement
+
+                                           decision, field
+                                           dictionary, feature
+                                           version, split ID, fitted
+                                           pipeline ID, code
+                                           revision and
+                                           environment
+                                           information.
+
+                                           Original data shall
+                                           remain byte-for-byte
+                                           immutable and shall
+                                                                       Before/after source
+                                           never be saved into a
+                                                                       digests match;
+                                           repository commit by
+SR-NFR-003   NFR-03   P0                                               source/archive paths
+                                           default. Intermediate
+                                                                       are excluded by
+                                           output shall be
+                                                                       repository rules.
+                                           generated in separate
+                                           directories with atomic
+                                           writes.
+
+                                           No training or
+                                           evaluation path shall
+                                                                       Leakage injection tests
+                                           cross an experiment-
+                                                                       fail unauthorized
+                                           group boundary, access
+                                                                       access, paired-reactor
+SR-NFR-004   NFR-04   P0                   future sensor/target
+                                                                       split tests fail overlap,
+                                           values, or score
+                                                                       and assay counts
+                                           interpolated offline
+                                                                       reconcile.
+                                           targets as measured
+                                           truth.
+
+                                           Invalid times, unit
+                                           conflicts, missing
+                                           required IDs,
+                                           unsupported model
+                                           schema versions and         Negative test fixtures
+SR-NFR-005   NFR-05   P0                   unavailable required        produce named error
+                                           sensors shall cause a       codes and visible logs.
+                                           typed error or explicit
+                                           abstention; the system
+                                           shall not silently coerce
+                                           them.
+
+                                           Failed model runs,
+                                           inferior baselines,
+                                           excluded experiments
+                                                                       Report contains failed-
+                                           and unsupported
+SR-NFR-006   NFR-06   P0                                               run ledger and negative
+                                           predictions shall be
+                                                                       comparison fixtures.
+                                           retained and
+                                           distinguishable from
+                                           success cases.
+
+                                           Raw and derived data        Static dependency and
+                                           shall be processed          configuration audit
+SR-NFR-007   NFR-07   P0                   locally by default, with    finds no outbound
+                                           no patient data,            telemetry or secrets;
+                                           unapproved telemetry        network access is not
+
+
+
+                                             Independent research prototype | SRD v0.1 | 11
+                                                            BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+                                                                       System-level
+SRD ID                  Parent                  Priority                                           Objective verification
+                                                                       requirement
+
+                                                                                                   required for analysis
+                                                                       or credential export.
+                                                                                                   after download.
+
+                                                                       Results, tables and plots
+                                                                                                   Manual
+                                                                       shall show units,
+                                                                                                   keyboard/contrast/label
+                                                                       definitions, accessible
+SR-NFR-008              NFR-08                  P1                                                 review; image
+                                                                       text and visual
+                                                                                                   descriptions or chart
+                                                                       distinctions not relying
+                                                                                                   tables present.
+                                                                       exclusively on color.
+
+                                                                       The V1 execution path
+                                                                       shall not invoke billable
+                                                                       cloud services,             No active automatic
+                                                                       scheduled remote            workflow in supplied
+SR-NFR-009              NFR-09                  P0
+                                                                       automation or GitHub        template; local CLI tests
+                                                                       Actions without             run offline.
+                                                                       separate recorded
+                                                                       owner authorization.
+
+                                                                       Public-release tooling
+                                                                       shall check naming          Public package
+                                                                       review status and raw-      simulation excludes
+SR-NFR-010              NFR-10                  P0                     data license status, and    archive; branding
+                                                                       refuse to package           approval field remains
+                                                                       source data if rights       unverified.
+                                                                       remain unknown.
+
+                                                                       Model loading shall
+                                                                       accept only known local
+                                                                       artifacts associated with   Path traversal,
+                                                                       a validated manifest        corrupted artifact and
+SR-NFR-011              NFR-11                  P0                     and trusted project         untrusted serialized
+                                                                       paths. Dependencies         object fixtures are
+                                                                       shall be inventoried        rejected.
+                                                                       with pinned version
+                                                                       constraints.
+
+                                                                       Read-only dashboard
+                                                                       startup on a reference
+                                                                       local laptop shall reach
+                                                                       a usable overview           Cold-start measurement
+                                                                       without retraining. Any     and no-write-filesystem
+SR-NFR-012              PRD §8                  P1
+                                                                       performance target          test included in release
+                                                                       shall be measured and       report.
+                                                                       documented, not
+                                                                       declared before
+                                                                       implementation.
+
+
+Risk-specific decision: Performance numbers such as “dashboard in under 2 seconds” or scientific tolerances such as
+“MAE below 5%” are intentionally not hardcoded before the dataset audit and target feasibility review. Setting
+arbitrary thresholds now would reward superficial test compliance instead of useful biological modeling.
+
+
+
+
+                                                                         Independent research prototype | SRD v0.1 | 12
+                                                                   BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+6. Proposed data contracts and persistence model
+6.1 Logical entities, keys and cardinalities
+
+    Entity                          Required identifiers           Required metadata                  Cardinality / invariant
+
+                                                                                                      One per source experiment;
+                                                                   process_mode, source_id,           exactly two reactor instances
+    Experiment                      experiment_id
+                                                                   optional design details            expected unless source audit
+                                                                                                      proves a discrepancy
+
+                                                                                                      Unique composite key; reactor
+                                                                   Time origin, start/end, source
+    ReactorRun                      experiment_id, reactor_id                                         never maps to multiple
+                                                                   file ID
+                                                                                                      experiment IDs
+
+                                                                   Variable ID, kind, source          Multiple per reactor; primary
+                                    measurement_id,                timestamp, elapsed hours,          uniqueness strategy
+    Measurement
+                                    experiment_id, reactor_id      value, unit, quality flag,         documented; raw duplicate
+                                                                   provenance                         events not silently overwritten
+
+                                                                   Target variable, collected time,
+                                                                                                      Only valid actual assays can
+                                                                   available time (if known),
+    OfflineAssay                    assay_id, run key                                                 become ground-truth scoring
+                                                                   measured value/unit, assay
+                                                                                                      rows
+                                                                   status
+
+                                                                   Feature contract version,          All constituent sensor
+    FeatureSnapshot                 snapshot_id, run key, cutoff   sensor values, window              observation availability times
+                                                                   support, missingness, lineage      <= cutoff
+
+                                                                                                      Each experiment appears in
+                                                                   Role, mode, seed/method,
+    SplitAssignment                 split_version, experiment_id                                      exactly one partition per
+                                                                   approval
+                                                                                                      manifest
+
+                                                                   Target/version, environment,       Run cannot be approved
+    ModelRun                        run_id, model_id               code/config hashes, feature        without complete dependency
+                                                                   and split refs, status             references
+
+                                                                   Target/unit, point estimate,       Invalid inference emits status
+                                    prediction_id, model_id,
+    PredictionRecord                                               optional interval,                 and reason instead of numeric
+                                    snapshot_id
+                                                                   support/abstention state           estimate
+
+                                                                   Value, unit, valid count,          All rows tied to actual
+                                    run_id, experiment_id,
+    MetricRecord                                                   abstained count, reference         observed assays and frozen
+                                    metric_name
+                                                                   baseline                           group assignments
+
+
+Source preservation policy. The upstream archive, every original Excel sheet and aligned CSV must retain a source-
+level identifier and digest. Converted Parquet tables are derived products. Their schema, timezone/cutoff assumptions,
+units and lineage must remain discoverable independently of a running model.
+
+6.2 Machine-readable proposed schemas
+
+The following JSON is a design example, not a claim that these values were observed in the CHO files. All field labels
+are placeholders pending the Phase 1 inventory.
+{
+    "schema_version": "1.0.0",
+    "source_id": "cho_zenodo_20829178",
+    "doi": "10.5281/zenodo.20829178",
+
+                                                                                  Independent research prototype | SRD v0.1 | 13
+                                                                      BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+    "archive_file": "Dataset.zip",
+    "hash_algorithm": "md5",
+    "expected_hash": "71b2a35b7df2ed11644ec9f177453772",
+    "observed_hash": null,
+    "retrieved_at_utc": null,
+    "license_status": "unverified",
+    "public_raw_data_distribution_allowed": false
+}
+
+
+A measurement object is expected to include experiment_id, reactor_id, source_field, variable_id,
+measurement_kind (inline or offline), observed_elapsed_hours, source_time_original,
+availability_elapsed_hours (nullable when unknown), value, unit_original, unit_normalized (nullable
+until reviewed), quality_status, and source_file_digest.
+
+A feature snapshot contains snapshot_id, experiment/reactor IDs, cutoff_elapsed_hours, features as a
+mapping of typed named values, support_by_feature (count, age and missing status), source_sensor_refs and
+feature_contract_hash. A feature can never be computed with a right-inclusive window extending beyond its
+cutoff.
+
+A prediction envelope must make invalidity explicit:
+{
+    "schema_version": "1.0.0",
+    "experiment_id": "EXP_PLACEHOLDER",
+    "reactor_id": "REACTOR_PLACEHOLDER",
+    "cutoff_elapsed_hours": 120.0,
+    "model_version": "model-placeholder",
+    "prediction_status": "unsupported",
+    "target_variable": "TO_BE_APPROVED",
+    "target_unit": "TO_BE_APPROVED",
+    "predicted_value": null,
+    "prediction_interval": null,
+    "reason_codes": ["TARGET_NOT_APPROVED"],
+    "research_only": true
+}
+
+The example is intentionally an abstention. No made-up assay values or impressive-looking model scores are provided
+in the specification.
+
+6.3 File paths and artifact manifests
+
+The proposed root is a local folder outside public version control for raw data. Every generated artifact should have a
+stable, content-addressed or versioned identifier. A manifest must list file name, SHA-256 digest, schema version,
+producer tool version, parent artifact IDs and creation time.
+
+    Location                                   Contents                                    Publish?
+
+    data/raw/                                  Publisher ZIP and original files            No without rights confirmation
+
+                                               Parsed source records and alignment         No by default; may contain derived copies
+    data/interim/
+                                               audits                                      of source data
+
+                                                                                           Only with cleared rights and explicit
+    data/processed/                            Modeling tables and snapshots
+                                                                                           review
+
+
+
+
+                                                                                     Independent research prototype | SRD v0.1 | 14
+                                                                   BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Location                                   Contents                                        Publish?
+
+                                            Target, split, feature and experiment
+ configs/                                                                                   Yes if credentials/source data are absent
+                                            configuration
+
+                                            Immutable local model runs, predictions         Selectively; verify licensing and no
+ runs/
+                                            and metrics                                     sensitive content
+
+                                            Data audit, evaluation, model card,
+ reports/                                                                                   Yes after factual review
+                                            release evidence
+
+                                                                                            Yes after naming review or under neutral
+ app/                                       Read-only dashboard source
+                                                                                            title
+
+                                            Synthetic minimal cases, including leak         Yes when generated without publisher
+ tests/fixtures/
+                                            injection                                       data
+
+
+6.4 Source identifier and unit policy
+
+All source fields receive stable IDs from field_dictionary.csv, distinct from their display names. Units are never
+guessed from names such as X, VCD, CO2 or feed. Conversion requires a written transformation, conversion
+constant, dimensional compatibility review, and test fixture. A normalized value must preserve a pointer to its raw
+value and original unit. If a scientifically required variable’s unit is unknown, any data-calibrated mechanistic
+component using it is blocked.
+
+Missingness semantics: distinguish not_sampled, sensor_unavailable, parse_invalid,
+below_detection_limit, late_report, unit_unknown and excluded_by_protocol, to the extent the source
+supports them. If the source cannot distinguish these categories, retain unknown_missing_cause rather than
+inventing a reason.
+
+
+7. Application interfaces and execution behavior
+7.1 CLI contract (proposed, subject to implementation review)
+
+ Operation               Proposed command           Main inputs                   Outputs                     Failure behavior
+
+                         biosynvia verify-source                                                              Nonzero exit on
+                                                    Raw ZIP, approved             Source manifest,
+ Verify source           --archive PATH --                                                                    mismatch; no derived
+                                                    digest                        checksum report
+                         expected-md5 HEX                                                                     writes
+
+                         biosynvia audit --                                       File inventory, field       Missing/duplicate
+                                                    Verified source,
+ Audit                   archive PATH --output                                    dictionary, quality         source IDs block
+                                                    mapping config
+                         DIR                                                      reports                     approval
+
+                         biosynvia approve-         Approved scientific           Versioned target            No target -> train
+ Choose target
+                         target --config FILE       choice, reviewer record       contract                    blocked
+
+                                                                                                              Invalid time/unit or
+                         biosynvia features --      Canonical tables, cutoff      Feature snapshots and
+ Build features                                                                                               unauthorized field ->
+                         target FILE --split FILE   policy                        eligibility log
+                                                                                                              fail or abstain
+
+                                                                                                              Refuse any final-test
+                         biosynvia train --config   Frozen development            Candidate pipelines, CV
+ Train                                                                                                        access; preserve failed
+                         FILE                       folds, training config        scores
+                                                                                                              runs
+
+
+
+                                                                                    Independent research prototype | SRD v0.1 | 15
+                                                                  BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Operation                Proposed command          Main inputs               Outputs                   Failure behavior
+
+                          biosynvia evaluate --                                                         Holdout access requires
+                                                    Approved champion,        Immutable final-test
+ Evaluate                 model RUN_ID --holdout                                                        approved gate; repeated
+                                                    locked test groups        report
+                          MANIFEST                                                                      tuning label blocked
+
+                                                                                                        Missing dependency ->
+                          biosynvia report --run    Verified metric/lineage   PDF/Markdown report
+ Report                                                                                                 cannot mark report
+                          RUN_ID                    records                   and model card
+                                                                                                        approved
+
+                                                                                                        Missing/corrupt model
+                          biosynvia dashboard --    Approved read-only
+ Launch UI                                                                    Local Streamlit process   artifact shows warning;
+                          manifest FILE             artifacts
+                                                                                                        no retraining
+
+
+A dry-run command should validate schemas and inspect dependencies without fitting models or consuming the
+holdout. Every CLI operation shall log a structured result with a named outcome ( success, blocked, invalid,
+abstained, or failed) and a deterministic exit code.
+
+CLI spellings are design proposals consistent with PRD §9.3; they do not imply installed commands exist.
+
+7.2 API and user interface boundaries
+
+The V1 dashboard reads a report manifest, tables, and precomputed approved predictions from local files. It must not
+call fit(), perform auto-tuning, modify raw data, rewrite artifacts, or calculate hidden new model outputs without
+making the computation/revision explicit. It should not collect or send viewer data to third-party analytics. Public
+HTTP access is not required and should remain disabled by default.
+
+The UI information architecture comprises Overview, Data Explorer, Model Comparison, Prediction Review, and
+Quality & Provenance. An optional Mechanistic Research tab is hidden or marked experimental until gate G7
+passes. Every prediction view includes a plain-text target unit, measured-versus-predicted distinction, applicability
+status, model version and source experiment details.
+
+7.3 Model selection and holdout state machine
+UNVERIFIED_SOURCE
+ -> SOURCE_VERIFIED
+ -> DATA_AUDITED
+ -> TARGET_APPROVED
+ -> SPLIT_FROZEN
+ -> DEVELOPMENT_TUNING
+ -> CHAMPION_APPROVED
+ -> FINAL_TEST_EVALUATED (once as the primary result)
+ -> REPORT_APPROVED
+ -> RESEARCH_DEMO_READY
+
+
+Any failed gate -> BLOCKED(reason, remediation)
+Any revised target/split/config after final test -> NEW_PROTOCOL_VERSION
+
+The holdout lock shall use an approved manifest and an evaluation ledger entry identifying the model/config version.
+A second holdout run may be performed for diagnostic reproducibility, but is not evidence of fresh independent
+validation. Any change inspired by its errors must be called post-hoc exploratory development and must not replace
+the first unbiased holdout record.
+
+
+
+
+                                                                               Independent research prototype | SRD v0.1 | 16
+                                                                 BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+Research no-go rules: lack of a usable target; unresolved critical units; unverifiable source integrity; no group-safe
+evaluation possible; severe time leakage; no reproducibility; or insufficient independent experimental data to support
+stated inference. A no-go outcome is a valid research result.
+
+
+8. Scientific model and validation specification
+8.1 Inference contract and sample construction
+
+V1 shall estimate a measured offline target at a measured offline time using only inline sensors that would have
+been available by that cutoff. It shall not use prior offline targets in this primary sensor-only track. If a separate lab-
+assisted track is later designed, the most recent offline target is eligible only when its report availability time, not just
+collection time, precedes the cutoff; the track must be evaluated and reported separately.
+
+Modeling samples shall be constructed by linking one real offline assay with one point-in-time feature snapshot, or an
+explicit unscorable/abstained status. There shall be no pseudo-sample inflation from interpolation of target values.
+Cross-sectional sample weights must not make long cultivations dominate independent-experiment generalization
+claims.
+
+8.2 Split and cross-validation specification
+
+Partition by experiment_id so both parallel reactors remain together. The default proposed final test is two
+experiment groups, ideally representing batch and fed-batch if coverage and scientific design permit. This is a
+candidate protocol, not a predetermined assignment; frozen IDs and stratification decisions must be recorded
+before model tuning. Development hyperparameters are selected only through experiment-group-aware folds. Since
+fed-batch has three experiments, confidence about cross-mode generalization will be limited even under a balanced
+holdout.
+
+If adequate target coverage across independent groups is lacking, the team shall reassess the task and possibly prefer
+grouped leave-one-experiment-out evaluation with nested tuning and no exaggerated independent-test claim. The
+report must make clear which protocol was actually executed.
+
+8.3 Model families and fair comparison
+   •       Naive: training-group mean/median or a declared operationally available sensor-only proxy. A last-known
+           offline target baseline is not an equal sensor-only baseline unless explicitly designated lab-assisted.
+   •       Transparent statistical: calibrated single-sensor relationship; Ridge/Elastic Net; partial least squares
+           regression (PLS) for correlated sensor families.
+   •       Nonlinear: Random Forest or histogram-based gradient boosting, subject to group-count and feature-
+           dimension constraints.
+   •       Optional uncertainty: Gaussian process or group-aware prediction interval method only with documented
+           assumptions and appropriate evaluation coverage.
+   •       P2 mechanistic: transparent ordinary differential equations with units, initial states, parameter ranges,
+           solver verification and identifiability analysis. No data-backed calibration is claimed when measured
+           states/feeds do not support it.
+   •       P2 hybrid: mechanistic baseline plus train-only statistical residual model, evaluated against both components
+           under identical grouped folds.
+
+Model families should receive comparable allowed inputs, scoring rows, fold assignments and preprocessing policies.
+When sample availability differs, show the difference instead of silently using disjoint scoring sets and comparing
+errors as if they were equivalent.
+
+
+
+                                                                               Independent research prototype | SRD v0.1 | 17
+                                                                 BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+8.4 Metrics and reporting
+
+The proposed primary ranking is macro-averaged experiment-level MAE in the original target unit. For each
+experiment compute MAE, RMSE, signed bias, valid scored assay count, abstention count and baseline-relative delta.
+Secondary summaries include median/worst-group error and process-mode stratification. R-squared is optional and
+must be interpreted carefully for low-variance per-run targets.
+
+Do not invent a scientific acceptance threshold. After the target and units are established, solicit scientific review to
+define meaningful error tolerance. A model may be declared best among compared methods, not automatically fit
+for operational use.
+
+Uncertainty estimates must be marked as calibrated or uncalibrated, with empirical coverage and interval width
+where estimable. Repeated timepoints and paired reactors cannot be treated as fully independent observations for
+confidence intervals. If calibration data are too limited, publish descriptive variability and abstain from coverage
+guarantees.
+
+8.5 Explainability, failure and robustness
+
+Evaluate at least one sensor-family ablation (e.g., turbidity/permittivity versus gas signals when corresponding fields
+exist), a missing-sensor stress test, a batch/fed-batch comparison, and a per-experiment error table. Feature
+attribution should use approaches appropriate for correlated signals and should not claim causal biochemical
+relevance. An explanation is a description of model behavior, not a demonstrated biological mechanism.
+
+Preserve negative results, instability, out-of-distribution warnings and nonconverged candidate runs. A candidate that
+fails on fed-batch experiments cannot be called broadly generalizable simply because overall pooled RMSE appears
+low.
+
+8.6 Optional mechanistic feasibility gate
+
+The mechanistic extension shall not claim a calibrated biological state model unless data audit confirms required
+concentrations, volumes/feed schedules, known units, time origins, plausible assumptions and sufficient independent
+evidence for identifiability. Sensitivity/parameter-correlation or multi-start analyses are mandatory before
+interpreting fitted parameters. Otherwise its solver may remain a synthetic example outside the main empirical
+evaluation, clearly described as illustrative.
+
+
+9. Verification, QA and security test plan
+9.1 Automated unit/integration tests
+
+ Test ID                        Fixture / stimulus               Expected result                    Coverage
+
+                                One byte changed in publisher    Checksum hard-fail and no
+ T-001                                                                                              DAT-001, NFR-003
+                                ZIP                              canonical output
+
+                                                                 Reconciliation failure with file
+ T-002                          Missing/duplicate reactor file                                      DAT-003
+                                                                 and ID details
+
+                                Unknown units, malformed         Explicit quality/error record;
+ T-003                                                                                              DAT-004/006, NFR-005
+                                timestamp, nonnumeric value      raw preserved
+
+                                Two reactors with same
+ T-004                          experiment assigned to           Split validation hard-fail         FEA-006/007, NFR-004
+                                different partitions
+
+
+
+
+                                                                                 Independent research prototype | SRD v0.1 | 18
+                                                                BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Test ID                        Fixture / stimulus              Expected result                   Coverage
+
+                                Future sensor values            Earlier feature snapshots and
+ T-005                                                                                            FEA-003/004, NFR-004
+                                perturbed after time t          predictions unchanged
+
+                                Interpolated offline pseudo-    Scoring rejects pseudo-label;
+ T-006                                                                                            FEA-002
+                                label inserted                  assay count unchanged
+
+                                Test-group data leaked into     Fitted-group audit detects and
+ T-007                                                                                            MOD-003
+                                scaler fitting                  fails run
+
+                                Unequal experiment sizes with   Macro group MAE weights
+ T-008                                                                                            MOD-005/006
+                                known error values              experiments equally
+
+                                Tune candidate using final      Access refused and attempt
+ T-009                                                                                            MOD-007
+                                holdout before approval         logged
+
+                                Missing mandatory sensor at     abstained or unsupported; no
+ T-010                                                                                            FEA-008, UI-004
+                                inference                       fabricated point estimate
+
+                                                                Uncalibrated/unsupported
+                                Interval coverage outside
+ T-011                                                          status shown, not a reliability   MOD-009
+                                calibration range
+                                                                claim
+
+                                Model worse than baseline in    Negative result remains in
+ T-012                                                                                            MOD-011, NFR-006
+                                one experiment                  model comparison/report
+
+                                Dashboard launched on read-     All review views work; no
+ T-013                                                                                            UI-007, NFR-012
+                                only artifact folder            writes or fit calls
+
+                                Corrupt or untrusted model      Loading fails securely without
+ T-014                                                                                            NFR-011
+                                artifact                        code execution
+
+                                Re-run full workflow with       Deterministic partitions and
+ T-015                                                                                            NFR-001/002
+                                pinned environment              numerical parity
+
+                                License unresolved, public      Packaging omits raw data and
+ T-016                                                                                            NFR-010
+                                package requested               includes citation/legal warning
+
+                                Mechanistic state units         Data-fitted ODE/“hybrid
+ T-017                                                                                            MH-001/002
+                                missing                         validated” path blocked
+
+                                Scenario values outside         Scenario rejected or flagged
+ T-018                                                                                            MH-005
+                                declared bounds                 unsupported
+
+
+The test fixtures shall be small and synthetic, designed specifically to trigger failure conditions. They shall not be
+recycled as evidence of predictive performance on real CHO cultivations.
+
+9.2 Acceptance and reproducibility protocol
+
+An independent reviewer receives a pinned-environment setup command, source DOI/download instructions,
+expected checksum, experiment manifest, approved target config and frozen split, plus a minimal command sequence
+to recreate canonical features, all accepted model metrics and the research dashboard. Exact floating-point equality is
+not required if the solver/BLAS backend differs; tolerances must be defined and justified, not silently widened after
+failure.
+
+
+
+
+                                                                               Independent research prototype | SRD v0.1 | 19
+                                                                 BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+Reviewers must verify traceability from at least one visible prediction back to model run, cutoff feature snapshot,
+reactor ID, assay reference and source digest. They should also observe one failed/unsupported prediction and at least
+one case where a more complex model does not outperform its baseline.
+
+9.3 Security and public-portfolio review
+
+Never load arbitrary user-provided pickle/joblib files or execute uploaded scripts. Ensure run manifests reference
+trusted local paths only; resolve paths against an allowed artifact root and reject traversal or symlinks escaping that
+root. Package no secrets, credentials, private data or unlicensed raw dataset. Generate a software dependency and
+license inventory before public release. Keep BioSynvia as a working title until similarity review; a different spelling is
+not equivalent to trademark clearance.
+
+
+10. PRD-to-SRD traceability matrix
+This section provides requirement coverage against the unchanged BioSynvia PRD v1.1. SR-* IDs identify proposed
+system controls; T-* IDs are acceptance tests from §9. No implementation status is asserted.
+
+ PRD ID                                   Relevant SRD requirements                Primary verification
+
+ FR-01                                    DAT-001, DAT-002, NFR-003                T-001
+
+ FR-02                                    DAT-003                                  T-002
+
+ FR-03                                    DAT-004, DAT-006, FEA-001                T-003
+
+ FR-04                                    DAT-005, FEA-002                         T-005, T-006
+
+ FR-05                                    DAT-007                                  Target contract/approval fixture
+
+ FR-06                                    FEA-006, FEA-007                         T-004
+
+ FR-07                                    FEA-003, FEA-004, FEA-005                T-005
+
+ FR-08                                    MOD-001, MOD-002, MOD-003                Group-CV baseline comparison, T-007
+
+ FR-09                                    MOD-004, MOD-007                         T-009, T-015
+
+ FR-10                                    MOD-005, MOD-006, MOD-011                T-008, T-012
+
+ FR-11                                    UI-001, UI-002, UI-003, UI-004           T-013 and review demonstration
+
+                                                                                   Research-only banner and packaging
+ FR-12                                    UI-005, NFR-010
+                                                                                   review
+
+ FR-13                                    FEA-008, MOD-009, UI-004                 T-010, T-011
+
+ FR-14                                    MOD-008                                  Sensor ablation and mode-report checks
+
+ FR-15                                    MOD-010, UI-006, NFR-002                 T-015 and lineage traversal
+
+ FR-16                                    MH-001, MH-002, MH-003                   T-017 and solver test suite
+
+ FR-17                                    MH-004                                   Same-split paired comparator regression
+
+ FR-18                                    MH-005                                   T-018
+
+ NFR-01                                   NFR-001                                  T-015
+
+
+                                                                             Independent research prototype | SRD v0.1 | 20
+                                                                     BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+PRD ID                                       Relevant SRD requirements                   Primary verification
+
+NFR-02                                       NFR-002                                     Lineage traversal
+
+NFR-03                                       DAT-008, NFR-003                            T-001 and idempotency
+
+NFR-04                                       FEA-002/003/006, NFR-004                    T-004/005/006
+
+NFR-05                                       DAT-006, FEA-008, NFR-005                   T-003/010
+
+NFR-06                                       MOD-011, NFR-006                            T-012
+
+NFR-07                                       NFR-007                                     Offline/privacy review
+
+NFR-08                                       UI-008, NFR-008                             Accessibility inspection
+
+NFR-09                                       NFR-009                                     Local-only execution audit
+
+NFR-10                                       NFR-010                                     T-016
+
+NFR-11                                       NFR-011                                     T-014
+
+
+
+11. Build phases, dependencies, deliverables and exit gates
+Phase                    Dependencies                  Estimated effort         Required deliverables        Exit decision
+
+                                                                                Project charter, no-
+                                                                                cloud baseline, repo,
+P0 — Research setup      PRD v1.1                      3–5 hours                                             Begin dataset audit
+                                                                                pinned environment,
+                                                                                source plan
+
+                                                                                Source manifest,
+                                                                                inventory, unit
+                                                                                                             G1: usable measured
+P1 — Data intake/audit   P0, source access             8–12 hours               dictionary, assay
+                                                                                                             target and provenance?
+                                                                                coverage, raw/aligned
+                                                                                comparison
+
+                                                                                Versioned canonical
+P2 — Canonical +         G1, scientific target                                  tables, group manifests,     G2–G3: approved splits
+                                                       8–12 hours
+features                 decision                                               leakage-safe snapshots       and valid features?
+                                                                                and tests
+
+                                                                                Baselines, PLS/Ridge,
+                                                                                nonlinear comparator,        G4: benchmark protocol
+P3 — Model bench         G3                            9–14 hours
+                                                                                grouped CV, run              complete?
+                                                                                registry
+
+                                                                                First unbiased holdout,
+P4 — Scientific                                                                                              G5: honest,
+                         G4, frozen champion           11–18 hours              per-run failure analysis,
+validation                                                                                                   reproducible evidence?
+                                                                                robustness, model card
+
+                                                                                Read-only dashboard,
+                                                                                technical presentation,      G6: reproducible
+P5 — Demo and report     G5                            10–16 hours
+                                                                                repository docs, QA          research demo?
+                                                                                report
+
+P6 — Advanced                                                                   ODE feasibility analysis,    Optional; not required
+                         G7 + scientific signoff       18–35 additional hours
+extension                                                                       solver validation,           for credible V1
+
+
+                                                                                 Independent research prototype | SRD v0.1 | 21
+                                                                 BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Phase                   Dependencies               Estimated effort             Required deliverables     Exit decision
+
+                                                                                 hybrid comparison or
+                                                                                 synthetic appendix
+
+
+All estimates are planning ranges, not deadlines or promises of achieved accuracy. Work pauses at a failed scientific
+exit gate; the appropriate response is to change target/scope or report no-go, not to fabricate a successful model.
+
+11.1 Priority implementation backlog
+
+ Order                         Task                             Output                             Acceptance test
+
+                               Verify source archive and
+ 1                                                              source_manifest.json               T-001, T-016
+                               rights
+
+                               Inventory original and aligned
+ 2                                                              dataset_inventory.csv              T-002
+                               source files
+
+                               Audit timestamps, target
+                                                                field_dictionary.csv, analysis
+ 3                             candidates, units and                                               T-003
+                                                                report
+                               missingness
+
+                               Approve target/inference         target_decision.yaml,
+ 4                                                                                                 DAT-007 approval gate
+                               contract                         inference_contract.md
+
+ 5                             Freeze experiment groups         splits_v1.json                     T-004
+
+ 6                             Build snapshot generator         feature_snapshots.parquet          T-005/006
+
+                               Fit baselines and statistical
+ 7                                                              model runs, CV metrics             T-007/008
+                               models
+
+                               Select champion and evaluate
+ 8                                                              first-test ledger, model card      T-009/012
+                               locked holdout
+
+                               Implement read-only review
+ 9                                                              Streamlit workbench                T-010/013
+                               app
+
+                               Reproduce/inspect and            signed QA + concise
+ 10                                                                                                T-015 and independent review
+                               prepare interview report         presentation
+
+
+11.2 Milestone acceptance criteria
+     •   M1 Data-ready: DOI/checksum, experiment/reactor structure, target and units verified; documented go/no-go.
+     •   M2 Model-ready: group splits frozen, sensor-only inference contract, future-perturbation and preprocessing
+         isolation tests pass, valid baseline established.
+     •   M3 Research-ready: immutable first holdout run, per-experiment metric table, failure analysis, limitations
+         and model card; clean reproduction passes.
+     •   M4 Demo-ready: UI shows measured/predicted/missing states and traceable model version; no
+         production/GxP/CGT claims; publication gates reviewed.
+     •   M5 Advanced-ready (optional): mechanistic states/units identifiable or synthetic-only; numerical solver tests
+         and same-split comparisons completed.
+
+
+
+
+                                                                                  Independent research prototype | SRD v0.1 | 22
+                                                               BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+12. Risks, decisions and controlled changes
+ Risk ID                 Risk                       Severity                Trigger                      Required response
+
+                                                                                                         Keep BioSynvia
+                         Name confusion with                                Commercial/public            provisional; obtain
+ R-01                                               High
+                         SYNVIA                                             launch or brand claim        authoritative clearance
+                                                                                                         or change name
+
+                         Unknown dataset                                    Public repo/package          Exclude raw files until
+ R-02                                               High
+                         redistribution license                             includes source rows         permissions confirmed
+
+                                                                            Phase 1 target audit
+                         Target lacks adequate                              below viable                 Choose defensible
+ R-03                                               High
+                         assay coverage                                     independent-group            alternative or no-go
+                                                                            count
+
+                                                                            Same experiment
+                         Paired-run experiment                                                           Block and invalidate
+ R-04                                               Critical                appears in development
+                         leakage                                                                         affected evaluation
+                                                                            and test
+
+                                                                            A future sensor or           Block and rebuild all
+                         Future-data
+ R-05                                               Critical                offline target changes       affected
+                         contamination
+                                                                            earlier features             features/models
+
+                                                                                                         Report spread, adjust
+                         Small-sample/paired                                Unstable folds and high
+ R-06                                               High                                                 protocol; no broad
+                         dependence                                         group variance
+                                                                                                         claims
+
+                                                                            Multiple
+                         Mechanistic parameter                              indistinguishable fits,      Restrict to synthetic
+ R-07                                               High
+                         unidentifiability                                  missing units/feed           research and disclose
+                                                                            details
+
+                                                                            Model outputs labeled
+                         Product-style dashboard
+ R-08                                               High                    production/reliable          Reject UI/review release
+                         overstates maturity
+                                                                            without evidence
+
+                                                                            Hosted                       Disable before
+                         Unapproved cloud
+ R-09                                               High                    services/workflows           deployment; manual
+                         charges or CI runs
+                                                                            activated                    local-only testing
+
+                         Security exposure                                                               Trusted-local-only
+                                                                            Untrusted pickled
+ R-10                    through model              High                                                 loading, validate
+                                                                            artifact loaded
+                         serialization                                                                   paths/hashes
+
+
+Change control: Any modification to target definition, input feature set, experiment partition, label construction, test
+interpretation or accepted model claim shall increment a protocol version, run the affected tests and update the model
+card and traceability. A change informed by final-test results cannot quietly supersede the originally frozen holdout
+evaluation.
+
+12.1 Open decisions and accountable reviewers
+
+ Decision ID                    Decision required              Responsible reviewer                Latest permissible point
+
+                                Is a viable measured offline
+ D-01                                                          Developer + scientific reviewer     Before P2
+                                target available, with known
+
+
+
+                                                                              Independent research prototype | SRD v0.1 | 23
+                                                                BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+Decision ID                   Decision required                 Responsible reviewer              Latest permissible point
+
+                              units and sufficient
+                              independent groups?
+
+                              What is the exact sensor-only
+D-02                          inference-time feature            Developer + data reviewer         Before features
+                              eligibility rule?
+
+                              Which experiment groups are
+                                                                Developer + methodology
+D-03                          assigned to the final test, and                                     Before tuning
+                                                                reviewer
+                              why?
+
+                              Is the publisher’s raw dataset
+D-04                                                            Owner/rights holder               Before public repo
+                              redistributable?
+
+                              What error magnitude would
+D-05                          be scientifically meaningful      Scientific reviewer               Before any use-utility claim
+                              for the selected target?
+
+                              Are mechanistic states, feed
+                              and volume inputs sufficient
+D-06                                                            Scientist + modeler               Before P6
+                              for data-backed ODE
+                              calibration?
+
+                              Is BioSynvia safe for public
+D-07                          commercial branding given         Brand owner/legal reviewer        Before public launch
+                              SYNVIA similarity?
+
+
+
+13. Final system acceptance and evidence package
+Research acceptance is not manufacturing acceptance. BioSynvia V1 may be described as a reproducible CHO
+bioprocess soft-sensing research workbench only when all required gates have evidence; it must not be described as a
+validated manufacturing Digital Twin.
+
+Exit check                               Evidence required                            V1 classification
+
+                                         Publisher checksum, data dictionary,
+Data verified                                                                         Mandatory
+                                         paired experiment inventory
+
+                                         Measured target, unit, coverage and
+Target credible                                                                       Mandatory
+                                         protocol approval
+
+                                         Group-split, future perturbation and
+Time/group integrity                                                                  Mandatory
+                                         measured-only scoring tests
+
+                                         Naive + transparent + nonlinear              Mandatory if feasible; exceptions
+Fair baselines
+                                         candidates under identical folds             recorded
+
+                                         First holdout, per-experiment metrics,
+Honest model evidence                                                                 Mandatory
+                                         negative outcomes, failure analysis
+
+                                         Source-to-prediction-to-report lineage
+Traceability                                                                          Mandatory
+                                         reproducible
+
+                                         Local read-only workbench with units,
+Demonstration                                                                         Mandatory
+                                         missingness and limitations
+
+
+
+                                                                                Independent research prototype | SRD v0.1 | 24
+                                                                  BIOSYNVIA / SYSTEM REQUIREMENTS DOCUMENT / WORKING TITLE
+
+
+
+ Exit check                              Evidence required                          V1 classification
+
+                                         Raw distribution withheld if rights
+ Rights and naming                                                                  Mandatory for public portfolio
+                                         unknown; BioSynvia provisional mark
+
+                                         Scientific eligibility/signoff and
+ Mechanistic/hybrid extension                                                       Optional, not required for V1
+                                         comparator results
+
+                                         GxP validation, deployed control
+ Production qualification                interface, commercial trademark            Explicitly excluded from V1
+                                         approval
+
+
+The demo-ready release should include: a local setup README, source DOI and checksum verification instructions,
+source/schema manifests, field and quality dictionaries, approved target/split protocol, reproducible model training
+and evaluation commands, CV and first-held-out metric tables, model card, failed-experiment discussion, read-only
+dashboard and 6-slide scientific case study.
+
+Interview/portfolio language permitted only after reproduction: “Developed a research prototype for CHO cell-
+culture soft sensing; compared baseline, linear/chemometric and nonlinear models using experiment-group-held-out
+validation, documented uncertainty and failure cases, and created a traceable scientist-facing review interface.”
+Specific accomplishments, technologies, metrics and improvements must match actual observed outputs; do not add
+the prototype as completed work before implementation.
+
+
+14. Source register and document precedence
+The source-of-truth hierarchy is: (1) actual rights-cleared publisher dataset and verified metadata for empirical facts,
+(2) BioSynvia PRD v1.1 for product scope, research intent and decision gates, (3) this SRD for proposed
+implementation contracts, (4) later approved implementation designs and tested evidence for actual system behavior.
+Nothing in this SRD overwrites the existing PRD.
+
+   •     [R1] Primary dataset: Uhlendorff, S., Fulek, R., Eimler, J., Pein-Hackelbusch, M. and Frahm, B. (2026). Dataset
+         Based on Chinese Hamster Ovary (CHO) Cultivations including Turbidity, Permittivity, O2 and CO2
+         Measurements. DOI: 10.5281/zenodo.20829178. Dataset release record indicates 24 cultivations, 12 paired
+         experiments, 38 inline and 10 offline variables; field-level contents require ingestion audit.
+   •     [R2] Product specification: BioSynvia PRD v1.1 — Problem Statement First, November 4, 2026. Available
+         unchanged as the user-approved product source.
+   •     [R3] Scientific methodology: scikit-learn LeaveOneGroupOut documentation and PRD §7 experiment-design
+         rules.
+   •     [R4] Research and legal context: USPTO Likelihood of confusion guidance; the scientific-software-related
+         SYNVIA name conflict remains unresolved.
+   •     [R5] Role alignment context: User-provided July 2026 J&J Senior Scientist/Modeler job description, used for
+         portfolio relevance only; no claim of employment, sponsorship approval, or still-open requisition.
+
+
+
+Specification status: REVIEW DRAFT, NOT IMPLEMENTED. The working name stays BioSynvia exactly. Creation of
+this standalone SRD does not edit, rename, or replace the PRD.
+
+
+
+
+                                                                              Independent research prototype | SRD v0.1 | 25
+

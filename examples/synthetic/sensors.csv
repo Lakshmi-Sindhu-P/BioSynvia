@@ -1,0 +1,7 @@
+experiment_id,cultivation_id,time_hours,variable,value,unit
+SYN001,SYN001_R01,0,pH,7,pH
+SYN001,SYN001_R01,1,pH,7.02,pH
+SYN001,SYN001_R02,0,pH,7.01,pH
+SYN001,SYN001_R02,1,pH,7.03,pH
+SYN002,SYN002_R01,0,pH,7,pH
+SYN002,SYN002_R01,1,pH,7.02,pH

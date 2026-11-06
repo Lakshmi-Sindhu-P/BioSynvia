@@ -1,0 +1,126 @@
+{
+  "source_inventory_paths": [
+    "reports/eda-v2/workbook_sheet_inventory.csv",
+    "data/processed/v3/feature_dictionary.csv"
+  ],
+  "mapping_rule": "Strip leading R01 or R02 from sheet name; identical suffix schemas consolidated.",
+  "header_unit_text": "Unverified; header strings are preserved verbatim and unit text is not validated.",
+  "frequency_note": "C(kHz) frequency text in headers identifies frequency labels; it is not an asserted measurement unit.",
+  "source_sheet_suffix_mapping": {
+    "_inline_CO2": {
+      "headers": [
+        "Time (h)",
+        "Dissolved CO2 (%-sat)",
+        "Status"
+      ],
+      "has_status": true,
+      "class": "sensor"
+    },
+    "_inline_Turbidity": {
+      "headers": [
+        "Time (h)",
+        "Transmission (arb. Unit)",
+        "Reflection (arb. Unit)",
+        "Status"
+      ],
+      "has_status": true,
+      "class": "sensor"
+    },
+    "_inline_Permittivity": {
+      "headers": [
+        "Time (h)",
+        "Conductivity (mS/cm)",
+        "Permittivity (pF/cm)",
+        "fc (kHz)",
+        "DeltaEps (pF/cm)",
+        "Alpha",
+        "Fitting Quality (Cole fit R2)",
+        "Fitting Error (Cole fit RMSE)",
+        "C (300kHz)",
+        "C (374kHz)",
+        "C (466kHz)",
+        "C (580kHz)",
+        "C (720kHz)",
+        "C (896kHz)",
+        "C (1118kHz)",
+        "C (1392kHz)",
+        "C (1729kHz)",
+        "C (2155kHz)",
+        "C (2689kHz)",
+        "C (3347kHz)",
+        "C (4158kHz)",
+        "C (5188kHz)",
+        "C (6447kHz)",
+        "C (8030kHz)",
+        "C (9995kHz)",
+        "Status"
+      ],
+      "has_status": true,
+      "class": "sensor"
+    },
+    "_inline_ProcessParameters": {
+      "headers": [
+        "Time (h)",
+        "pH",
+        "Dissolved O2 (% air sat)",
+        "Temperature (°C)",
+        "Agitation rate (rpm)",
+        "Aeration rate total (sL/h)",
+        "O2 fraction inlet (%)",
+        "CO2 fraction inlet (%)",
+        "Aeration rate air (sL/h)",
+        "Aeration rate O2 (sL/h)",
+        "Aeration rate CO2 (sL/h)",
+        "Liquid volume (L)"
+      ],
+      "has_status": false,
+      "class": "sensor"
+    },
+    "_online_NaOH": {
+      "headers": [
+        "Time (h)",
+        "Cumulative NaOH weight (g)"
+      ],
+      "has_status": false,
+      "class": "online"
+    },
+    "_online_Feed": {
+      "headers": [
+        "Time (h)",
+        "Cumulative feed weight (g)"
+      ],
+      "has_status": false,
+      "class": "online"
+    },
+    "_offline_CellAnalysis": {
+      "headers": [
+        "Time (h)",
+        "VCD Mean (cells/mL)",
+        "VCD SEM (cells/mL)",
+        "TCD Mean (cells/mL)",
+        "TCD SEM (cells/mL)",
+        "Viability Mean (%)",
+        "Viability SEM (%)",
+        "Avg. diameter Mean (µm)",
+        "Avg. diameter SEM (µm)",
+        "Avg. compactness Mean",
+        "Avg. compactness SEM",
+        "Aggregation Mean (%)",
+        "Aggregation SEM (%)"
+      ],
+      "has_status": false,
+      "class": "offline"
+    },
+    "_offline_MediumAnalysis": {
+      "headers": [
+        "Time (h)",
+        "Glucose (g/L)",
+        "Lactate (g/L)",
+        "Ammonium (mM)",
+        "Osmolality (mOsmol/kg)"
+      ],
+      "has_status": false,
+      "class": "offline"
+    }
+  }
+}

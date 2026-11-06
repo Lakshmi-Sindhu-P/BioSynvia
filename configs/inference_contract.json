@@ -1,0 +1,35 @@
+{
+  "availability": "Sensor result availability and assay result availability remain null/unknown, never copied from acquisition",
+  "context_only": [
+    "experiment_id",
+    "reactor_id",
+    "run_id",
+    "process_mode",
+    "elapsed_time"
+  ],
+  "cutoff": "Original assay Time (h), not assay result availability",
+  "deployability_claim": false,
+  "event_time_unit_header": "elapsed hours; origin/clock synchronization unverified",
+  "forbidden_inputs": [
+    "all offline assays",
+    "all assay SEMs",
+    "future observations",
+    "other reactor observations",
+    "experiment/run IDs as predictors"
+  ],
+  "group_keys": [
+    "experiment_id",
+    "reactor_id"
+  ],
+  "model_fit_permitted": false,
+  "owner_protocol_approved": false,
+  "scenarios": {
+    "assumed_acquisition": "Assume sensor availability equals acquisition for retrospective inspection only",
+    "strict_known_availability": "Require known acquisition and result availability <= cutoff; unknown blocked"
+  },
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "status": "proposal_pending_owner_and_scientific_review",
+  "task": "Retrospective sensor-only estimate of recorded VCD at actual offline assay acquisition cutoff",
+  "tie_rule": "Acquisition <= cutoff; exact tie included, within numeric tolerance 1e-10 hours; physical order within precision unknown"
+}

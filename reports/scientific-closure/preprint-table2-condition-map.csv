@@ -1,0 +1,13 @@
+experiment_id,process_mode,medium,evidence_locator,scope_note,initial_vcd_cells_per_ml_reported,glutamine_supplement_mM_reported,impeller_sensing_distance_mm_reported
+EXP001,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP002,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP003,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP004,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP005,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP006,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",600000,8,20
+EXP007,Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,6,20
+EXP008,Batch,TCX6D,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP009,Batch,TCX6D,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,6
+EXP010,Fed-Batch,TC-42,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20
+EXP011,Fed-Batch,TCX6D,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,6
+EXP012,Fed-Batch,TCX6D,"P1: Table 2, viewer page 05 / printed p. 4 of 10","Reported conditions, not independent per-row QC; Table2 footnotes and Methods/Figure1. No full medium recipe inferred.",400000,8,20

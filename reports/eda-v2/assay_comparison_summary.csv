@@ -1,0 +1,20 @@
+field,status,cells
+Aggregation Mean (%),numeric_match,378
+Aggregation SEM (%),numeric_match,378
+Ammonium (mM),numeric_match,350
+Ammonium (mM),raw_missing_aligned_zero,28
+Avg. compactness Mean,numeric_match,378
+Avg. compactness SEM,numeric_match,378
+Avg. diameter Mean (µm),numeric_match,378
+Avg. diameter SEM (µm),numeric_match,378
+Glucose (g/L),numeric_match,243
+Glucose (g/L),raw_missing_aligned_zero,135
+Lactate (g/L),numeric_match,327
+Lactate (g/L),raw_missing_aligned_zero,51
+Osmolality (mOsmol/kg),numeric_match,378
+TCD Mean (cells/mL),numeric_match,378
+TCD SEM (cells/mL),numeric_match,378
+VCD Mean (cells/mL),numeric_match,378
+VCD SEM (cells/mL),numeric_match,378
+Viability Mean (%),numeric_match,378
+Viability SEM (%),numeric_match,378

@@ -1,0 +1,30 @@
+{
+  "source_archive_sha256": "46a6b92b77883d56df3be015895d93c85b2b2547121af0b8bc0a92f3fbefd17b",
+  "scope": "Every row of every sheet in EXP002 and EXP011 only; all six VCD zeros in those workbooks.",
+  "issues": [
+    {
+      "id": "DQ-001",
+      "status": "open",
+      "question": "Why is EXP011 R02 aligned inline coverage truncated?",
+      "policy": "No extension of all-channel aligned coverage by forward-fill; review per-stream raw availability."
+    },
+    {
+      "id": "DQ-002",
+      "status": "open",
+      "question": "What assay/detection/QC interpretation applies to six recorded zero VCDs?",
+      "policy": "Preserve original numeric zeros; quality pending; no approved training-label designation."
+    },
+    {
+      "id": "DQ-003",
+      "status": "open",
+      "question": "What do raw sensor status categories permit for modeling?",
+      "policy": "Preserve stream statuses; sensor Ok is not evidence that an offline assay is valid."
+    }
+  ],
+  "limits": [
+    "No source values were altered.",
+    "No labels scientifically approved.",
+    "No source resampling algorithm or assay detection limit inferred.",
+    "Only these two workbooks were exhaustively status-profiled."
+  ]
+}

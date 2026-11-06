@@ -1,0 +1,70 @@
+{
+  "closed_engineering_facts": [
+    "214 source medium blanks preserved as null",
+    "six source numeric VCD zeros preserved",
+    "no implicit process Status acceptance in strict scenario"
+  ],
+  "issues": [
+    {
+      "action": "Retain both target sensitivities; primary mask unapproved",
+      "evidence": "reports/quality-review/zero_source_cells.csv",
+      "id": "SCI-01",
+      "question": "What assay SOP, detection/reporting limits, replicate counts and QC apply to six numeric VCD zeros?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "Strict availability blocks all unknown; retrospective assumption explicit",
+      "evidence": "source Time (h) headers only",
+      "id": "SCI-02",
+      "question": "When were sensor results available and are clocks/order known?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "Block absent/blank/non-Ok in strict-status scenario; no assay approval",
+      "evidence": "reports/unique-values/categorical_values.json",
+      "id": "SCI-03",
+      "question": "What do Ok, Warning Active and absent Status permit per instrument?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "All units unverified; fitted channels not approved",
+      "evidence": "feature_eligibility.csv",
+      "id": "SCI-04",
+      "question": "What physical quantities/units/calibration apply to each header, especially C frequency and fitting channels?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "Do not infer feeding/process termination; raw per-stream support",
+      "evidence": "reports/quality-review/report.md",
+      "id": "SCI-05",
+      "question": "Why does EXP011 R02 feed logging end early and how were aligned files exported?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "Preserve all candidates; reject ambiguous snapshot",
+      "evidence": "source_collisions.csv",
+      "id": "DATA-01",
+      "question": "How should EXP004 timestamp collisions be resolved?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "Unknown; local research only, no redistribution",
+      "evidence": "reports/eda-v2/source_manifest.json",
+      "id": "PROV-01",
+      "question": "What are exact retrieval event and reuse rights?",
+      "status": "requiring_owner_input"
+    },
+    {
+      "action": "No modeling until separate gates resolve",
+      "evidence": "pre-modeling packet",
+      "id": "OWNER-01",
+      "question": "Approve target, quality/input scenario, split and benchmark after scientific questions are assessed?",
+      "status": "requiring_owner_input"
+    }
+  ],
+  "model_fit_permitted": false,
+  "owner_protocol_approved": false,
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "status": "proposal_pending_owner_and_scientific_review"
+}

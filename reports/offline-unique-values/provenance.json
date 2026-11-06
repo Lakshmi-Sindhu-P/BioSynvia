@@ -1,0 +1,14 @@
+{
+  "source": "/Users/sindhu/Documents/ChatGPT/BioSynvia/data/processed/v5/assay_source_cells.csv",
+  "source_sha256": "6d905178ed1c79220877b29710263fb4b3f2bf9ffff5f7e6155a7503ce973d41",
+  "source_manifest_sha256": "411f451675c7986caa43f06826cbda3bb22b9600b839a582bb32aa42c30d035e",
+  "method": "Exact numeric equality of decoded original raw_value_json. No rounding or imputation. Nulls counted separately; zero remains numeric. Time columns excluded. Pooling is descriptive only; no joins or model fitting.",
+  "measurement_columns": 16,
+  "run_field_groups": 384,
+  "outputs": {
+    "distinct_values.json": "2d192fdce616f8563a1c4237ee7ec6876e544c0c9824e2e25bb134d6de731403",
+    "distinct_values_by_run.json": "f6062d390cbd94047b71151421de80867527a82bb1174bc8e270c6d3a15d8f48",
+    "summary.csv": "55f607a887c0bd3f9effd159136f8a7da544b72f6d418fd9e206120cbf79357c",
+    "summary_by_run.csv": "016a43b3592cfa4cf79e6cc1d034a9c9a0ff1d81ae329a1b8dad5f27a10bac4d"
+  }
+}

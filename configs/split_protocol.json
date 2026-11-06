@@ -1,0 +1,34 @@
+{
+  "denominator": "All preserved original assay cutoffs per reactor, independent of target value/null/SEM/review flags; measures support at supplied assay sampling design",
+  "development_folds": "Leave one entire development experiment out; explicit inner leave-one-experiment-out train groups",
+  "group_key": "experiment_id",
+  "interval": "entire supplied original assay acquisition schedule per reactor",
+  "limitations": [
+    "Favors well-supported inputs; not population-representative selection",
+    "One final group per mode cannot quantify within-mode generalization variance",
+    "Prospectively reserved internal evaluation after all-group exploration, not untouched external validation"
+  ],
+  "model_fit_permitted": false,
+  "owner_protocol_approved": false,
+  "prior_all_group_target_eda": [
+    "data/processed/v3/feature_target_associations.csv",
+    "reports/preparation/report.md",
+    "reports/preparation/relationships.png"
+  ],
+  "ranking": "Within each mode maximize minimum of the two exact integer coverage fractions; tie lexicographic experiment ID",
+  "reactors_indivisible": true,
+  "same_ids_for_all_sensitivities": true,
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "selection_inputs": [
+    "experiment_id",
+    "process_mode",
+    "reactor_id",
+    "all preserved assay acquisition cutoffs",
+    "five-core strict-status assumed-acquisition 5-minute input completeness"
+  ],
+  "split_approved": false,
+  "split_id": "stage12_coverage_proposal_v1",
+  "status": "proposal_pending_owner_and_scientific_review",
+  "test_groups_per_mode": 1
+}

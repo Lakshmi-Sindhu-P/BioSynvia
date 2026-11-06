@@ -1,0 +1,182 @@
+{
+  "approval_flags": {
+    "features_approved": false,
+    "model_fit_permitted": false,
+    "split_approved": false,
+    "target_approved": false
+  },
+  "backup_sha256": "46a6b92b77883d56df3be015895d93c85b2b2547121af0b8bc0a92f3fbefd17b",
+  "csv_sql_logical_agreement": true,
+  "development_groups": [
+    "EXP001",
+    "EXP002",
+    "EXP003",
+    "EXP005",
+    "EXP006",
+    "EXP007",
+    "EXP008",
+    "EXP009",
+    "EXP011",
+    "EXP012"
+  ],
+  "final_data_version": "v5",
+  "input_hashes_passed": 27,
+  "limits": [
+    "Verification is engineering evidence, not assay validity",
+    "Full-data byte-repeat build not rerun; repeatability exercised on synthetic fixture with same producer",
+    "Strict availability and strict eight-core have zero support",
+    "No model fitted or scores computed"
+  ],
+  "manifest_sha256": "411f451675c7986caa43f06826cbda3bb22b9600b839a582bb32aa42c30d035e",
+  "original_medium_blanks": 214,
+  "outer_folds": 10,
+  "payload_hashes_passed": 25,
+  "producer_code_sha256": "922bb7b9417da4218a63df4c419e415e348bf066d12cb61424c26d0aa38e0234",
+  "raw_json_numeric_mismatches": 0,
+  "scenario_effects": [
+    {
+      "age_minutes": 1,
+      "assays": 378,
+      "family": "eight",
+      "nonnegative_supported": 0,
+      "positive_supported": 0,
+      "strict_availability_supported": 0,
+      "supported": 0
+    },
+    {
+      "age_minutes": 5,
+      "assays": 378,
+      "family": "eight",
+      "nonnegative_supported": 0,
+      "positive_supported": 0,
+      "strict_availability_supported": 0,
+      "supported": 0
+    },
+    {
+      "age_minutes": 15,
+      "assays": 378,
+      "family": "eight",
+      "nonnegative_supported": 0,
+      "positive_supported": 0,
+      "strict_availability_supported": 0,
+      "supported": 0
+    },
+    {
+      "age_minutes": 1,
+      "assays": 378,
+      "family": "five",
+      "nonnegative_supported": 335,
+      "positive_supported": 330,
+      "strict_availability_supported": 0,
+      "supported": 335
+    },
+    {
+      "age_minutes": 5,
+      "assays": 378,
+      "family": "five",
+      "nonnegative_supported": 339,
+      "positive_supported": 333,
+      "strict_availability_supported": 0,
+      "supported": 339
+    },
+    {
+      "age_minutes": 15,
+      "assays": 378,
+      "family": "five",
+      "nonnegative_supported": 341,
+      "positive_supported": 335,
+      "strict_availability_supported": 0,
+      "supported": 341
+    }
+  ],
+  "source_cell_numeric_and_null_exact_agreement": true,
+  "source_numeric_pairs_checked": 6804,
+  "source_sha256": "46a6b92b77883d56df3be015895d93c85b2b2547121af0b8bc0a92f3fbefd17b",
+  "source_unchanged": true,
+  "specification_sha256": "b3a0108abe0714f806d261a177a698964f9c0ade4b011904b4618f21de18b0fc",
+  "tables": {
+    "assay_decisions": 378,
+    "assay_source_cells": 6804,
+    "feature_eligibility": 960,
+    "feature_lineage": 15120,
+    "field_dictionary": 1344,
+    "group_coverage": 24,
+    "sample_effects": 144,
+    "source_collisions": 1680,
+    "stream_cadence": 144,
+    "target_coverage": 24,
+    "time_policy": 144
+  },
+  "target_counts": {
+    "nonnegative": 378,
+    "positive": 372,
+    "recorded": 378,
+    "zero": 6
+  },
+  "test_groups": [
+    "EXP004",
+    "EXP010"
+  ],
+  "tests": {
+    "command": "/Users/sindhu/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 -m unittest discover -s tests -v",
+    "passed": 37,
+    "test_output_sha256": "73b62578b27a1615ab85426f04698f3fe26afb552b51cb6af6e30e18e5442548",
+    "test_source_sha256": "c5c4f1cce5e073005755ad31e052b301713c94cc14e1696aefe023554d83c8ca"
+  },
+  "zero_source_cells": [
+    {
+      "assay_id": "EXP002_R02_assay_014",
+      "experiment_id": "EXP002",
+      "reactor_id": "R02",
+      "source_cell": "B16",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    },
+    {
+      "assay_id": "EXP011_R02_assay_012",
+      "experiment_id": "EXP011",
+      "reactor_id": "R02",
+      "source_cell": "B14",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    },
+    {
+      "assay_id": "EXP011_R02_assay_013",
+      "experiment_id": "EXP011",
+      "reactor_id": "R02",
+      "source_cell": "B15",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    },
+    {
+      "assay_id": "EXP011_R02_assay_014",
+      "experiment_id": "EXP011",
+      "reactor_id": "R02",
+      "source_cell": "B16",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    },
+    {
+      "assay_id": "EXP011_R02_assay_015",
+      "experiment_id": "EXP011",
+      "reactor_id": "R02",
+      "source_cell": "B17",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    },
+    {
+      "assay_id": "EXP011_R02_assay_016",
+      "experiment_id": "EXP011",
+      "reactor_id": "R02",
+      "source_cell": "B18",
+      "source_cell_type": "n",
+      "source_sheet": "R02_offline_CellAnalysis",
+      "value": 0.0
+    }
+  ]
+}

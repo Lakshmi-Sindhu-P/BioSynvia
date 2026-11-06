@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-05",
+  "frozen_v6_manifest_sha256": "d74465cbb353af872681cf3c6bbd1055ee0523441a889ec90832d7fc3affa45e",
+  "frozen_v6_unchanged": true,
+  "count_script_repeat_byte_identical": true,
+  "count_artifact_hashes": {
+    "decision-counts.json": "7faa2b7ff17cda284f6b28ec82798e9b672742a50a975720aa2f4ed46fc52c46",
+    "counts-by-run.csv": "1094214f3226f9542b2bee9d90fce96634c7a369471ef5f4c76ff86765704da9",
+    "zero-case-support.csv": "befde81bd5e93e69c45934b3c01d5ee2462d152e07255b0fe635baae2089342c"
+  },
+  "source_images": {
+    "preprint-viewer-page02.png": {
+      "sha256": "9ceb4879a5e581ec6701efd386aa4d6e2fd9301c52115864bf66601023f9b80b",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page03.png": {
+      "sha256": "05afff6407a877874233af1e576a2ebda1e71c0ffa057e2340fe8befc6136065",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page04.png": {
+      "sha256": "d70021441eaa4b1eb3c9f9f55188728596d073dba026dc41267a6b5d82001bc7",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page05.png": {
+      "sha256": "b50d335ee6c354b179c0a219a760617f764cdb2518a75ccff79303c92f5aef5f",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page06.png": {
+      "sha256": "0fe3a0d332a32234a90b352ec0538a874ca4069aee777c86a68610d6feb91dc6",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page07.png": {
+      "sha256": "c69e2060e23e4d2b5628c8a6d87b322e04f7f1f0d49e50edcee762cc86963f55",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page08.png": {
+      "sha256": "fb0ba5c0cc7d626262a553c7fff11651156585484569f1b8b054e6ea1ec14966",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page09.png": {
+      "sha256": "ce61317cb8a5893e99fc54161e1ead188080d97cd7ee72b1751f57e69bb1b894",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page10.png": {
+      "sha256": "1ac87d9c96a60b04f2e1c68c74d655be2c875e21cfbe327de4209c5373838989",
+      "actual_format": "JPEG"
+    },
+    "preprint-viewer-page11.png": {
+      "sha256": "f1c18cbf3ed7a8dba7275ead8f8c5006c27b8d53174ed41b9130daed8b017a72",
+      "actual_format": "JPEG"
+    }
+  },
+  "local_links_resolve": true,
+  "approval_flags_checked": {
+    "configs/issue_register.json:model_fit_permitted": false,
+    "configs/issue_register.json:owner_protocol_approved": false,
+    "configs/issue_register.json:scientific_approved": false,
+    "configs/benchmark_protocol.json:model_fit_permitted": false,
+    "configs/benchmark_protocol.json:owner_protocol_approved": false,
+    "configs/benchmark_protocol.json:scientific_approved": false,
+    "configs/inference_contract.json:model_fit_permitted": false,
+    "configs/inference_contract.json:owner_protocol_approved": false,
+    "configs/inference_contract.json:scientific_approved": false,
+    "configs/data_quality_policy.json:model_fit_permitted": false,
+    "configs/data_quality_policy.json:owner_protocol_approved": false,
+    "configs/data_quality_policy.json:scientific_approved": false,
+    "configs/split_protocol.json:model_fit_permitted": false,
+    "configs/split_protocol.json:owner_protocol_approved": false,
+    "configs/split_protocol.json:scientific_approved": false,
+    "configs/target_decision.json:model_fit_permitted": false,
+    "configs/target_decision.json:owner_protocol_approved": false,
+    "configs/target_decision.json:scientific_approved": false
+  },
+  "review_findings_resolved": 3,
+  "no_model_fitting": true,
+  "original_pdf_bytes_retained": false,
+  "source_scope": "All10manuscriptpages inspected as officialviewer captures; no separatelylisted supplement found; no nonexistent supplement inspection claimed.",
+  "document_hashes": {
+    "source-evidence.md": "59d71a249b595edafa5df01924e8fbf14437e187ca57f93f2be34efd15d3e4c4",
+    "decisions-and-resolutions.json": "124f4013b4a1aeaa6ea4c16e9fb40077c81a7807d885afe08f4bf72756b45125",
+    "supporting-publications.md": "446c5cd0eece0ba91f57eba87d8d076c743d74113d78982ba1c1c661f410434a",
+    "zero-case-support.csv": "befde81bd5e93e69c45934b3c01d5ee2462d152e07255b0fe635baae2089342c",
+    "preprint-table2-condition-map.csv": "dafb288a9ccbcc673e1fff4d62e84948fccec5967b168939e82ffc47300c27ee",
+    "counts-by-run.csv": "1094214f3226f9542b2bee9d90fce96634c7a369471ef5f4c76ff86765704da9",
+    "split-options.json": "a283d6f3e734e8b8ebb59d1215711dabdaa5c1d2609bad59f25311774e5e66c3",
+    "approval-packet.md": "26498bce11da9c9b8e1627f5490b994b34ec38289323f823ec5c6a1ae59a32c8",
+    "decision-counts.json": "7faa2b7ff17cda284f6b28ec82798e9b672742a50a975720aa2f4ed46fc52c46",
+    "review.md": "4b9f20ef7b49e395c89833be4ec494098b9ccc9b3110b2c4e699e6a54705f908"
+  }
+}

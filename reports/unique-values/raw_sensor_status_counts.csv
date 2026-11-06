@@ -1,0 +1,97 @@
+experiment,sheet,status,rows
+EXP001,R01_inline_CO2,Ok,24065
+EXP001,R01_inline_Turbidity,Ok,24152
+EXP001,R01_inline_Permittivity,Warning Active,112
+EXP001,R01_inline_Permittivity,Ok,24040
+EXP001,R02_inline_CO2,Ok,24035
+EXP001,R02_inline_Turbidity,Ok,24150
+EXP001,R02_inline_Permittivity,Ok,24150
+EXP002,R01_inline_CO2,Ok,24992
+EXP002,R01_inline_Turbidity,Ok,25158
+EXP002,R01_inline_Permittivity,Warning Active,96
+EXP002,R01_inline_Permittivity,Ok,25062
+EXP002,R02_inline_CO2,Ok,25017
+EXP002,R02_inline_Turbidity,Ok,25157
+EXP002,R02_inline_Permittivity,Ok,25158
+EXP003,R01_inline_CO2,<blank>,1
+EXP003,R01_inline_CO2,Ok,17102
+EXP003,R01_inline_Turbidity,Ok,17283
+EXP003,R01_inline_Permittivity,Warning Active,48
+EXP003,R01_inline_Permittivity,Ok,17235
+EXP003,R02_inline_CO2,Ok,17136
+EXP003,R02_inline_Turbidity,Ok,17272
+EXP003,R02_inline_Permittivity,Ok,16928
+EXP004,R01_inline_CO2,Ok,25523
+EXP004,R01_inline_Turbidity,Ok,25577
+EXP004,R01_inline_Permittivity,Warning Active,856
+EXP004,R01_inline_Permittivity,Ok,24721
+EXP004,R02_inline_CO2,Ok,25521
+EXP004,R02_inline_Turbidity,Ok,25579
+EXP004,R02_inline_Permittivity,Ok,25579
+EXP005,R01_inline_CO2,Ok,10800
+EXP005,R01_inline_Turbidity,Ok,10809
+EXP005,R01_inline_Permittivity,Warning Active,653
+EXP005,R01_inline_Permittivity,Ok,10156
+EXP005,R02_inline_CO2,Ok,10802
+EXP005,R02_inline_Turbidity,Ok,10809
+EXP005,R02_inline_Permittivity,Warning Active,395
+EXP005,R02_inline_Permittivity,Ok,10413
+EXP006,R01_inline_CO2,Ok,22417
+EXP006,R01_inline_Turbidity,Ok,22480
+EXP006,R01_inline_Permittivity,Warning Active,6
+EXP006,R01_inline_Permittivity,Ok,22472
+EXP006,R01_inline_Permittivity,<blank>,3218
+EXP006,R02_inline_CO2,Ok,22400
+EXP006,R02_inline_Turbidity,Ok,22479
+EXP006,R02_inline_Permittivity,Warning Active,5
+EXP006,R02_inline_Permittivity,Ok,22469
+EXP006,R02_inline_Permittivity,<blank>,3105
+EXP007,R01_inline_CO2,<blank>,1
+EXP007,R01_inline_CO2,Ok,23100
+EXP007,R01_inline_Turbidity,Ok,23180
+EXP007,R01_inline_Permittivity,Warning Active,717
+EXP007,R01_inline_Permittivity,Ok,22463
+EXP007,R02_inline_CO2,Ok,23075
+EXP007,R02_inline_Turbidity,Ok,23182
+EXP007,R02_inline_Permittivity,Warning Active,878
+EXP007,R02_inline_Permittivity,Ok,22304
+EXP008,R01_inline_CO2,Ok,25912
+EXP008,R01_inline_Turbidity,Ok,25924
+EXP008,R01_inline_Permittivity,Warning Active,6
+EXP008,R01_inline_Permittivity,Ok,25918
+EXP008,R02_inline_CO2,Ok,25908
+EXP008,R02_inline_Turbidity,Ok,25932
+EXP008,R02_inline_Permittivity,Warning Active,5
+EXP008,R02_inline_Permittivity,Ok,25927
+EXP009,R01_inline_CO2,Ok,27674
+EXP009,R01_inline_Turbidity,Ok,27696
+EXP009,R01_inline_Permittivity,Warning Active,24
+EXP009,R01_inline_Permittivity,Ok,27672
+EXP009,R02_inline_CO2,Ok,27668
+EXP009,R02_inline_Turbidity,Ok,27704
+EXP009,R02_inline_Permittivity,Warning Active,22
+EXP009,R02_inline_Permittivity,Ok,27682
+EXP010,R01_inline_CO2,Ok,39351
+EXP010,R01_inline_Turbidity,Ok,39425
+EXP010,R01_inline_Permittivity,Warning Active,36
+EXP010,R01_inline_Permittivity,Ok,39389
+EXP010,R02_inline_CO2,Ok,39371
+EXP010,R02_inline_Turbidity,Ok,39441
+EXP010,R02_inline_Permittivity,Warning Active,19
+EXP010,R02_inline_Permittivity,Ok,39422
+EXP011,R01_inline_CO2,Ok,23384
+EXP011,R01_inline_Turbidity,Ok,23400
+EXP011,R01_inline_Permittivity,Warning Active,116
+EXP011,R01_inline_Permittivity,Ok,21530
+EXP011,R02_inline_CO2,Ok,23384
+EXP011,R02_inline_Turbidity,Ok,23414
+EXP011,R02_inline_Permittivity,Warning Active,31
+EXP011,R02_inline_Permittivity,Ok,23383
+EXP012,R01_inline_CO2,Ok,25188
+EXP012,R01_inline_Turbidity,Ok,25272
+EXP012,R01_inline_Permittivity,Warning Active,7
+EXP012,R01_inline_Permittivity,Ok,17697
+EXP012,R02_inline_CO2,Ok,25198
+EXP012,R02_inline_Turbidity,Ok,25270
+EXP012,R02_inline_Permittivity,Warning Active,5
+EXP012,R02_inline_Permittivity,Ok,25265

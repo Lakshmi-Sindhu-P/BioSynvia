@@ -1,0 +1,38 @@
+{
+  "experiment_ids": [
+    "EXP001",
+    "EXP002",
+    "EXP003",
+    "EXP004",
+    "EXP005",
+    "EXP006",
+    "EXP007",
+    "EXP008",
+    "EXP009",
+    "EXP010",
+    "EXP011",
+    "EXP012"
+  ],
+  "reactor_ids_within_experiment": [
+    "R01",
+    "R02"
+  ],
+  "process_modes": [
+    "batch",
+    "fed-batch"
+  ],
+  "aligned_measurement_kinds": [
+    "inline",
+    "offline"
+  ],
+  "raw_status_values_and_row_counts": {
+    "<blank>": 6325,
+    "Ok": 1726803,
+    "Warning Active": 4037
+  },
+  "status_streams_scanned": 72,
+  "archive_sha256": "46a6b92b77883d56df3be015895d93c85b2b2547121af0b8bc0a92f3fbefd17b",
+  "numeric_uniqueness_method": "Exact equality after numeric float64 parsing; missing/nonfinite excluded. No tolerance binning or raw-text distinctness.",
+  "status_scope": "All Status-column rows in all 12 original workbooks. Counts are sensor records, not independent experiments.",
+  "time_scope": "Elapsed time values counted within each modality across all runs; equal times from different runs are not joined."
+}

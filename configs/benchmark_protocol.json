@@ -1,0 +1,59 @@
+{
+  "abstention": "No fabricated numeric prediction/error for unsupported inputs; zero support means undefined metrics",
+  "acceptance_threshold": null,
+  "bounded_search": {
+    "PLS_components": [
+      1,
+      2,
+      3
+    ],
+    "Ridge_alpha": [
+      0.1,
+      1,
+      10
+    ],
+    "no_unbounded_search": true,
+    "nonlinear_max_iter": 100,
+    "nonlinear_max_leaf_nodes": [
+      3,
+      7
+    ],
+    "seed": 1729
+  },
+  "candidate_features": "five status-bearing core is only a feasibility proposal; original eight, derived/frequency channels and expanded families need semantic review; no family approved",
+  "fair_comparison": "Same split IDs, label mask and scenario; report matched common-support errors plus intended-population counts; do not compare disjoint scoring populations as a winner",
+  "final_policy": "Select/freeze using development only; refit on all development groups; score two reserved groups once after approvals; retain first evaluation and later diagnostic reruns; no retuning",
+  "fold_policy": "For each outer held-out development experiment, any fitted preprocessing, imputation, scaling, feature/window/freshness/family/component choice and tuning uses only inner grouped folds of outer training groups; refit on outer training groups before scoring; never consult outer labels for choices",
+  "model_families_after_approval": [
+    "training-only median baseline",
+    "single approved sensor transparent baseline",
+    "Ridge",
+    "PLS",
+    "one limited nonlinear comparator (HistGradientBoosting)"
+  ],
+  "model_fit_permitted": false,
+  "no_fitting_in_stage12": true,
+  "owner_protocol_approved": false,
+  "primary_ranking_metric": "equal-weight mean of experiment MAE in cells/mL",
+  "required_counts": [
+    "intended assays",
+    "target-mask assays",
+    "supported inputs",
+    "scored",
+    "abstained",
+    "failures"
+  ],
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "scientific_equivalence_claim": false,
+  "secondary_metrics": [
+    "RMSE cells/mL",
+    "signed bias prediction minus observation cells/mL",
+    "per-experiment baseline delta",
+    "experiment spread"
+  ],
+  "status": "proposal_pending_owner_and_scientific_review",
+  "uncertainty": "Development experiment-group resampling only where adequate groups contribute, descriptive small-N limitations; no inferential final-test interval from two groups",
+  "window_protocol": "Snapshot only in Stages1/2; proposed later windows fixed before scoring or chosen in inner folds with explicit minimum support; rolling features unimplemented",
+  "within_experiment_weighting": "Pool all scored assays across both reactors; also report each reactor; experiments weighted equally"
+}

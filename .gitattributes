@@ -1,0 +1,8 @@
+# Preserve exact bytes of fingerprinted scientific artifacts.
+* -text
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.zip binary
+*.gz binary

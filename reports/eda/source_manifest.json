@@ -1,0 +1,643 @@
+{
+  "schema_version": "0.1",
+  "doi": "10.5281/zenodo.20829178",
+  "source_url": "https://zenodo.org/records/20829178",
+  "tool_version": "0.1.0",
+  "source_citation": "Uhlendorff, Fulek, Eimler, Pein-Hackelbusch and Frahm (2026). Dataset Based on Chinese Hamster Ovary (CHO) Cultivations including Turbidity, Permittivity, O2 and CO2 Measurements. Zenodo.",
+  "retrieved_at_utc": null,
+  "retrieval_time_status": "Exact retrieval event not recorded; local file modification time retained separately.",
+  "archive_name": "Dataset.zip",
+  "bytes": 227627771,
+  "expected_md5": "71b2a35b7df2ed11644ec9f177453772",
+  "md5": "71b2a35b7df2ed11644ec9f177453772",
+  "sha256": "46a6b92b77883d56df3be015895d93c85b2b2547121af0b8bc0a92f3fbefd17b",
+  "checksum_verified": true,
+  "manifest_created_at_utc": "2026-11-05T11:33:44.660487+00:00",
+  "local_file_modified_at_utc": "2026-11-05T11:27:20.953225+00:00",
+  "license_status": "unresolved; no raw-data redistribution",
+  "public_raw_data_distribution_allowed": false,
+  "experiment_structure": {
+    "valid": true,
+    "experiment_count": 12,
+    "aligned_combination_count": 48,
+    "experiment_modes": {
+      "EXP001": "batch",
+      "EXP002": "batch",
+      "EXP003": "batch",
+      "EXP004": "batch",
+      "EXP005": "batch",
+      "EXP006": "batch",
+      "EXP007": "batch",
+      "EXP008": "batch",
+      "EXP009": "batch",
+      "EXP010": "fed-batch",
+      "EXP011": "fed-batch",
+      "EXP012": "fed-batch"
+    },
+    "mode_counts": {
+      "batch": 9,
+      "fed-batch": 3
+    },
+    "errors": []
+  },
+  "counts_by_extension": {
+    ".csv": 48,
+    ".xlsx": 12
+  },
+  "files": [
+    {
+      "path": "Individual raw data tables/EXP001_batch.xlsx",
+      "bytes": 12463042,
+      "compressed_bytes": 10378059,
+      "crc32": "1b1a696e",
+      "experiment_id": "EXP001",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP002_batch.xlsx",
+      "bytes": 12868979,
+      "compressed_bytes": 10661488,
+      "crc32": "66bfe7e2",
+      "experiment_id": "EXP002",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP003_batch.xlsx",
+      "bytes": 8960999,
+      "compressed_bytes": 7169334,
+      "crc32": "a12aa942",
+      "experiment_id": "EXP003",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP004_batch.xlsx",
+      "bytes": 15564700,
+      "compressed_bytes": 13732105,
+      "crc32": "8c7e74dd",
+      "experiment_id": "EXP004",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP005_batch.xlsx",
+      "bytes": 8498720,
+      "compressed_bytes": 7705643,
+      "crc32": "a44c6eaa",
+      "experiment_id": "EXP005",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP006_batch.xlsx",
+      "bytes": 15714092,
+      "compressed_bytes": 13923072,
+      "crc32": "809f6dd1",
+      "experiment_id": "EXP006",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP007_batch.xlsx",
+      "bytes": 14471981,
+      "compressed_bytes": 12798901,
+      "crc32": "e83bf566",
+      "experiment_id": "EXP007",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP008_batch.xlsx",
+      "bytes": 21409730,
+      "compressed_bytes": 20342364,
+      "crc32": "8d4737dd",
+      "experiment_id": "EXP008",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP009_batch.xlsx",
+      "bytes": 22730348,
+      "compressed_bytes": 21508298,
+      "crc32": "35e87958",
+      "experiment_id": "EXP009",
+      "process_mode": "batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP010_fed-batch.xlsx",
+      "bytes": 32441714,
+      "compressed_bytes": 30930642,
+      "crc32": "cfee24c1",
+      "experiment_id": "EXP010",
+      "process_mode": "fed-batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP011_fed-batch.xlsx",
+      "bytes": 18423235,
+      "compressed_bytes": 17559291,
+      "crc32": "1bdde0d9",
+      "experiment_id": "EXP011",
+      "process_mode": "fed-batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Individual raw data tables/EXP012_fed-batch.xlsx",
+      "bytes": 18606782,
+      "compressed_bytes": 17631940,
+      "crc32": "5684c71e",
+      "experiment_id": "EXP012",
+      "process_mode": "fed-batch",
+      "measurement_kind": "workbook"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP001_batch_R01_inline.csv",
+      "bytes": 6926998,
+      "compressed_bytes": 1715432,
+      "crc32": "624e182d",
+      "experiment_id": "EXP001",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP001_batch_R01_offline.csv",
+      "bytes": 3751,
+      "compressed_bytes": 1517,
+      "crc32": "523a63a0",
+      "experiment_id": "EXP001",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP001_batch_R02_inline.csv",
+      "bytes": 3420942,
+      "compressed_bytes": 457496,
+      "crc32": "5f689aed",
+      "experiment_id": "EXP001",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP001_batch_R02_offline.csv",
+      "bytes": 3794,
+      "compressed_bytes": 1565,
+      "crc32": "95552e77",
+      "experiment_id": "EXP001",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP002_batch_R01_inline.csv",
+      "bytes": 7184401,
+      "compressed_bytes": 1801758,
+      "crc32": "02dbd309",
+      "experiment_id": "EXP002",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP002_batch_R01_offline.csv",
+      "bytes": 3825,
+      "compressed_bytes": 1561,
+      "crc32": "9fe81894",
+      "experiment_id": "EXP002",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP002_batch_R02_inline.csv",
+      "bytes": 3049794,
+      "compressed_bytes": 428305,
+      "crc32": "3a831d17",
+      "experiment_id": "EXP002",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP002_batch_R02_offline.csv",
+      "bytes": 3709,
+      "compressed_bytes": 1515,
+      "crc32": "4c780c34",
+      "experiment_id": "EXP002",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP003_batch_R01_inline.csv",
+      "bytes": 4908719,
+      "compressed_bytes": 1228803,
+      "crc32": "2b5623af",
+      "experiment_id": "EXP003",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP003_batch_R01_offline.csv",
+      "bytes": 3072,
+      "compressed_bytes": 1320,
+      "crc32": "b70987ca",
+      "experiment_id": "EXP003",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP003_batch_R02_inline.csv",
+      "bytes": 2341811,
+      "compressed_bytes": 280444,
+      "crc32": "27e0ae73",
+      "experiment_id": "EXP003",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP003_batch_R02_offline.csv",
+      "bytes": 3222,
+      "compressed_bytes": 1320,
+      "crc32": "59cb506f",
+      "experiment_id": "EXP003",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP004_batch_R01_inline.csv",
+      "bytes": 7331846,
+      "compressed_bytes": 1438588,
+      "crc32": "9f8bbb46",
+      "experiment_id": "EXP004",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP004_batch_R01_offline.csv",
+      "bytes": 3979,
+      "compressed_bytes": 1620,
+      "crc32": "632586be",
+      "experiment_id": "EXP004",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP004_batch_R02_inline.csv",
+      "bytes": 7310170,
+      "compressed_bytes": 1593509,
+      "crc32": "76c22886",
+      "experiment_id": "EXP004",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP004_batch_R02_offline.csv",
+      "bytes": 3976,
+      "compressed_bytes": 1671,
+      "crc32": "5e87b476",
+      "experiment_id": "EXP004",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP005_batch_R01_inline.csv",
+      "bytes": 5926716,
+      "compressed_bytes": 1212104,
+      "crc32": "46d5d4f0",
+      "experiment_id": "EXP005",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP005_batch_R01_offline.csv",
+      "bytes": 3459,
+      "compressed_bytes": 1431,
+      "crc32": "b2a6bbd6",
+      "experiment_id": "EXP005",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP005_batch_R02_inline.csv",
+      "bytes": 4470526,
+      "compressed_bytes": 1198829,
+      "crc32": "7f77c247",
+      "experiment_id": "EXP005",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP005_batch_R02_offline.csv",
+      "bytes": 3395,
+      "compressed_bytes": 1415,
+      "crc32": "1374fe33",
+      "experiment_id": "EXP005",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP006_batch_R01_inline.csv",
+      "bytes": 6234286,
+      "compressed_bytes": 1494651,
+      "crc32": "82cbe63f",
+      "experiment_id": "EXP006",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP006_batch_R01_offline.csv",
+      "bytes": 3770,
+      "compressed_bytes": 1527,
+      "crc32": "a6b22df9",
+      "experiment_id": "EXP006",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP006_batch_R02_inline.csv",
+      "bytes": 6318518,
+      "compressed_bytes": 1227363,
+      "crc32": "79e6859e",
+      "experiment_id": "EXP006",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP006_batch_R02_offline.csv",
+      "bytes": 3735,
+      "compressed_bytes": 1531,
+      "crc32": "99fc1b9b",
+      "experiment_id": "EXP006",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP007_batch_R01_inline.csv",
+      "bytes": 6536302,
+      "compressed_bytes": 1621244,
+      "crc32": "5b465d16",
+      "experiment_id": "EXP007",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP007_batch_R01_offline.csv",
+      "bytes": 3378,
+      "compressed_bytes": 1423,
+      "crc32": "79a80ff6",
+      "experiment_id": "EXP007",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP007_batch_R02_inline.csv",
+      "bytes": 6564888,
+      "compressed_bytes": 1256981,
+      "crc32": "6f6c7ed9",
+      "experiment_id": "EXP007",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP007_batch_R02_offline.csv",
+      "bytes": 3374,
+      "compressed_bytes": 1413,
+      "crc32": "ab45cca5",
+      "experiment_id": "EXP007",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP008_batch_R01_inline.csv",
+      "bytes": 7324359,
+      "compressed_bytes": 2741996,
+      "crc32": "595ec1a9",
+      "experiment_id": "EXP008",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP008_batch_R01_offline.csv",
+      "bytes": 4128,
+      "compressed_bytes": 1694,
+      "crc32": "d4ea34a9",
+      "experiment_id": "EXP008",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP008_batch_R02_inline.csv",
+      "bytes": 7421238,
+      "compressed_bytes": 2751689,
+      "crc32": "37d3e50e",
+      "experiment_id": "EXP008",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP008_batch_R02_offline.csv",
+      "bytes": 4042,
+      "compressed_bytes": 1694,
+      "crc32": "e6841b5b",
+      "experiment_id": "EXP008",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP009_batch_R01_inline.csv",
+      "bytes": 7772105,
+      "compressed_bytes": 2884194,
+      "crc32": "dec8cf65",
+      "experiment_id": "EXP009",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP009_batch_R01_offline.csv",
+      "bytes": 4121,
+      "compressed_bytes": 1657,
+      "crc32": "13adbd52",
+      "experiment_id": "EXP009",
+      "process_mode": "batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP009_batch_R02_inline.csv",
+      "bytes": 7813094,
+      "compressed_bytes": 2870774,
+      "crc32": "bc5332ed",
+      "experiment_id": "EXP009",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP009_batch_R02_offline.csv",
+      "bytes": 4241,
+      "compressed_bytes": 1709,
+      "crc32": "bdaf9898",
+      "experiment_id": "EXP009",
+      "process_mode": "batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP010_fed-batch_R01_inline.csv",
+      "bytes": 10210502,
+      "compressed_bytes": 3831297,
+      "crc32": "b3f9fdef",
+      "experiment_id": "EXP010",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP010_fed-batch_R01_offline.csv",
+      "bytes": 5777,
+      "compressed_bytes": 2238,
+      "crc32": "2cf4b7d0",
+      "experiment_id": "EXP010",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP010_fed-batch_R02_inline.csv",
+      "bytes": 10827522,
+      "compressed_bytes": 4072664,
+      "crc32": "5ea5e129",
+      "experiment_id": "EXP010",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP010_fed-batch_R02_offline.csv",
+      "bytes": 5731,
+      "compressed_bytes": 2288,
+      "crc32": "81eaff59",
+      "experiment_id": "EXP010",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP011_fed-batch_R01_inline.csv",
+      "bytes": 5238123,
+      "compressed_bytes": 2007211,
+      "crc32": "7df1070d",
+      "experiment_id": "EXP011",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP011_fed-batch_R01_offline.csv",
+      "bytes": 4288,
+      "compressed_bytes": 1719,
+      "crc32": "7552da25",
+      "experiment_id": "EXP011",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP011_fed-batch_R02_inline.csv",
+      "bytes": 2314470,
+      "compressed_bytes": 884830,
+      "crc32": "b68d9737",
+      "experiment_id": "EXP011",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP011_fed-batch_R02_offline.csv",
+      "bytes": 4060,
+      "compressed_bytes": 1629,
+      "crc32": "20fbd721",
+      "experiment_id": "EXP011",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP012_fed-batch_R01_inline.csv",
+      "bytes": 4160768,
+      "compressed_bytes": 1572078,
+      "crc32": "572b10d9",
+      "experiment_id": "EXP012",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP012_fed-batch_R01_offline.csv",
+      "bytes": 4062,
+      "compressed_bytes": 1661,
+      "crc32": "fd606905",
+      "experiment_id": "EXP012",
+      "process_mode": "fed-batch",
+      "reactor_id": "R01",
+      "measurement_kind": "offline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP012_fed-batch_R02_inline.csv",
+      "bytes": 7071488,
+      "compressed_bytes": 2661425,
+      "crc32": "1a627c80",
+      "experiment_id": "EXP012",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "inline"
+    },
+    {
+      "path": "Time-axis aligned raw data tables/EXP012_fed-batch_R02_offline.csv",
+      "bytes": 4174,
+      "compressed_bytes": 1683,
+      "crc32": "365cbebe",
+      "experiment_id": "EXP012",
+      "process_mode": "fed-batch",
+      "reactor_id": "R02",
+      "measurement_kind": "offline"
+    }
+  ],
+  "warnings": [],
+  "limitations": [
+    "Grouping is reconciled from filenames, not checked against workbook contents.",
+    "No observations, units, or time axes have been parsed.",
+    "Archive members were not extracted."
+  ]
+}

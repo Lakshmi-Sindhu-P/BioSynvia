@@ -1,0 +1,18 @@
+{
+  "status": "passed_bounded_correction_with_explicit_deferred_followups",
+  "final_version": "v6",
+  "manifest_sha256": "d74465cbb353af872681cf3c6bbd1055ee0523441a889ec90832d7fc3affa45e",
+  "execution_spec_unchanged": true,
+  "producer_code_unchanged": false,
+  "accepted_deviations": [
+    "v4 superseded by source-exact v5; historical versions retained"
+  ],
+  "unresolved_implementation_findings": 0,
+  "scientific_and_owner_questions": 8,
+  "deferred_extra_test_scope": 1,
+  "model_fit_permitted": false,
+  "evidence": "reports/stage12/final-spec-drift-check.md",
+  "producer_code_change": "v6 adds source-schema enforcement; released v6 immutable during post-review test additions",
+  "deferred_handoff_engineering_topics": 3,
+  "supplemental_release_tests_passed": 5
+}

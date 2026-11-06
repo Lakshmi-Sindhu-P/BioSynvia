@@ -1,0 +1,9 @@
+{
+  "packet_links_resolve": true,
+  "all_postreview_final_hash_bindings": true,
+  "reviewed_spec_snapshots_resolve": true,
+  "packet_sha256": "8afd07ffd3e6a80d6b40b4c8f7033b33eaab950ffb59f2b495d41cc6a26b927d",
+  "final_manifest_sha256": "411f451675c7986caa43f06826cbda3bb22b9600b839a582bb32aa42c30d035e",
+  "final_spec_drift": "reports/stage12/final-spec-drift-check.json",
+  "application_code_unchanged_after_review": true
+}

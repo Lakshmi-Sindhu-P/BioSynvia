@@ -1,0 +1,4 @@
+experiment_id,cultivation_id,time_hours,variable,value,unit
+SYN001,SYN001_R01,2,VCD,500000,cells/mL
+SYN001,SYN001_R02,2,VCD,510000,cells/mL
+SYN002,SYN002_R01,2,VCD,,cells/mL

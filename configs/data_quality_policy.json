@@ -1,0 +1,52 @@
+{
+  "availability_scenarios": [
+    "assumed_acquisition",
+    "strict_known_availability"
+  ],
+  "boundary_tolerance_hours": 1e-10,
+  "default_scenario_minutes": 5,
+  "duplicate_rule": "Any repeated finite acquisition timestamp is ambiguous, including identical values; preserve every candidate",
+  "feature_scenario_approved": false,
+  "freshness_approved": false,
+  "freshness_minutes": [
+    1,
+    5,
+    15
+  ],
+  "inactive_rule": "For named fitted/C fields only: prefix including all records at/before cutoff has only finite zeros and no invalid values; no whole-run inference; isolated zeros retained",
+  "missing_policy": "Keep original blank as null; never use aligned zero as observed assay",
+  "model_fit_permitted": false,
+  "original_eight_core": [
+    "Dissolved CO2 (%-sat)",
+    "Transmission (arb. Unit)",
+    "Reflection (arb. Unit)",
+    "Conductivity (mS/cm)",
+    "Permittivity (pF/cm)",
+    "pH",
+    "Dissolved O2 (% air sat)",
+    "Temperature (\u00b0C)"
+  ],
+  "owner_protocol_approved": false,
+  "quality_flags": [
+    "no_past_observation",
+    "duplicate_source_time",
+    "invalid_value",
+    "stale",
+    "status_column_absent",
+    "status_value_blank",
+    "status_not_ok",
+    "past_only_derived_zero",
+    "availability_unknown"
+  ],
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "sensor_status_policy": "Require supplied, nonblank, exact Ok for strict-status candidate; no claim Ok validates field or assay",
+  "status": "proposal_pending_owner_and_scientific_review",
+  "status_bearing_five_core": [
+    "Dissolved CO2 (%-sat)",
+    "Transmission (arb. Unit)",
+    "Reflection (arb. Unit)",
+    "Conductivity (mS/cm)",
+    "Permittivity (pF/cm)"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-05",
+  "current_bundle": "data/processed/v6",
+  "checks": {
+    "packet_local_links_resolve": true,
+    "correction_rows": 29,
+    "matrix_columns": 5,
+    "frozen_v6_manifest_unchanged": true,
+    "released_regression_tests_passed": 5,
+    "released_assays": 378,
+    "released_lineage_rows": 15120,
+    "released_identity_mismatches": 0
+  },
+  "test_runs": "Prior full suite38/38; updated focused Stage12 12/12; new released-bundle suite5/5. Separate runs.",
+  "limits": "Three deferred engineering topics in resolution_register.json; scientific questions retained; five-hour usage guard reached.",
+  "model_fit_permitted": false
+}

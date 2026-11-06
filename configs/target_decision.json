@@ -1,0 +1,32 @@
+{
+  "assay_quality_status": "unknown_for_all_records",
+  "cadence_and_counts_artifact": "target_coverage.csv",
+  "counts_before_input_filtering": {
+    "numeric_zero": 6,
+    "positive": 372,
+    "recorded": 378
+  },
+  "evidence": [
+    "reports/quality-review/zero_source_cells.csv",
+    "reports/quality-review/recorded_zero_vcd.csv"
+  ],
+  "meaning": "Recorded viable cell density mean; assay SOP, replicate counts, detection limit, rounding and QC unknown",
+  "model_fit_permitted": false,
+  "offline_predictors_forbidden": true,
+  "owner_protocol_approved": false,
+  "primary_mask": null,
+  "proposed_masks": {
+    "positive_only": "finite VCD > 0; changes estimand to positive recorded VCD",
+    "recorded_nonnegative": "finite VCD >= 0; includes six unresolved numeric zeros"
+  },
+  "recommendation": "Candidate retrospective research target; no accepted primary label policy",
+  "schema_version": "1.0",
+  "scientific_approved": false,
+  "source_column": "VCD Mean (cells/mL)",
+  "source_sheet_suffix": "offline_CellAnalysis",
+  "status": "proposal_pending_owner_and_scientific_review",
+  "target_id": "vcd_recorded_mean",
+  "unit_header": "cells/mL",
+  "unit_status": "header_unverified",
+  "zero_policy": "Preserve observed numeric zeros and coordinates; do not infer censoring bound, cell absence or zero uncertainty"
+}
